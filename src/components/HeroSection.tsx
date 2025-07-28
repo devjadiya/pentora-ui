@@ -1,83 +1,113 @@
-"use client"; // This directive is needed for components using hooks
+"use client";
 
-import { useState, useEffect } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { useRef } from 'react';
 
-// Reusable component for the Search icon
-const SearchIcon = () => (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className="w-6 h-6 text-gray-400 group-hover:text-white transition-colors duration-300"
+// Reusable component for the arrow icon in the button
+const ArrowRightIcon = () => (
+    <motion.svg 
+        xmlns="http://www.w3.org/2000/svg" 
+        className="h-6 w-6" 
+        fill="none" 
+        viewBox="0 0 24 24" 
+        stroke="currentColor"
+        variants={{
+            rest: { x: 0 },
+            hover: { x: 5 }
+        }}
+        transition={{ type: 'spring', stiffness: 400, damping: 10 }}
     >
-      <circle cx="11" cy="11" r="8"></circle>
-      <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-    </svg>
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+    </motion.svg>
 );
 
 export default function HeroSection() {
-    // State to trigger animations on mount
-    const [isMounted, setIsMounted] = useState(false);
-    useEffect(() => {
-        // Set isMounted to true after a short delay to allow the component to render first
-        const timeout = setTimeout(() => setIsMounted(true), 100);
-        return () => clearTimeout(timeout); // Cleanup the timeout
-    }, []);
+    const targetRef = useRef<HTMLDivElement>(null);
+    const { scrollYProgress } = useScroll({
+        target: targetRef,
+        offset: ["start start", "end start"]
+    });
 
-    // Filter tags data
-    const filterTags = ['AI', 'Sales', 'IT Ops', 'Marketing', 'Document Ops', 'Other', 'Support'];
+    // Parallax effect for the background grid
+    const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
+
+    // Staggered animation for the headline
+    const headline = "Unbreachable Security for the Digital Frontier";
+    const headlineVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.05,
+            },
+        },
+    };
+    const wordVariants = {
+        hidden: { opacity: 0, y: 20 },
+        visible: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 100 } },
+    };
 
     return (
-        <section className="relative py-20 md:py-32 overflow-hidden">
-            {/* Background Gradient Effect */}
-            <div className="absolute inset-0 -z-10">
-                <div className="absolute inset-0 bg-[#1a0c2e]"></div>
+        <section ref={targetRef} className="relative text-white bg-gradient-to-b from-[#110720] to-[#1a0c2e] h-[100vh] py-24 md:py-40 overflow-hidden flex items-center">
+            {/* Background decorative elements with Parallax */}
+            <motion.div style={{ y }} className="absolute inset-0 z-0">
+                {/* Grid pattern */}
                 <div 
-                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[70vw] h-[70vw] max-w-[900px] max-h-[900px] bg-purple-900/40 rounded-full blur-3xl transition-opacity duration-1000"
-                    style={{
-                        opacity: isMounted ? 1 : 0,
-                        background: 'radial-gradient(circle, rgba(107, 33, 168, 0.4) 0%, rgba(26, 12, 46, 0) 70%)'
-                    }}
-                ></div>
-            </div>
-
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                 {/* Hero Title */}
-                <h1 className={`text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight tracking-tight text-white transition-all duration-700 ease-out ${isMounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-                    <span className="text-purple-400">3921</span> Workflow Automation Templates
-                </h1>
-
-                {/* Search Bar */}
-                <div className={`mt-10 max-w-2xl mx-auto transition-all duration-700 ease-out ${isMounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`} style={{ transitionDelay: '200ms' }}>
-                    <div className="relative group">
-                        <input
-                            type="text"
-                            placeholder="Search apps, roles, usecases..."
-                            className="w-full bg-gray-800/50 border border-gray-700 rounded-lg py-3.5 pl-6 pr-14 text-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500/80 transition-all duration-300"
-                        />
-                        <div className="absolute inset-y-0 right-0 flex items-center pr-5 pointer-events-none">
-                            <SearchIcon />
-                        </div>
-                    </div>
+                    className="absolute inset-0 opacity-20 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:2rem_2rem]">
                 </div>
+                {/* Radial Gradient Glow */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vh] bg-radial-gradient(ellipse_at_center,rgba(139,92,246,0.15)_0%,rgba(17,7,32,0)_70%)"></div>
+            </motion.div>
 
-                {/* Filter Tags */}
-                <div className="mt-8 flex flex-wrap justify-center gap-2 md:gap-3">
-                    {filterTags.map((tag, index) => (
-                        <button
-                            key={tag}
-                            className={`bg-gray-800/40 hover:bg-gray-700/60 border border-gray-700/80 text-gray-300 text-sm font-medium py-2 px-4 rounded-lg transition-all duration-300 transform hover:scale-105 ${isMounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
-                            style={{ transitionDelay: `${400 + index * 50}ms` }}
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div className="max-w-4xl mx-auto text-center">
+                    <motion.h1
+                        className="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tighter leading-tight bg-clip-text text-transparent bg-gradient-to-br from-white to-gray-400"
+                        variants={headlineVariants}
+                        initial="hidden"
+                        animate="visible"
+                    >
+                        {headline.split(" ").map((word, index) => (
+                            <motion.span key={index} className="inline-block" variants={wordVariants}>
+                                {word}&nbsp;
+                            </motion.span>
+                        ))}
+                    </motion.h1>
+                    
+                    <motion.p 
+                        className="mt-6 max-w-2xl mx-auto text-lg md:text-xl text-gray-300"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, ease: 'easeOut', delay: 1.0 }}
+                    >
+                        Pentora delivers military-grade cybersecurity solutions, empowering global enterprises to innovate fearlessly. We are your shield in the digital age.
+                    </motion.p>
+
+                    <motion.div 
+                        className="mt-10 flex flex-col sm:flex-row justify-center items-center gap-4"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, ease: 'easeOut', delay: 1.2 }}
+                    >
+                        <motion.a
+                            href="#"
+                            className="inline-flex items-center justify-center gap-2 bg-purple-600 text-white font-bold py-3 px-8 rounded-lg shadow-lg shadow-purple-500/30 w-full sm:w-auto"
+                            whileHover={{ scale: 1.05, boxShadow: "0px 0px 20px rgba(168, 85, 247, 0.6)" }}
+                            transition={{ type: 'spring', stiffness: 400, damping: 10 }}
                         >
-                            {tag}
-                        </button>
-                    ))}
+                            Request a Consultation
+                        </motion.a>
+                        <motion.a
+                            href="#"
+                            className="inline-flex items-center justify-center gap-2 text-gray-300 font-semibold py-3 px-8 rounded-lg hover:bg-white/5 hover:text-white transition-all duration-300 w-full sm:w-auto"
+                            whileHover="hover"
+                            initial="rest"
+                            animate="rest"
+                            transition={{ type: 'spring', stiffness: 400, damping: 10 }}
+                        >
+                            Explore Services <ArrowRightIcon />
+                        </motion.a>
+                    </motion.div>
                 </div>
             </div>
         </section>
