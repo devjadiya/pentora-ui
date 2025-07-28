@@ -68,11 +68,7 @@ const GlobeComponent = () => {
             <ambientLight color="#ffffff" intensity={0.2} />
             <directionalLight color="#ffffff" position={[2, 2, 5]} intensity={0.5} />
             
-            <motion.group
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 1, ease: 'easeOut' }}
-            >
+            <group>
                 <Sphere ref={globeRef} args={[2, 64, 64]}>
                     <meshPhongMaterial color="#fff" map={new THREE.TextureLoader().load('/earth-map.jpg')} />
                 </Sphere>
@@ -90,7 +86,7 @@ const GlobeComponent = () => {
                 <Arc start={locations[0]} end={locations[2]} />
                 <Arc start={locations[1]} end={locations[3]} />
                 <Arc start={locations[2]} end={locations[4]} />
-            </motion.group>
+            </group>
             
             <OrbitControls enableZoom={false} enablePan={false} autoRotate={false} />
         </>
