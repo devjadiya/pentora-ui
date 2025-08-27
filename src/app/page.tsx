@@ -9,13 +9,7 @@ import Testimonials from "@/components/landing/Testimonials";
 import Faq from "@/components/landing/Faq";
 import CtaSection from "@/components/landing/CtaSection";
 import Footer from "@/components/landing/Footer";
-
-import dynamic from 'next/dynamic';
-
-const WorldMap = dynamic(() => import('@/components/landing/WorldMap'), {
-  ssr: false,
-  loading: () => <div className="h-96 w-full flex items-center justify-center"><p>Loading Map...</p></div>
-});
+import WorldMapDynamic from "@/components/landing/WorldMapDynamic";
 
 
 export default function Home() {
@@ -27,7 +21,7 @@ export default function Home() {
       <ServicesGrid />
       <FeaturesList />
       <DashboardPreview />
-      <WorldMap />
+      <WorldMapDynamic />
       <AiContentEnhancer />
       <Testimonials />
       <Faq />
