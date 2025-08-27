@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
+import { ScrollFadeIn } from './ScrollFadeIn';
 
 export default function WorldMap() {
   const mountRef = useRef<HTMLDivElement>(null);
@@ -93,12 +94,16 @@ export default function WorldMap() {
 
   return (
     <section className="py-24">
-      <div className="container mx-auto text-center">
-        <h2 className="font-headline text-4xl font-bold">Our Global Impact</h2>
-        <p className="mx-auto mt-4 max-w-2xl text-center text-muted-foreground">
-          Serving clients and neutralizing threats across the globe, 24/7.
-        </p>
-        <div ref={mountRef} className="mx-auto mt-8 h-96 w-full max-w-2xl" />
+      <div className="container mx-auto px-4">
+        <ScrollFadeIn>
+          <h2 className="text-center font-headline text-4xl font-bold">Our Global Impact</h2>
+          <p className="mx-auto mt-4 max-w-2xl text-center text-muted-foreground">
+            Serving clients and neutralizing threats across the globe, 24/7.
+          </p>
+        </ScrollFadeIn>
+        <ScrollFadeIn delay="200ms">
+            <div ref={mountRef} className="mx-auto mt-8 h-96 w-full max-w-2xl" />
+        </ScrollFadeIn>
       </div>
     </section>
   );
