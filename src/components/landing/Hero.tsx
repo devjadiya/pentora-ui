@@ -9,18 +9,14 @@ export default function Hero() {
 
   return (
     <section className="relative min-h-[90vh] w-full overflow-hidden flex items-center justify-center pt-20 pb-10">
-      <div className="absolute inset-0 z-0">
-        <div className="absolute h-64 w-64 bg-primary/30 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 top-1/4 left-1/4 animate-pulse"></div>
-        <div className="absolute h-64 w-64 bg-accent/20 rounded-full blur-3xl translate-x-1/2 translate-y-1/2 bottom-1/4 right-1/4 animate-pulse animation-delay-4000"></div>
+      <div className="absolute inset-0 z-0 opacity-50">
+        {/* Particle effects can be added here later */}
       </div>
       
       <div className="container relative z-10 mx-auto px-4 text-center">
         <ScrollFadeIn>
-          <Badge variant="outline" className="mb-4 border-primary/50 text-primary bg-primary/10 shadow-[0_0_15px_hsl(var(--primary)/0.3)]">
-            Next-Generation Cybersecurity
-          </Badge>
           <h1 className="font-headline text-5xl md:text-7xl font-bold tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-400">
-            Secure Your Digital Frontier
+            Defending the Digital <br /> on the Dot.
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground">
             Pentora delivers elite offensive security and threat monitoring, transforming your vulnerabilities into formidable defenses.
@@ -51,7 +47,7 @@ export default function Hero() {
 
         <ScrollFadeIn delay="200ms" className="mt-10 flex justify-center">
             <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 shadow-[0_0_20px_hsl(var(--accent)/0.5)] transition-shadow hover:shadow-[0_0_30px_hsl(var(--accent)/0.7)] group">
-              View Interactive Dashboard
+              Explore Services
               <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
             </Button>
         </ScrollFadeIn>
