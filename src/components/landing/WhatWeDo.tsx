@@ -1,7 +1,7 @@
 'use client';
 import { motion } from 'framer-motion';
 import { ScrollFadeIn } from './ScrollFadeIn';
-import { HardDriv, ShieldQuestion, BrainCircuit, Users } from 'lucide-react';
+import { HardDrive, ShieldQuestion, BrainCircuit, Users } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import React from 'react';
 
@@ -82,7 +82,7 @@ const items = [
       description: 'We help you build and implement automated systems for continuous security monitoring and response.',
       header: <Skeleton />,
       className: 'md:col-span-1',
-      icon: <HardDriv className="h-4 w-4 text-neutral-500" />,
+      icon: <HardDrive className="h-4 w-4 text-neutral-500" />,
     },
     {
       title: 'Leverage AI & Open Source',

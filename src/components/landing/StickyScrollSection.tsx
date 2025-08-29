@@ -47,6 +47,8 @@ export default function StickyScrollSection() {
     setActiveCard(Math.floor(latest * cardsPerScroll));
   });
 
+  const ActiveIcon = content[activeCard]?.icon;
+
   return (
     <section id="approach" className="py-24">
         <div className="container mx-auto px-4">
@@ -98,9 +100,9 @@ export default function StickyScrollSection() {
                  className="hidden lg:block h-full w-1/3 rounded-md bg-transparent absolute top-0 right-0"
                 >
                   <div className="sticky top-1/2 -translate-y-1/2 px-4">
-                      {content[activeCard] && 
+                      {ActiveIcon && 
                           <div className="relative aspect-square w-full rounded-xl bg-black/50 p-2 border border-white/10 shadow-2xl shadow-primary/10">
-                              <item.icon className="h-24 w-24 mx-auto my-auto text-primary opacity-20" />
+                              <ActiveIcon className="h-24 w-24 mx-auto my-auto text-primary opacity-20" />
                           </div>
                       }
                   </div>
