@@ -2,11 +2,16 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import CursorSpotlight from '@/components/landing/CursorSpotlight';
+import { Inter, Sora } from 'next/font/google';
 
 export const metadata: Metadata = {
   title: 'Pentora | Proactive Cybersecurity',
   description: 'Pentora delivers elite penetration testing and threat monitoring services, securing your digital assets with a proactive approach.',
 };
+
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
+const sora = Sora({ subsets: ['latin'], variable: '--font-sora', weight: ['600', '700'] });
+
 
 export default function RootLayout({
   children,
@@ -15,12 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Sora:wght@600;700&display=swap" rel="stylesheet" />
-      </head>
-      <body className="font-body antialiased">
+      <body className={`${inter.variable} ${sora.variable} font-body antialiased`}>
         <CursorSpotlight />
         {children}
         <Toaster />
