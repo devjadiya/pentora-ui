@@ -14,33 +14,48 @@ const services = [
     icon: ShieldCheck,
     title: 'Offensive Security',
     description: 'Simulating real-world attacks to identify and fortify your weakest links.',
-    isFeatured: true,
+    colSpan: 'md:col-span-2',
+    rowSpan: 'md:row-span-1',
   },
   {
     icon: Zap,
     title: 'Prevention and Analysis',
     description: '24/7 surveillance of your digital assets to detect and neutralize threats in real-time.',
-    isFeatured: false,
+    colSpan: 'md:col-span-1',
+    rowSpan: 'md:row-span-1',
   },
   {
     icon: Network,
     title: 'Governance and Response',
     description: 'Establishing robust security frameworks and rapid incident response protocols.',
-    isFeatured: false,
+    colSpan: 'md:col-span-1',
+    rowSpan: 'md:row-span-1',
   },
   {
     icon: CloudCog,
     title: 'Advisory Services',
     description: 'Expert guidance to build a resilient and compliant security posture.',
-    isFeatured: false,
-  },
-  {
-    icon: Code2,
-    title: 'MSSP',
-    description: 'Managed Security Service Provider for comprehensive, ongoing protection.',
-    isFeatured: false,
+    colSpan: 'md:col-span-2',
+    rowSpan: 'md:row-span-1',
   },
 ];
+
+const BentoCard = ({ service, delay }: { service: typeof services[0], delay: string }) => (
+    <ScrollFadeIn delay={delay} className={cn("h-full", service.colSpan, service.rowSpan)}>
+        <div 
+          className="group relative flex flex-col justify-between h-full rounded-xl p-6 transition-all duration-300 hover:-translate-y-1 border border-white/10 bg-card/50 backdrop-blur-md hover:border-primary/50"
+        >
+          <div className="absolute inset-0 transition-all duration-300 rounded-xl group-hover:bg-primary/5"></div>
+          <div className="relative">
+            <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-white/10 text-primary">
+              <service.icon className="h-6 w-6" />
+            </div>
+            <h3 className="font-headline text-xl font-semibold">{service.title}</h3>
+            <p className="mt-2 text-muted-foreground">{service.description}</p>
+          </div>
+        </div>
+    </ScrollFadeIn>
+);
 
 export default function ServicesGrid() {
   return (
@@ -52,50 +67,10 @@ export default function ServicesGrid() {
             A comprehensive suite of security services designed to protect your organization from every angle.
           </p>
         </ScrollFadeIn>
-        <div className="mt-12">
-            {/* Top row with 3 items, center featured */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                {services.slice(0,3).map((service, index) => {
-                    const isCenter = index === 1;
-                    return (
-                        <ScrollFadeIn key={service.title} delay={`${index * 100}ms`}>
-                            <div 
-                              className={cn(
-                                'group relative h-full rounded-xl p-6 transition-all duration-300 hover:-translate-y-1 border',
-                                isCenter ? 'bg-card border-primary shadow-[0_0_20px_0_hsl(var(--primary)/0.3)]' : 'bg-card/50 border-white/10'
-                              )}
-                            >
-                              <div className="relative">
-                                <div className={cn(
-                                    "mb-4 flex h-10 w-10 items-center justify-center rounded-lg",
-                                    isCenter ? "bg-primary/10 text-primary" : "bg-white/10 text-white"
-                                )}>
-                                  <service.icon className="h-6 w-6" />
-                                </div>
-                                <h3 className="font-headline text-xl font-semibold">{service.title}</h3>
-                                <p className="mt-2 text-muted-foreground">{service.description}</p>
-                              </div>
-                            </div>
-                        </ScrollFadeIn>
-                    )
-                })}
-            </div>
-            {/* Bottom row with 2 items */}
-            <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8 md:w-2/3 md:mx-auto">
-                {services.slice(3,5).map((service, index) => (
-                    <ScrollFadeIn key={service.title} delay={`${(index + 3) * 100}ms`}>
-                        <div className="group relative h-full rounded-xl border border-white/10 bg-card/50 p-6 transition-all duration-300 hover:-translate-y-1">
-                          <div className="relative">
-                            <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-white/10 text-white">
-                              <service.icon className="h-6 w-6" />
-                            </div>
-                            <h3 className="font-headline text-xl font-semibold">{service.title}</h3>
-                            <p className="mt-2 text-muted-foreground">{service.description}</p>
-                          </div>
-                        </div>
-                    </ScrollFadeIn>
-                ))}
-            </div>
+        <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
+            {services.map((service, index) => (
+                <BentoCard key={service.title} service={service} delay={`${index * 100}ms`} />
+            ))}
         </div>
       </div>
     </section>
