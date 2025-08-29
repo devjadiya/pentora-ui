@@ -6,10 +6,11 @@ import { cn } from '@/lib/utils';
 import { useEffect, useState } from 'react';
 
 const navLinks = [
+  { name: 'What We Do', href: '#what-we-do' },
   { name: 'Services', href: '#services' },
   { name: 'Approach', href: '#approach' },
-  { name: 'AI Tool', href: '#ai-tool' },
-  { name: 'Testimonials', href: '#testimonials' },
+  { name: 'Advisory', href: '#advisory' },
+  { name: 'Contact', href: '#contact' },
 ];
 
 export default function Header() {
