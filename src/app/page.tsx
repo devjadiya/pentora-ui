@@ -1,15 +1,18 @@
 import Header from "@/components/landing/Header";
 import Hero from "@/components/landing/Hero";
 import ClientsMarquee from "@/components/landing/ClientsMarquee";
+import WhatWeDo from "@/components/landing/WhatWeDo";
+import StickyScrollSection from "@/components/landing/StickyScrollSection";
 import ServicesGrid from "@/components/landing/ServicesGrid";
-import FeaturesList from "@/components/landing/FeaturesList";
 import DashboardPreview from "@/components/landing/DashboardPreview";
+import WorldMapDynamic from "@/components/landing/WorldMapDynamic";
 import AiContentEnhancer from "@/components/landing/AiContentEnhancer";
 import Testimonials from "@/components/landing/Testimonials";
 import Faq from "@/components/landing/Faq";
 import CtaSection from "@/components/landing/CtaSection";
 import Footer from "@/components/landing/Footer";
-import WorldMapDynamic from "@/components/landing/WorldMapDynamic";
+import AdvisoryServices from "@/components/landing/AdvisoryServices";
+import RiskSection from "@/components/landing/RiskSection";
 
 
 export default function Home() {
@@ -18,10 +21,13 @@ export default function Home() {
       <Header />
       <Hero />
       <ClientsMarquee />
+      <WhatWeDo />
       <ServicesGrid />
-      <FeaturesList />
+      <StickyScrollSection />
       <DashboardPreview />
+      <AdvisoryServices />
       <WorldMapDynamic />
+      <RiskSection />
       <AiContentEnhancer />
       <Testimonials />
       <Faq />
