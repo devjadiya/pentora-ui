@@ -40,7 +40,7 @@ const BentoGridItem = ({
   return (
     <div
       className={cn(
-        'row-span-1 rounded-xl group/bento hover:shadow-xl transition duration-200 shadow-input dark:shadow-none p-4 dark:bg-black dark:border-white/[0.2] bg-card/50 border border-transparent justify-between flex flex-col space-y-4 border-white/10',
+        'row-span-1 rounded-xl group/bento hover:shadow-xl transition duration-200 shadow-input dark:shadow-none p-4 bg-card/50 border justify-between flex flex-col space-y-4 border-white/10 backdrop-blur-sm',
         className
       )}
     >
@@ -58,38 +58,38 @@ const BentoGridItem = ({
   );
 };
 
-const Skeleton = () => (
-    <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-gradient-to-br from-neutral-900 to-neutral-800"></div>
+const Skeleton = ({className}: {className?: string}) => (
+    <div className={cn("flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-gradient-to-br from-primary/10 to-background", className)}></div>
 );
 
 const items = [
     {
-      title: 'Identify Vulnerabilities',
-      description: 'We proactively discover and analyze weaknesses in your systems before malicious actors can exploit them.',
+      title: 'Identify & Analyze',
+      description: 'We proactively discover and analyze weaknesses in your systems, from infrastructure to applications, before malicious actors can exploit them.',
       header: <Skeleton />,
       className: 'md:col-span-2',
-      icon: <ShieldQuestion className="h-4 w-4 text-neutral-500" />,
+      icon: <ShieldQuestion className="h-4 w-4 text-muted-foreground" />,
     },
     {
       title: 'Emulate Adversaries',
-      description: 'Our team mimics real-world attack techniques to test the true resilience of your defenses.',
+      description: 'Our team mimics real-world attack techniques to test the true resilience of your defenses against sophisticated threats.',
       header: <Skeleton />,
       className: 'md:col-span-1',
-      icon: <Users className="h-4 w-4 text-neutral-500" />,
+      icon: <Users className="h-4 w-4 text-muted-foreground" />,
     },
     {
-      title: 'Automate Defenses',
-      description: 'We help you build and implement automated systems for continuous security monitoring and response.',
+      title: 'Automate & Integrate',
+      description: 'We help you build and implement automated systems for continuous security monitoring, integrating seamlessly into your DevOps pipeline.',
       header: <Skeleton />,
       className: 'md:col-span-1',
-      icon: <HardDrive className="h-4 w-4 text-neutral-500" />,
+      icon: <HardDrive className="h-4 w-4 text-muted-foreground" />,
     },
     {
       title: 'Leverage AI & Open Source',
-      description: 'Combining proprietary AI with the best open-source tools for unparalleled threat intelligence.',
+      description: 'Combining proprietary AI models with the best open-source tools for unparalleled threat intelligence and vulnerability correlation.',
       header: <Skeleton />,
       className: 'md:col-span-2',
-      icon: <BrainCircuit className="h-4 w-4 text-neutral-500" />,
+      icon: <BrainCircuit className="h-4 w-4 text-muted-foreground" />,
     },
   ];
 
@@ -102,7 +102,7 @@ export default function WhatWeDo() {
             How We Secure Your Digital Frontier
           </h2>
           <p className="mx-auto mt-4 max-w-3xl text-center text-muted-foreground">
-            Our methodology combines deep expertise, an attacker's mindset, and cutting-edge technology to provide comprehensive protection.
+            Our methodology combines deep human expertise, an attacker's mindset, and cutting-edge technology to provide comprehensive, proactive protection.
           </p>
         </ScrollFadeIn>
         <ScrollFadeIn delay="200ms" className="mt-12">
