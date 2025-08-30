@@ -55,13 +55,13 @@
   }
   body {
     @apply bg-background text-foreground;
-    background:
+     background-image:
       radial-gradient(
         600px circle at var(--x) var(--y),
         hsl(var(--primary) / 0.1),
         transparent 80%
       ),
-      hsl(var(--background));
+      url('/grid.svg');
   }
   
   html {

@@ -3,7 +3,7 @@ import React, { useRef } from 'react';
 import { useMotionValueEvent, useScroll } from 'framer-motion';
 import { motion } from 'framer-motion';
 import { ScrollFadeIn } from './ScrollFadeIn';
-import { BrainCircuit, Target, ShieldOff, Scale } from "lucide-react";
+import { BrainCircuit, Target, ShieldOff, Scale, GitMerge } from "lucide-react";
 
 const content = [
     {
@@ -17,7 +17,7 @@ const content = [
       icon: Target
     },
     {
-      title: "Offensive Mindset",
+      title: "Offensive-First Mindset",
       description: "We think like attackers. This offensive-first approach allows us to uncover hidden risks, complex chain vulnerabilities, and business logic flaws that automated scanners and compliance-focused assessments traditionally overlook.",
       icon: ShieldOff,
     },
@@ -25,10 +25,15 @@ const content = [
       title: "Actionable & Prioritized",
       description: "You won't get a 500-page report of low-impact findings. We deliver clear, concise, and actionable guidance. All vulnerabilities are prioritized based on exploitability, impact, and business context, so you can focus your resources where they matter most.",
       icon: Scale
+    },
+    {
+      title: "Open & Collaborative",
+      description: "We believe in transparency. We combine proprietary technology with the best open-source tools and work as an extension of your team, providing full visibility into our process and findings.",
+      icon: GitMerge
     }
   ];
 
-export default function StickyScrollSection() {
+export default function OurApproach() {
   const [activeCard, setActiveCard] = React.useState(0);
   const ref = useRef<any>(null);
   const { scrollYProgress } = useScroll({
@@ -50,7 +55,7 @@ export default function StickyScrollSection() {
   const ActiveCardIcon = content[activeCard]?.icon;
 
   return (
-    <section id="approach" className="py-24">
+    <section id="approach" className="py-24 bg-card/20">
         <div className="container mx-auto px-4">
         <ScrollFadeIn>
           <h2 className="text-center font-headline text-4xl font-bold">Our Unique Approach</h2>
@@ -102,7 +107,7 @@ export default function StickyScrollSection() {
                   <div className="sticky top-1/2 -translate-y-1/2 px-4">
                       {ActiveCardIcon && 
                           <div className="relative aspect-square w-full rounded-xl bg-black/50 p-2 border border-white/10 shadow-2xl shadow-primary/10">
-                              <ActiveCardIcon className="h-24 w-24 mx-auto my-auto text-primary opacity-20" />
+                              <ActiveCardIcon className="h-32 w-32 mx-auto my-auto text-primary opacity-20" />
                           </div>
                       }
                   </div>

@@ -13,6 +13,10 @@ import CtaSection from "@/components/landing/CtaSection";
 import Footer from "@/components/landing/Footer";
 import AdvisoryServices from "@/components/landing/AdvisoryServices";
 import RiskSection from "@/components/landing/RiskSection";
+import OffensiveSecurity from "@/components/landing/OffensiveSecurity";
+import DefensiveSecurity from "@/components/landing/DefensiveSecurity";
+import OurApproach from "@/components/landing/OurApproach";
+import TeamSection from "@/components/landing/TeamSection";
 
 
 export default function Home() {
@@ -22,15 +26,17 @@ export default function Home() {
       <Hero />
       <ClientsMarquee />
       <WhatWeDo />
-      <ServicesGrid />
-      <StickyScrollSection />
+      <OffensiveSecurity />
+      <DefensiveSecurity />
+      <OurApproach />
       <DashboardPreview />
       <AdvisoryServices />
+      <TeamSection />
       <WorldMapDynamic />
       <RiskSection />
-      <AiContentEnhancer />
       <Testimonials />
       <Faq />
+      <AiContentEnhancer />
       <CtaSection />
       <Footer />
     </main>
