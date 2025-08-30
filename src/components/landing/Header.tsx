@@ -35,9 +35,6 @@ export default function Header() {
       <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
         <Link href="/" className="flex items-center gap-2" aria-label="Pentora Home">
           <Image src="/logo.png" alt="Pentora Logo" width={32} height={32} />
-          <span className="font-headline text-xl font-bold text-foreground">
-            Pentora
-          </span>
         </Link>
         <nav className="hidden items-center gap-6 md:flex">
           {navLinks.map((link) => (
