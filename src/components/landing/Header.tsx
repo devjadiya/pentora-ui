@@ -1,9 +1,9 @@
 'use client';
-import { PentoraLogo } from '@/lib/icons';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 
 const navLinks = [
   { name: 'What We Do', href: '#what-we-do' },
@@ -34,7 +34,7 @@ export default function Header() {
     >
       <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
         <Link href="/" className="flex items-center gap-2" aria-label="Pentora Home">
-          <PentoraLogo className="h-8 w-8" />
+          <Image src="/logo.png" alt="Pentora Logo" width={32} height={32} />
           <span className="font-headline text-xl font-bold text-foreground">
             Pentora
           </span>
