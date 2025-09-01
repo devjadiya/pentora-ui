@@ -1,3 +1,5 @@
+'use client';
+
 import KPI_Card from "@/components/dashboard/cards/KPI_Card";
 import { kpiData } from "@/lib/mockData";
 import { motion } from 'framer-motion';
