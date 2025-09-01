@@ -82,7 +82,7 @@ const Accordion = ({
   );
 };
 
-const ToolItem = ({ tool }: { tool: Tool }) => {
+const ToolItem = ({ tool, onSelectTool }: { tool: Tool, onSelectTool: (tool: Tool) => void }) => {
     const isFree = tool.type === 'Free';
     return (
         <motion.div
@@ -97,6 +97,7 @@ const ToolItem = ({ tool }: { tool: Tool }) => {
                 originX: 0 
             }}
             className="flex items-center gap-3 p-2 rounded-md cursor-pointer"
+            onClick={() => onSelectTool(tool)}
         >
             {isFree ? (
                 <GitBranch className="h-4 w-4 text-green-400 flex-shrink-0" />
@@ -114,9 +115,10 @@ const ToolItem = ({ tool }: { tool: Tool }) => {
 interface SidebarProps {
   mobileOpen: boolean;
   setMobileOpen: (open: boolean) => void;
+  onSelectTool: (tool: Tool) => void;
 }
 
-export default function Sidebar({ mobileOpen, setMobileOpen }: SidebarProps) {
+export default function Sidebar({ mobileOpen, setMobileOpen, onSelectTool }: SidebarProps) {
   const [searchQuery, setSearchQuery] = useState('');
 
   const filteredTools = useMemo(() => {
@@ -163,7 +165,7 @@ export default function Sidebar({ mobileOpen, setMobileOpen }: SidebarProps) {
             {Object.entries(groupedTools).map(([category, tools]) => (
                 <Accordion key={category} title={category} icon={GitBranch}>
                     {tools.map(tool => (
-                        <ToolItem key={tool.id} tool={tool} />
+                        <ToolItem key={tool.id} tool={tool} onSelectTool={onSelectTool}/>
                     ))}
                 </Accordion>
             ))}
