@@ -14,7 +14,75 @@ export interface Tool {
   code?: string;
 }
 
+const cyberSecFrameworkCode = `
+# CyberSec Framework
+
+A comprehensive Python framework for modern security operations.
+
+## Core Features
+- **Vulnerability Assessment**: Scan networks and applications for known vulnerabilities.
+- **Penetration Testing**: Tools for simulating attacks and testing defenses.
+- **Encryption & Decryption**: Secure data using industry-standard cryptographic libraries.
+- **Threat Detection**: Analyze logs and network traffic for signs of compromise.
+
+## Technical Stack & Prerequisites
+- Python 3.9+
+- Core Libraries:
+  - \`cryptography\`: For handling encryption and decryption tasks.
+  - \`requests\`: For making HTTP requests to interact with APIs or scan web services.
+  - \`socket\`: For low-level network interactions, essential for network scanning.
+
+## Installation
+\`\`\`bash
+# Clone the repository
+git clone https://github.com/pentora/cybersec-framework.git
+cd cybersec-framework
+
+# Install dependencies
+pip install -r requirements.txt
+\`\`\`
+
+## Security Metrics
+| Module             | Status   | Vulnerabilities | Last Scan  |
+|--------------------|----------|-----------------|------------|
+| Network Scanner    | CRITICAL | 3               | 2024-01-15 |
+| Encryption         | WARNING  | 2               | 2024-01-14 |
+| Authentication     | SECURE   | 0               | 2024-01-15 |
+| Database           | SECURE   | 0               | 2024-01-14 |
+
+
+## Basic Usage Example
+\`\`\`python
+from src.security.penetration_test import SecurityFramework
+
+# Initialize framework
+# Ensure environment variables are set
+framework = SecurityFramework()
+
+# Run vulnerability scan
+results = framework.vulnerability_scan("192.168.1.1", [22, 80, 443])
+print(f"Found {len(results)} open ports")
+\`\`\`
+
+## Configuration
+The framework uses environment variables for configuration. This is a secure way to manage sensitive data like API keys without hardcoding them.
+
+\`\`\`bash
+export CYBERSEC_LOG_LEVEL=INFO
+export CYBERSEC_ENCRYPTION_KEY=your-secure-key
+\`\`\`
+`;
+
+
 export const freeTools: Tool[] = [
+    {
+        id: 'free-00',
+        name: 'CyberSec Framework',
+        description: 'A comprehensive framework for security tasks.',
+        type: 'Free',
+        category: 'Vulnerability Assessment',
+        code: cyberSecFrameworkCode,
+    },
     {
         id: 'free-01',
         name: 'ReconRaptor',

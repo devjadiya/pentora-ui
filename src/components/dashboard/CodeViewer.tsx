@@ -56,7 +56,7 @@ export default function CodeViewer({ tool, onClose }: CodeViewerProps) {
       </div>
       <div className="flex-1 overflow-auto rounded-lg bg-black/50">
         <SyntaxHighlighter
-          language="javascript"
+          language="markdown"
           style={atomDark}
           customStyle={{
             background: 'transparent',
