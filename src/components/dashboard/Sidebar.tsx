@@ -34,7 +34,7 @@ const PentoraLogo = () => (
 interface SidebarProps {
   mobileOpen: boolean;
   setMobileOpen: (open: boolean) => void;
-  onSelectTool: (tool: Tool | null) => void;
+  onSelectTool: (tool: Tool) => void;
 }
 
 const categoryIcons = {
@@ -69,10 +69,7 @@ export default function Sidebar({ mobileOpen, setMobileOpen, onSelectTool }: Sid
   const sidebarContent = (
     <div className="flex h-full flex-col">
        <div className="p-6">
-            <div 
-                className="mb-6 flex items-center gap-3 cursor-pointer"
-                onClick={() => onSelectTool(null)}
-            >
+            <div className="mb-6 flex items-center gap-3">
                 <PentoraLogo />
                 <span className="text-2xl font-bold tracking-wider text-white">
                     PENTORA

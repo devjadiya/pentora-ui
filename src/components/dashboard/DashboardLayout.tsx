@@ -8,7 +8,7 @@ import { Tool } from '@/lib/mockData';
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
-  onSelectTool: (tool: Tool | null) => void;
+  onSelectTool: (tool: Tool) => void;
 }
 
 export default function DashboardLayout({ children, onSelectTool }: DashboardLayoutProps) {
