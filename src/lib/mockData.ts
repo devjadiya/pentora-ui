@@ -343,3 +343,19 @@ export const systemStatus = [
     { name: "Data Loss Prevention (DLP)", status: "active", value: 100 },
     { name: "Threat Intelligence Feed", status: "maintenance", value: 0 },
 ];
+
+export const accessByRoleData = [
+  { name: 'User', value: 650, fill: 'hsl(var(--primary) / 0.8)' },
+  { name: 'Developer', value: 250, fill: 'hsl(var(--primary) / 0.6)' },
+  { name: 'Admin', value: 100, fill: 'hsl(var(--primary) / 0.4)' },
+];
+
+export const recentPrivilegedAccessData = [
+    { id: 1, user: 'alex.v', role: 'Admin', action: 'Accessed production database console.', time: '2m ago' },
+    { id: 2, user: 's.chen', role: 'Developer', action: 'Pushed new build to staging environment.', time: '5m ago' },
+    { id: 3, user: 'secops.bot', role: 'System', action: 'Rotated API keys for payment gateway.', time: '1h ago' },
+    { id: 4, user: 'hr.admin', role: 'Admin', action: 'Viewed compensation records.', time: '2h ago' },
+    { id: 5, user: 'alex.v', role: 'Admin', action: 'Modified global firewall rules.', time: 'yesterday' },
+];
+
+export const mfaAdoptionRate = 92;

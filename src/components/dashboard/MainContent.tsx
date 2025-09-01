@@ -6,6 +6,7 @@ import KPI_Card from './cards/KPI_Card';
 import WorkforceAuthenticationEvents from './WorkforceAuthenticationEvents';
 import SecurityAlerts from './SecurityAlerts';
 import SystemStatus from './SystemStatus';
+import IdentityAccessIntelligence from './IdentityAccessIntelligence';
 
 export default function MainContent() {
   const containerVariants = {
@@ -35,6 +36,7 @@ export default function MainContent() {
         <SecurityAlerts />
         <SystemStatus />
       </div>
+      <IdentityAccessIntelligence />
     </motion.div>
   );
 }
