@@ -74,12 +74,14 @@ export default function ContactModal({ isOpen, onClose, tool }: ContactModalProp
                 className="bg-black/30 border-white/20"
                 rows={4}
               />
-              <Button
-                type="submit"
-                className="w-full h-12 text-base rounded-full bg-gradient-to-r from-[#8A2BE2] to-[#4B0082] px-5 py-2.5 font-semibold text-white shadow-[0_0_20px_rgba(138,43,226,0.5)] transition-shadow hover:shadow-[0_0_30px_rgba(138,43,226,0.8)]"
-              >
-                Submit Inquiry
-              </Button>
+              <motion.div whileTap={{ scale: 0.95 }}>
+                <Button
+                  type="submit"
+                  className="w-full h-12 text-base rounded-full bg-gradient-to-r from-[#8A2BE2] to-[#4B0082] px-5 py-2.5 font-semibold text-white shadow-[0_0_20px_rgba(138,43,226,0.5)] transition-shadow hover:shadow-[0_0_30px_rgba(138,43,226,0.8)]"
+                >
+                  Submit Inquiry
+                </Button>
+              </motion.div>
             </form>
           </motion.div>
         </motion.div>

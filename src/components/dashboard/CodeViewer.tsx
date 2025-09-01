@@ -6,6 +6,7 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { Button } from '@/components/ui/button';
 import { Clipboard, ClipboardCheck, X } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 interface CodeViewerProps {
   tool: Tool;
@@ -40,13 +41,17 @@ export default function CodeViewer({ tool, onClose }: CodeViewerProps) {
           <p className="text-sm text-gray-400">{tool.description}</p>
         </div>
         <div className="flex items-center gap-2">
-            <Button variant="ghost" size="sm" onClick={handleCopy}>
-                {hasCopied ? <ClipboardCheck className="h-4 w-4 mr-2 text-green-400" /> : <Clipboard className="h-4 w-4 mr-2" />}
-                {hasCopied ? 'Copied!' : 'Copy Code'}
-            </Button>
-            <Button variant="ghost" size="icon" onClick={onClose}>
-                <X className="h-5 w-5" />
-            </Button>
+            <motion.div whileTap={{ scale: 0.95 }}>
+              <Button variant="ghost" size="sm" onClick={handleCopy}>
+                  {hasCopied ? <ClipboardCheck className="h-4 w-4 mr-2 text-green-400" /> : <Clipboard className="h-4 w-4 mr-2" />}
+                  {hasCopied ? 'Copied!' : 'Copy Code'}
+              </Button>
+            </motion.div>
+            <motion.div whileTap={{ scale: 0.95 }}>
+              <Button variant="ghost" size="icon" onClick={onClose}>
+                  <X className="h-5 w-5" />
+              </Button>
+            </motion.div>
         </div>
       </div>
       <div className="flex-1 overflow-auto rounded-lg bg-black/50">
