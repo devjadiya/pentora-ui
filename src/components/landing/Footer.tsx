@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { Github, Twitter, Linkedin } from "lucide-react";
+import Image from 'next/image';
 
 const socialLinks = [
     { name: "Twitter", icon: Twitter, href: "#" },
@@ -23,7 +24,7 @@ export default function Footer() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                     <div className="flex flex-col gap-4 items-start lg:col-span-1">
                         <Link href="/" className="flex items-center gap-2" aria-label="Pentora Home">
-                            <PentoraLogo className="h-8 w-8 text-primary" />
+                            <PentoraLogo className="h-8 w-auto" />
                             <span className="font-headline text-xl font-bold text-foreground">
                                 Pentora
                             </span>

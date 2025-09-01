@@ -1,8 +1,16 @@
-import { Shield, type SVGProps } from "lucide-react";
+import Image from "next/image";
+import type { SVGProps } from "react";
 
-export const PentoraLogo = (props: SVGProps<SVGSVGElement>) => (
-    <Shield {...props} />
+export const PentoraLogo = (props: Omit<React.ComponentProps<typeof Image>, 'src' | 'alt'> & { className?: string }) => (
+    <Image 
+        src="https://blush-fashionable-swift-557.mypinata.cloud/ipfs/bafkreiehkngp4ekxxniwmvcreshz6xbxwqkcpuzscdorxlnr7xslh2mvwq" 
+        alt="Pentora Logo"
+        width={40}
+        height={40}
+        {...props} 
+    />
 );
+
 
 // These are no longer used but kept for posterity in case design changes.
 // To keep the bundle small, they are not exported.

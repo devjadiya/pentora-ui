@@ -21,6 +21,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { cn } from '@/lib/utils';
+import Image from 'next/image';
 
 interface SidebarProps {
   onSelectTool: (tool: Tool) => void;
@@ -104,7 +105,7 @@ export default function AppSidebar({ onSelectTool, isCollapsed, onToggle }: Side
     <div className="flex h-full max-h-screen flex-col bg-card border-r">
       <div className={cn("flex h-16 items-center border-b px-6", isCollapsed && "justify-center px-2")}>
         <Link href="/" className="flex items-center gap-2 font-semibold font-headline text-xl">
-            <PentoraLogo className="h-6 w-6 text-primary" />
+            <PentoraLogo className="h-8 w-auto" />
             {!isCollapsed && <span className="truncate">PENTORA</span>}
         </Link>
       </div>
