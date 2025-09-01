@@ -1,34 +1,23 @@
 
 'use client';
 
+import React from 'react';
 import DashboardLayout from '@/components/dashboard/DashboardLayout';
-import { ReactNode, useState, useEffect } from 'react';
+import { ReactNode, useState } from 'react';
 import { Tool, headerStats } from '@/lib/mockData';
 import DashboardPage from './page';
-import { SidebarProvider, useSidebar } from '@/components/ui/sidebar';
 
-function LayoutController({ children }: { children: ReactNode }) {
-  const { setOpen, isMobile } = useSidebar();
+export default function Layout({ children }: { children: ReactNode }) {
   const [selectedTool, setSelectedTool] = useState<Tool | null>(null);
   const [modalTool, setModalTool] = useState<Tool | null>(null);
 
-  const handleSelectTool = (tool: Tool | null) => {
-    if (tool === null) {
-      setSelectedTool(null);
-      setModalTool(null);
-      return;
-    }
-
+  const handleSelectTool = (tool: Tool) => {
     if (tool?.type === 'Premium') {
       setModalTool(tool);
       setSelectedTool(null);
     } else {
       setSelectedTool(tool);
       setModalTool(null);
-      // Collapse sidebar on file selection
-      if (tool.children === undefined && !isMobile) {
-         setOpen(false);
-      }
     }
   };
 
@@ -40,13 +29,6 @@ function LayoutController({ children }: { children: ReactNode }) {
     setModalTool(null);
   };
 
-   // Collapse sidebar by default on load for desktop
-   useEffect(() => {
-    if (!isMobile) {
-      setOpen(false);
-    }
-  }, [isMobile, setOpen]);
-
   return (
     <DashboardLayout onSelectTool={handleSelectTool} stats={headerStats}>
       <DashboardPage
@@ -57,13 +39,4 @@ function LayoutController({ children }: { children: ReactNode }) {
       />
     </DashboardLayout>
   );
-}
-
-
-export default function Layout({ children }: { children: ReactNode }) {
-  return (
-    <SidebarProvider>
-      <LayoutController>{children}</LayoutController>
-    </SidebarProvider>
-  )
 }

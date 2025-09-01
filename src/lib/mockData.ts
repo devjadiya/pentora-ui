@@ -82,7 +82,7 @@ export CYBERSEC_ENCRYPTION_KEY=your-secure-key
 \`\`\`
 `;
 
-const allToolsFlat: Omit<Tool, 'children'>[] = [
+export const allTools: Tool[] = [
     {
         id: 'free-00',
         name: 'CyberSec Framework',
@@ -167,50 +167,6 @@ const allToolsFlat: Omit<Tool, 'children'>[] = [
         description: 'Predictive threat modeling and attack surface management.',
         type: 'Premium',
         category: 'Vulnerability Assessment',
-    },
-];
-
-export const allTools: Tool[] = allToolsFlat;
-
-
-export const fileSystem: Tool[] = [
-    {
-        id: 'red-team-folder',
-        name: 'Red Team Operations',
-        description: '',
-        type: 'Free',
-        category: 'Red Team',
-        children: [
-            allTools.find(t => t.id === 'free-01')!,
-            allTools.find(t => t.id === 'free-05')!,
-            allTools.find(t => t.id === 'free-07')!,
-            allTools.find(t => t.id === 'prem-02')!,
-        ]
-    },
-    {
-        id: 'blue-team-folder',
-        name: 'Blue Team Defense',
-        description: '',
-        type: 'Free',
-        category: 'Blue Team',
-        children: [
-            allTools.find(t => t.id === 'free-02')!,
-            allTools.find(t => t.id === 'free-06')!,
-            allTools.find(t => t.id === 'prem-01')!,
-        ]
-    },
-    {
-        id: 'vuln-assess-folder',
-        name: 'Vulnerability Assessment',
-        description: '',
-        type: 'Free',
-        category: 'Vulnerability Assessment',
-        children: [
-            allTools.find(t => t.id === 'free-00')!,
-            allTools.find(t => t.id === 'free-03')!,
-            allTools.find(t => t.id === 'free-04')!,
-            allTools.find(t => t.id === 'prem-03')!,
-        ]
     },
 ];
 

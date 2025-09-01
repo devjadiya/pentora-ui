@@ -1,7 +1,7 @@
+
 'use client';
-import { Github, Terminal, TrendingUp } from 'lucide-react';
+import { Github, Bell, Terminal, TrendingUp } from 'lucide-react';
 import { Button } from '../ui/button';
-import { SidebarTrigger } from '../ui/sidebar';
 
 export type HeaderStats = {
   title: string;
@@ -11,6 +11,7 @@ export type HeaderStats = {
 
 interface HeaderProps {
   stats: HeaderStats;
+  children?: React.ReactNode;
 }
 
 const StatBlock = ({ title, value, trend }: { title: string, value: string, trend: string }) => (
@@ -28,17 +29,17 @@ const StatBlock = ({ title, value, trend }: { title: string, value: string, tren
     </div>
 );
 
-export default function Header({ stats }: HeaderProps) {
+export default function Header({ stats, children }: HeaderProps) {
   return (
-    <header className="sticky top-0 z-30 flex h-20 items-center justify-between border-b bg-card/80 px-6 backdrop-blur-sm">
+    <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b bg-card/80 px-4 backdrop-blur-sm md:px-6">
         <div className="flex items-center gap-4">
-            <SidebarTrigger className="md:hidden" />
+            {children}
             <h1 className="hidden md:block font-headline text-xl font-bold text-foreground">Global Security Overview</h1>
         </div>
         <div className="hidden md:flex items-center gap-6">
             <div className="flex items-center divide-x divide-border">
                 <div className="pr-6">
-                    <p className="font-headline text-lg font-semibold text-red-500">Threat Level: CRITICAL</p>
+                    <p className="font-headline text-lg font-semibold text-destructive">Threat Level: CRITICAL</p>
                 </div>
                 <div className="flex items-center gap-6 pl-6">
                     {stats.map(stat => (
@@ -52,6 +53,9 @@ export default function Header({ stats }: HeaderProps) {
                 <a href="https://github.com" target="_blank" rel="noopener noreferrer">
                     <Github className="h-5 w-5" />
                 </a>
+            </Button>
+            <Button variant="ghost" size="icon">
+                <Bell className="h-5 w-5" />
             </Button>
             <Button variant="ghost" size="icon">
                 <Terminal className="h-5 w-5" />
