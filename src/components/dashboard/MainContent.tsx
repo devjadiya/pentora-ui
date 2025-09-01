@@ -1,12 +1,46 @@
+'use client';
 import React from 'react';
+import KPI_Card from './cards/KPI_Card';
+import ThreatMap from './ThreatMap';
+import { motion } from 'framer-motion';
 
-export default function MainContent() {
+interface MainContentProps {
+  kpiData: {
+    title: string;
+    value: string;
+    trend: string;
+    icon: string;
+  }[];
+}
+
+export default function MainContent({ kpiData }: MainContentProps) {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
   return (
-    <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-      {/* Dashboard widgets will go here */}
-      <div className="lg:col-span-4 h-48 rounded-lg bg-white/5 flex items-center justify-center">
-        <p className="text-gray-500">Dashboard Content Area</p>
-      </div>
-    </div>
+    <motion.div 
+      initial="hidden"
+      animate="visible"
+      variants={containerVariants}
+      className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4"
+    >
+      {kpiData.map((item, index) => (
+        <KPI_Card
+          key={index}
+          title={item.title}
+          value={item.value}
+          trend={item.trend}
+          icon={item.icon}
+        />
+      ))}
+      <ThreatMap />
+    </motion.div>
   );
 }
