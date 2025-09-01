@@ -2,22 +2,19 @@ import Header from "@/components/landing/Header";
 import Hero from "@/components/landing/Hero";
 import ClientsMarquee from "@/components/landing/ClientsMarquee";
 import WhatWeDo from "@/components/landing/WhatWeDo";
-import StickyScrollSection from "@/components/landing/StickyScrollSection";
-import ServicesGrid from "@/components/landing/ServicesGrid";
-import DashboardPreview from "@/components/landing/DashboardPreview";
-import WorldMapDynamic from "@/components/landing/WorldMapDynamic";
-import AiContentEnhancer from "@/components/landing/AiContentEnhancer";
-import Testimonials from "@/components/landing/Testimonials";
-import Faq from "@/components/landing/Faq";
-import CtaSection from "@/components/landing/CtaSection";
-import Footer from "@/components/landing/Footer";
-import AdvisoryServices from "@/components/landing/AdvisoryServices";
-import RiskSection from "@/components/landing/RiskSection";
 import OffensiveSecurity from "@/components/landing/OffensiveSecurity";
 import DefensiveSecurity from "@/components/landing/DefensiveSecurity";
 import OurApproach from "@/components/landing/OurApproach";
+import DashboardPreview from "@/components/landing/DashboardPreview";
+import AdvisoryServices from "@/components/landing/AdvisoryServices";
 import TeamSection from "@/components/landing/TeamSection";
-
+import WorldMapDynamic from "@/components/landing/WorldMapDynamic";
+import RiskSection from "@/components/landing/RiskSection";
+import Testimonials from "@/components/landing/Testimonials";
+import Faq from "@/components/landing/Faq";
+import AiContentEnhancer from "@/components/landing/AiContentEnhancer";
+import CtaSection from "@/components/landing/CtaSection";
+import Footer from "@/components/landing/Footer";
 
 export default function Home() {
   return (
