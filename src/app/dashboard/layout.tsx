@@ -3,23 +3,29 @@
 
 import React from 'react';
 import DashboardLayout from '@/components/dashboard/DashboardLayout';
-import { ReactNode, useState } from 'react';
-import { Tool, headerStats } from '@/lib/mockData';
+import { ReactNode, useState, useEffect } from 'react';
+import { Tool, headerStats, allTools } from '@/lib/mockData';
 import DashboardPage from './page';
 
 export default function Layout({ children }: { children: ReactNode }) {
-  const [selectedTool, setSelectedTool] = useState<Tool | null>(null);
+  const [selectedTool, setSelectedTool] = useState<Tool | null>(() => allTools.find(t => t.id === 'free-00') || null);
   const [modalTool, setModalTool] = useState<Tool | null>(null);
-  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(true);
 
   const handleSelectTool = (tool: Tool) => {
-    if (tool?.type === 'Premium') {
+    if (tool.type === 'Premium') {
       setModalTool(tool);
-      setSelectedTool(null);
     } else {
       setSelectedTool(tool);
-      setModalTool(null);
+      // Collapse sidebar only when a file is clicked, not a folder
+      if (!tool.children) {
+        setIsSidebarCollapsed(true);
+      }
     }
+  };
+
+  const handleToggleSidebar = () => {
+    setIsSidebarCollapsed(!isSidebarCollapsed);
   };
 
   const handleCloseViewer = () => {
@@ -29,13 +35,24 @@ export default function Layout({ children }: { children: ReactNode }) {
   const handleCloseModal = () => {
     setModalTool(null);
   };
+  
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        setIsSidebarCollapsed(true);
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    handleResize();
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   return (
     <DashboardLayout 
       onSelectTool={handleSelectTool} 
       stats={headerStats}
       isSidebarCollapsed={isSidebarCollapsed}
-      onToggleSidebar={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
+      onToggleSidebar={handleToggleSidebar}
     >
       <DashboardPage
         selectedTool={selectedTool}

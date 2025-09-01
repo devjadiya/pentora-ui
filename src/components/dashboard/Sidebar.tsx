@@ -1,20 +1,18 @@
 
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 import {
   FileCode,
-  ShieldCheck,
-  Lock,
-  GitBranch,
-  Settings,
-  LogOut,
+  Folder,
+  ChevronDown,
+  ChevronRight,
   ShieldAlert,
   ChevronLeft,
+  Briefcase,
 } from 'lucide-react';
 import { allTools, Tool } from '@/lib/mockData';
 import { PentoraLogo } from '@/lib/icons';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
 import {
   Tooltip,
@@ -30,110 +28,106 @@ interface SidebarProps {
   onToggle?: () => void;
 }
 
-const redTeamTools = allTools.filter(tool => tool.category === 'Red Team');
-const blueTeamTools = allTools.filter(tool => tool.category === 'Blue Team');
-const vulnAssessTools = allTools.filter(tool => tool.category === 'Vulnerability Assessment');
+const TreeView = ({
+  tools,
+  onSelectTool,
+  level = 0,
+}: {
+  tools: Tool[];
+  onSelectTool: (tool: Tool) => void;
+  level?: number;
+}) => {
+  const [openFolders, setOpenFolders] = useState<Record<string, boolean>>({});
 
-const NavLink = ({ tool, onSelectTool, isCollapsed }: { tool: Tool, onSelectTool: (tool: Tool) => void, isCollapsed: boolean }) => {
-  const linkContent = (
-    <div className="flex items-center justify-between w-full">
-      <div className="flex items-center gap-3">
-        {tool.type === 'Premium' ? <Lock className="h-4 w-4" /> : <GitBranch className="h-4 w-4" />}
-        {!isCollapsed && <span>{tool.name}</span>}
-      </div>
-      {!isCollapsed && tool.type === 'Premium' && <Badge variant="secondary" className="bg-primary/10 text-primary">PRO</Badge>}
+  const toggleFolder = (id: string) => {
+    setOpenFolders(prev => ({ ...prev, [id]: !prev[id] }));
+  };
+
+  return (
+    <div className="space-y-1">
+      {tools.map(tool => {
+        const isFolder = !!tool.children;
+        const isOpen = openFolders[tool.id] || false;
+        const Icon = isFolder ? Folder : FileCode;
+        const ChevronIcon = isOpen ? ChevronDown : ChevronRight;
+
+        return (
+          <div key={tool.id} style={{ paddingLeft: `${level * 16}px` }}>
+            <div
+              className="flex items-center gap-2 text-sm text-muted-foreground rounded-md hover:bg-secondary hover:text-foreground transition-colors cursor-pointer w-full text-left px-2 py-1.5"
+              onClick={() => (isFolder ? toggleFolder(tool.id) : onSelectTool(tool))}
+            >
+              {isFolder ? <ChevronIcon className="h-4 w-4 flex-shrink-0" /> : <div className="w-4"></div>}
+              <Icon className="h-4 w-4 flex-shrink-0" />
+              <span className="flex-1 truncate">{tool.name}</span>
+            </div>
+            {isFolder && isOpen && (
+              <div className="mt-1">
+                <TreeView tools={tool.children!} onSelectTool={onSelectTool} level={level + 1} />
+              </div>
+            )}
+          </div>
+        );
+      })}
     </div>
   );
+};
+
+const CollapsedSidebar = ({ onToggle }: { onToggle?: () => void }) => {
+  const navItems = [
+    { label: "Browse Tools", icon: Briefcase },
+    { label: "Red Team Ops", icon: ShieldAlert },
+  ];
 
   return (
-    <TooltipProvider delayDuration={0}>
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <button onClick={() => onSelectTool(tool)} className={cn(
-            "w-full text-left flex items-center px-3 py-2 text-sm text-muted-foreground rounded-md hover:bg-secondary hover:text-foreground transition-colors",
-            isCollapsed && "justify-center"
-          )}>
-            {linkContent}
-          </button>
-        </TooltipTrigger>
-        {isCollapsed && (
-          <TooltipContent side="right" sideOffset={5}>
-            {tool.name}
-          </TooltipContent>
-        )}
-      </Tooltip>
-    </TooltipProvider>
+    <div className="flex flex-col items-center gap-4 py-4">
+      {navItems.map(item => (
+        <TooltipProvider key={item.label} delayDuration={0}>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button variant="ghost" size="icon" className="h-10 w-10" onClick={onToggle}>
+                <item.icon className="h-5 w-5" />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent side="right" sideOffset={5}>
+              {item.label}
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      ))}
+    </div>
   );
 };
-
-const SidebarSection = ({ title, icon, tools, onSelectTool, isCollapsed }: { title: string, icon: React.ElementType, tools: Tool[], onSelectTool: (tool: Tool) => void, isCollapsed: boolean }) => {
-    const Icon = icon;
-    return (
-        <div className="px-3 py-2">
-            {!isCollapsed ? (
-                <h2 className="mb-2 px-3 text-lg font-semibold tracking-tight font-headline flex items-center gap-2">
-                    <Icon className="h-5 w-5" />
-                    {title}
-                </h2>
-            ) : (
-                <div className="my-2 border-t border-border" />
-            )}
-            <div className="space-y-1">
-                {tools.map(tool => (
-                    <NavLink key={tool.id} tool={tool} onSelectTool={onSelectTool} isCollapsed={isCollapsed}/>
-                ))}
-            </div>
-        </div>
-    );
-};
-
-const NavIconLink = ({ icon, label, isCollapsed }: { icon: React.ElementType, label: string, isCollapsed: boolean }) => {
-  const Icon = icon;
-  return (
-    <TooltipProvider delayDuration={0}>
-      <Tooltip>
-        <TooltipTrigger asChild>
-            <Button variant="ghost" className={cn("w-full justify-start gap-2", isCollapsed && "justify-center")}>
-                <Icon className="h-4 w-4" />
-                {!isCollapsed && label}
-            </Button>
-        </TooltipTrigger>
-        {isCollapsed && (
-          <TooltipContent side="right" sideOffset={5}>
-            {label}
-          </TooltipContent>
-        )}
-      </Tooltip>
-    </TooltipProvider>
-  );
-};
-
 
 export default function AppSidebar({ onSelectTool, isCollapsed, onToggle }: SidebarProps) {
   return (
-    <div className="flex h-full max-h-screen flex-col gap-2 bg-card border-r">
-        <div className={cn("flex h-16 items-center border-b px-6", isCollapsed && "justify-center px-2")}>
-            <Link href="/" className="flex items-center gap-2 font-semibold font-headline text-xl">
-                <PentoraLogo className="h-6 w-6 text-primary" />
-                {!isCollapsed && <span>PENTORA</span>}
-            </Link>
+    <div className="flex h-full max-h-screen flex-col bg-card border-r">
+      <div className={cn("flex h-16 items-center border-b px-6", isCollapsed && "justify-center px-2")}>
+        <Link href="/" className="flex items-center gap-2 font-semibold font-headline text-xl">
+            <PentoraLogo className="h-6 w-6 text-primary" />
+            {!isCollapsed && <span className="truncate">PENTORA</span>}
+        </Link>
+      </div>
+
+      <div className="flex-1 overflow-y-auto overflow-x-hidden">
+        {isCollapsed ? (
+          <CollapsedSidebar onToggle={onToggle} />
+        ) : (
+          <div className="p-2">
+            <h2 className="px-2 py-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">Explorer</h2>
+            <TreeView tools={allTools} onSelectTool={onSelectTool} />
+          </div>
+        )}
+      </div>
+
+      {onToggle && !isCollapsed && (
+        <div className="mt-auto p-2 border-t">
+          <Button onClick={onToggle} variant="ghost" className="w-full justify-center">
+            <ChevronLeft className="h-4 w-4 mr-2" />
+            Collapse Sidebar
+          </Button>
         </div>
-        <div className="flex-1 overflow-y-auto">
-            <nav className="grid items-start text-sm font-medium">
-                <SidebarSection title="Red Team Ops" icon={ShieldAlert} tools={redTeamTools} onSelectTool={onSelectTool} isCollapsed={isCollapsed} />
-                <SidebarSection title="Blue Team Ops" icon={ShieldCheck} tools={blueTeamTools} onSelectTool={onSelectTool} isCollapsed={isCollapsed} />
-                <SidebarSection title="Vuln Assessment" icon={FileCode} tools={vulnAssessTools} onSelectTool={onSelectTool} isCollapsed={isCollapsed} />
-            </nav>
-        </div>
-         <div className="mt-auto p-4 space-y-2 border-t">
-            <NavIconLink icon={Settings} label="Settings" isCollapsed={isCollapsed} />
-            <NavIconLink icon={LogOut} label="Logout" isCollapsed={isCollapsed} />
-            {onToggle && (
-              <Button onClick={onToggle} variant="outline" size="icon" className={cn("w-full h-10", isCollapsed ? "justify-center" : "")}>
-                <ChevronLeft className={cn("h-4 w-4 transition-transform", isCollapsed && "rotate-180")} />
-              </Button>
-            )}
-        </div>
+      )}
     </div>
   );
 }

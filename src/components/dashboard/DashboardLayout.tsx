@@ -26,14 +26,14 @@ export default function DashboardLayout({ children, onSelectTool, stats, isSideb
   return (
     <div className="min-h-screen w-full bg-background text-foreground flex">
       <div className={cn(
-        "hidden md:flex md:flex-col md:fixed md:inset-y-0 z-50 transition-all duration-300 ease-in-out",
-        isSidebarCollapsed ? "md:w-20" : "md:w-64"
+        "hidden md:flex md:flex-col md:fixed md:inset-y-0 z-50 transition-[width] duration-300 ease-in-out",
+        isSidebarCollapsed ? "md:w-20" : "md:w-72"
       )}>
         <AppSidebar onSelectTool={onSelectTool} isCollapsed={isSidebarCollapsed} onToggle={onToggleSidebar} />
       </div>
       <div className={cn(
-        "flex flex-col w-full transition-all duration-300 ease-in-out",
-        isSidebarCollapsed ? "md:pl-20" : "md:pl-64"
+        "flex flex-col w-full transition-[padding-left] duration-300 ease-in-out",
+        isSidebarCollapsed ? "md:pl-20" : "md:pl-72"
       )}>
         <Header stats={stats}>
           <Sheet>
@@ -43,7 +43,7 @@ export default function DashboardLayout({ children, onSelectTool, stats, isSideb
                 <span className="sr-only">Toggle navigation menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="left" className="p-0">
+            <SheetContent side="left" className="p-0 w-72">
               <AppSidebar onSelectTool={onSelectTool} isCollapsed={false} />
             </SheetContent>
           </Sheet>

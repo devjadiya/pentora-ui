@@ -1,4 +1,5 @@
 
+
 export const headerStats = [
   { title: 'Vulnerabilities', value: '47', trend: '+5 since last scan' },
   { title: 'Secured Endpoints', value: '1,247', trend: '+12' },
@@ -18,7 +19,7 @@ export interface Tool {
   name: string;
   description: string;
   type: 'Free' | 'Premium';
-  category: 'Red Team' | 'Blue Team' | 'Vulnerability Assessment';
+  category: 'Red Team' | 'Blue Team' | 'Vulnerability Assessment' | 'Folder';
   code?: string;
   children?: Tool[];
 }
@@ -83,7 +84,86 @@ export CYBERSEC_ENCRYPTION_KEY=your-secure-key
 `;
 
 export const allTools: Tool[] = [
-    {
+  {
+    id: 'red-team-folder',
+    name: 'Red Team Ops',
+    description: 'Tools for offensive security operations.',
+    type: 'Free',
+    category: 'Folder',
+    children: [
+      {
+        id: 'free-01',
+        name: 'ReconRaptor.sh',
+        description: 'Automated OSINT gathering and reconnaissance.',
+        type: 'Free',
+        category: 'Red Team',
+        code: `const os = require('os');\nconsole.log('Scanning network:', os.networkInterfaces());`,
+      },
+      {
+        id: 'free-05',
+        name: 'PassHound.py',
+        description: 'Identify weak and commonly used passwords.',
+        type: 'Free',
+        category: 'Red Team',
+        code: `const commonPasswords = ['123456', 'password'];\nfunction checkStrength(pwd) {\n  return !commonPasswords.includes(pwd);\n}`,
+      },
+      {
+        id: 'free-07',
+        name: 'PayloadGen.json',
+        description: 'Generate common XSS and SQLi payloads.',
+        type: 'Free',
+        category: 'Red Team',
+        code: `const xssPayloads = ['<script>alert(1)</script>'];`,
+      },
+       {
+        id: 'prem-02',
+        name: 'VulcanForge',
+        description: 'Advanced Penetration Testing Suite with automated exploitation.',
+        type: 'Premium',
+        category: 'Red Team',
+    },
+    ]
+  },
+  {
+    id: 'blue-team-folder',
+    name: 'Blue Team Ops',
+    description: 'Tools for defensive security operations.',
+    type: 'Free',
+    category: 'Folder',
+    children: [
+        {
+          id: 'free-02',
+          name: 'PhishGuard.py',
+          description: 'Analyze email headers for phishing indicators.',
+          type: 'Free',
+          category: 'Blue Team',
+          code: `function analyzeHeader(header) {\n  return header.includes('spf=fail');\n}`,
+      },
+       {
+        id: 'free-06',
+        name: 'LogLense.rs',
+        description: 'A lightweight log file anomaly detector.',
+        type: 'Free',
+        category: 'Blue Team',
+        code: `def find_anomalies(log_file):\n    for line in log_file:\n        if "ERROR" in line:\n            print(line)`,
+    },
+     {
+        id: 'prem-01',
+        name: 'Aegis Automata',
+        description: 'Automated Enterprise SIEM with AI-driven correlation.',
+        type: 'Premium',
+        category: 'Blue Team',
+    },
+    ]
+  },
+  {
+    id: 'vuln-assess-folder',
+    name: 'Vulnerability Assessment',
+    description: 'Tools for vulnerability scanning and assessment.',
+    type: 'Free',
+    category: 'Folder',
+    children: [
+       {
         id: 'free-00',
         name: 'CyberSec Framework',
         description: 'A comprehensive framework for security tasks.',
@@ -91,23 +171,7 @@ export const allTools: Tool[] = [
         category: 'Vulnerability Assessment',
         code: cyberSecFrameworkCode,
     },
-    {
-        id: 'free-01',
-        name: 'ReconRaptor.sh',
-        description: 'Automated OSINT gathering and reconnaissance.',
-        type: 'Free',
-        category: 'Red Team',
-        code: `const os = require('os');\nconsole.log('Scanning network:', os.networkInterfaces());`,
-    },
-    {
-        id: 'free-02',
-        name: 'PhishGuard.py',
-        description: 'Analyze email headers for phishing indicators.',
-        type: 'Free',
-        category: 'Blue Team',
-        code: `function analyzeHeader(header) {\n  return header.includes('spf=fail');\n}`,
-    },
-    {
+      {
         id: 'free-03',
         name: 'NetStalker.go',
         description: 'Fast network discovery and port scanning tool.',
@@ -124,51 +188,16 @@ export const allTools: Tool[] = [
         code: `import ssl\nimport socket\nhostname = 'example.com'\ncontext = ssl.create_default_context()\nsocket.create_connection((hostname, 443))`,
     },
     {
-        id: 'free-05',
-        name: 'PassHound.py',
-        description: 'Identify weak and commonly used passwords.',
-        type: 'Free',
-        category: 'Red Team',
-        code: `const commonPasswords = ['123456', 'password'];\nfunction checkStrength(pwd) {\n  return !commonPasswords.includes(pwd);\n}`,
-    },
-    {
-        id: 'free-06',
-        name: 'LogLense.rs',
-        description: 'A lightweight log file anomaly detector.',
-        type: 'Free',
-        category: 'Blue Team',
-        code: `def find_anomalies(log_file):\n    for line in log_file:\n        if "ERROR" in line:\n            print(line)`,
-    },
-    {
-        id: 'free-07',
-        name: 'PayloadGen.json',
-        description: 'Generate common XSS and SQLi payloads.',
-        type: 'Free',
-        category: 'Red Team',
-        code: `const xssPayloads = ['<script>alert(1)</script>'];`,
-    },
-    {
-        id: 'prem-01',
-        name: 'Aegis Automata',
-        description: 'Automated Enterprise SIEM with AI-driven correlation.',
-        type: 'Premium',
-        category: 'Blue Team',
-    },
-    {
-        id: 'prem-02',
-        name: 'VulcanForge',
-        description: 'Advanced Penetration Testing Suite with automated exploitation.',
-        type: 'Premium',
-        category: 'Red Team',
-    },
-    {
         id: 'prem-03',
         name: 'ThreatMatrix AI',
         description: 'Predictive threat modeling and attack surface management.',
         type: 'Premium',
         category: 'Vulnerability Assessment',
     },
+    ]
+  }
 ];
+
 
 export const securityAlerts = [
     { id: 1, time: "3m ago", severity: "Critical", description: "Anomalous login detected from new location.", source: "IAM-01" },
