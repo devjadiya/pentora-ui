@@ -1,48 +1,33 @@
 'use client';
 
-import { useState } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import MainContent from '@/components/dashboard/MainContent';
 import CodeViewer from '@/components/dashboard/CodeViewer';
 import ContactModal from '@/components/dashboard/ContactModal';
 import { allTools, Tool, kpiData } from '@/lib/mockData';
 
-export default function DashboardPage() {
-  const [selectedTool, setSelectedTool] = useState<Tool | null>(null);
-  const [modalTool, setModalTool] = useState<Tool | null>(null);
+interface DashboardPageProps {
+  selectedTool: Tool | null;
+  modalTool: Tool | null;
+  onCloseViewer: () => void;
+  onCloseModal: () => void;
+}
 
-  const handleSelectTool = (tool: Tool | null) => {
-    if (tool?.type === 'Premium') {
-      setModalTool(tool);
-      setSelectedTool(null);
-    } else {
-      setSelectedTool(tool);
-      setModalTool(null);
-    }
-  };
-
-  const handleCloseViewer = () => {
-    setSelectedTool(null);
-  };
-
-  const handleCloseModal = () => {
-    setModalTool(null);
-  };
-  
+export default function DashboardPage({ selectedTool, modalTool, onCloseViewer, onCloseModal }: DashboardPageProps) {
   const tool = selectedTool ? allTools.find(t => t.id === selectedTool.id) : null;
 
   return (
     <>
       <AnimatePresence mode="wait">
         {tool ? (
-          <CodeViewer key="code-viewer" tool={tool} onClose={handleCloseViewer} />
+          <CodeViewer key="code-viewer" tool={tool} onClose={onCloseViewer} />
         ) : (
           <MainContent key="main-content" kpiData={kpiData} />
         )}
       </AnimatePresence>
       <ContactModal
         isOpen={!!modalTool}
-        onClose={handleCloseModal}
+        onClose={onCloseModal}
         tool={modalTool}
       />
     </>
