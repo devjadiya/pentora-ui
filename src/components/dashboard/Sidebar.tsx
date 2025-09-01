@@ -34,7 +34,7 @@ const PentoraLogo = () => (
 interface SidebarProps {
   mobileOpen: boolean;
   setMobileOpen: (open: boolean) => void;
-  onSelectTool: (tool: Tool) => void;
+  onSelectTool: (tool: Tool | null) => void;
 }
 
 const categoryIcons = {
@@ -69,12 +69,12 @@ export default function Sidebar({ mobileOpen, setMobileOpen, onSelectTool }: Sid
   const sidebarContent = (
     <div className="flex h-full flex-col">
        <div className="p-6">
-            <div className="mb-6 flex items-center gap-3">
+            <button onClick={() => onSelectTool(null)} className="mb-6 flex items-center gap-3">
                 <PentoraLogo />
                 <span className="text-2xl font-bold tracking-wider text-white">
                     PENTORA
                 </span>
-            </div>
+            </button>
             <div className="relative">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
                 <Input
@@ -127,7 +127,10 @@ export default function Sidebar({ mobileOpen, setMobileOpen, onSelectTool }: Sid
                             layout="position"
                             whileHover={{ scale: 1.02, x: 2 }}
                             className="flex items-center gap-3 p-2 rounded-md cursor-pointer"
-                            onClick={() => onSelectTool(tool)}
+                            onClick={() => {
+                                onSelectTool(tool);
+                                setMobileOpen(false);
+                            }}
                           >
                             {isFree ? (
                               <GitBranch className="h-4 w-4 text-green-400 flex-shrink-0" />

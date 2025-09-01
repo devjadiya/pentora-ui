@@ -10,6 +10,13 @@ export default function Layout({ children }: { children: ReactNode }) {
   const [modalTool, setModalTool] = useState<Tool | null>(null);
 
   const handleSelectTool = (tool: Tool | null) => {
+    if (tool === null) {
+      // This happens when the logo is clicked to go home
+      setSelectedTool(null);
+      setModalTool(null);
+      return;
+    }
+
     if (tool?.type === 'Premium') {
       setModalTool(tool);
       setSelectedTool(null);

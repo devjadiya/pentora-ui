@@ -26,6 +26,10 @@ export default function CodeViewer({ tool, onClose }: CodeViewerProps) {
 
   return (
     <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.3 }}
       className="rounded-xl p-6 h-[80vh] flex flex-col"
       style={{
         background: 'rgba(26, 12, 46, 0.6)',
