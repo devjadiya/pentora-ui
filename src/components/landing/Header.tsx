@@ -33,9 +33,9 @@ export default function Header() {
         hasScrolled ? 'bg-background/80 backdrop-blur-md border-b' : 'bg-transparent'
       )}
     >
-      <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
+      <div className="container mx-auto flex h-20 items-center justify-between px-4 md:px-6">
         <Link href="/" className="flex items-center gap-2" aria-label="Pentora Home">
-          <PentoraLogo className="h-8 w-auto" />
+          <PentoraLogo className="h-auto" />
         </Link>
         <nav className="hidden items-center gap-6 md:flex">
           {navLinks.map((link) => (

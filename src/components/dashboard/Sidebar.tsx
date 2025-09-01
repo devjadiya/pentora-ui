@@ -103,9 +103,9 @@ const CollapsedSidebar = ({ onToggle }: { onToggle?: () => void }) => {
 export default function AppSidebar({ onSelectTool, isCollapsed, onToggle }: SidebarProps) {
   return (
     <div className="flex h-full max-h-screen flex-col bg-card border-r">
-      <div className={cn("flex h-16 items-center border-b px-6", isCollapsed && "justify-center px-2")}>
+      <div className={cn("flex h-16 items-center border-b px-4", isCollapsed && "justify-center px-2")}>
         <Link href="/" className="flex items-center gap-2 font-semibold font-headline text-xl">
-            <PentoraLogo className="h-8 w-auto" />
+            <PentoraLogo className="h-auto" />
             {!isCollapsed && <span className="truncate">PENTORA</span>}
         </Link>
       </div>

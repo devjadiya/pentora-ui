@@ -5,8 +5,8 @@ export const PentoraLogo = (props: Omit<React.ComponentProps<typeof Image>, 'src
     <Image 
         src="https://blush-fashionable-swift-557.mypinata.cloud/ipfs/bafkreiehkngp4ekxxniwmvcreshz6xbxwqkcpuzscdorxlnr7xslh2mvwq" 
         alt="Pentora Logo"
-        width={40}
-        height={40}
+        width={48}
+        height={48}
         {...props} 
     />
 );
