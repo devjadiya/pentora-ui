@@ -4,12 +4,14 @@ import React, { useState } from 'react';
 import Sidebar from './Sidebar';
 import Header from './Header';
 import { Menu } from 'lucide-react';
+import { Tool } from '@/lib/mockData';
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
+  onSelectTool: (tool: Tool | null) => void;
 }
 
-export default function DashboardLayout({ children }: DashboardLayoutProps) {
+export default function DashboardLayout({ children, onSelectTool }: DashboardLayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
@@ -26,10 +28,10 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         </div>
 
         {/* Sidebar */}
-        {/* @ts-ignore */}
         <Sidebar 
           mobileOpen={sidebarOpen} 
           setMobileOpen={setSidebarOpen} 
+          onSelectTool={onSelectTool}
         />
 
         {/* Main content */}
