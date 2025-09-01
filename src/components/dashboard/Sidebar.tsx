@@ -30,7 +30,7 @@ const categoryIcons: Record<Tool['category'], React.ReactElement> = {
 
 const categoryColors: Record<Tool['category'], string> = {
   'Red Team': 'text-red-500',
-  'Blue Team': 'text-blue-500',
+  'Blue Team': 'text-primary',
   'Vulnerability Assessment': 'text-yellow-500',
 };
 

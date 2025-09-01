@@ -24,7 +24,7 @@ export default function AccessByRoleChart() {
                             cy="50%"
                             innerRadius={60}
                             outerRadius={80}
-                            fill="#3B82F6"
+                            fill="#8A2BE2"
                             paddingAngle={5}
                             dataKey="value"
                             nameKey="name"

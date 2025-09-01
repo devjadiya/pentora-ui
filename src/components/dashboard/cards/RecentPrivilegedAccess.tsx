@@ -7,7 +7,7 @@ import { Badge } from '@/components/ui/badge';
 
 const roleConfig: Record<string, { icon: React.ElementType, color: string }> = {
     "Admin": { icon: Shield, color: "text-red-500" },
-    "Developer": { icon: GanttChartSquare, color: "text-blue-500" },
+    "Developer": { icon: GanttChartSquare, color: "text-primary" },
     "System": { icon: UserCheck, color: "text-purple-400" },
 };
 
