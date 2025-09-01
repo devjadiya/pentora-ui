@@ -20,7 +20,6 @@ interface KPICardProps {
 
 export default function KPI_Card({ title, value, trend, icon }: KPICardProps) {
   const IconComponent = icons[icon];
-  const isPositive = trend.startsWith('+');
 
   const cardVariants = {
     hidden: { opacity: 0, y: 20 },
