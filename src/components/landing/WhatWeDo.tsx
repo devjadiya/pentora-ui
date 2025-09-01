@@ -4,6 +4,7 @@ import { ScrollFadeIn } from './ScrollFadeIn';
 import { HardDrive, ShieldQuestion, BrainCircuit, Users } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import React from 'react';
+import Image from 'next/image';
 
 const BentoGrid = ({
   className,
@@ -15,7 +16,7 @@ const BentoGrid = ({
   return (
     <div
       className={cn(
-        'grid md:auto-rows-[18rem] grid-cols-1 md:grid-cols-3 gap-4 max-w-7xl mx-auto ',
+        'grid md:auto-rows-[22rem] grid-cols-1 md:grid-cols-3 gap-4 max-w-7xl mx-auto ',
         className
       )}
     >
@@ -46,11 +47,10 @@ const BentoGridItem = ({
     >
       {header}
       <div className="group-hover/bento:translate-x-2 transition duration-200">
-        {icon}
-        <div className="font-headline font-bold text-foreground mt-2 mb-2">
+        <div className="font-headline font-bold text-foreground mb-2 mt-2">
           {title}
         </div>
-        <div className="font-sans font-normal text-muted-foreground text-xs">
+        <div className="font-sans font-normal text-muted-foreground text-sm">
           {description}
         </div>
       </div>
@@ -58,36 +58,32 @@ const BentoGridItem = ({
   );
 };
 
-const Skeleton = ({className}: {className?: string}) => (
-    <div className={cn("flex flex-1 w-full h-full min-h-[6rem] rounded-lg bg-secondary", className)}></div>
-);
-
 const items = [
     {
       title: 'Identify & Analyze',
       description: 'We proactively discover and analyze weaknesses in your systems, from infrastructure to applications, before malicious actors can exploit them.',
-      header: <Skeleton />,
+      header: <Image src="https://picsum.photos/800/600" data-ai-hint="network security" alt="network security" width={800} height={600} className="flex-1 w-full h-full object-cover rounded-lg" />,
       className: 'md:col-span-2',
       icon: <ShieldQuestion className="h-4 w-4 text-muted-foreground" />,
     },
     {
       title: 'Emulate Adversaries',
-      description: 'Our team mimics real-world attack techniques to test the true resilience of your defenses against sophisticated threats.',
-      header: <Skeleton />,
+      description: "Our team mimics real-world attack techniques to test the true resilience of your defenses against sophisticated threats.",
+      header: <Image src="https://picsum.photos/600/800" data-ai-hint="hacker cybersecurity" alt="hacker" width={600} height={800} className="flex-1 w-full h-full object-cover rounded-lg" />,
       className: 'md:col-span-1',
       icon: <Users className="h-4 w-4 text-muted-foreground" />,
     },
     {
       title: 'Automate & Integrate',
       description: 'We help you build and implement automated systems for continuous security monitoring, integrating seamlessly into your DevOps pipeline.',
-      header: <Skeleton />,
+      header: <Image src="https://picsum.photos/600/400" data-ai-hint="automation data" alt="automation" width={600} height={400} className="flex-1 w-full h-full object-cover rounded-lg" />,
       className: 'md:col-span-1',
       icon: <HardDrive className="h-4 w-4 text-muted-foreground" />,
     },
     {
       title: 'Leverage AI & Open Source',
       description: 'Combining proprietary AI models with the best open-source tools for unparalleled threat intelligence and vulnerability correlation.',
-      header: <Skeleton />,
+      header: <Image src="https://picsum.photos/800/600?grayscale" data-ai-hint="artificial intelligence" alt="ai" width={800} height={600} className="flex-1 w-full h-full object-cover rounded-lg" />,
       className: 'md:col-span-2',
       icon: <BrainCircuit className="h-4 w-4 text-muted-foreground" />,
     },
