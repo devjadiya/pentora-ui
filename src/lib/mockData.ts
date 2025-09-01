@@ -327,3 +327,19 @@ export const premiumTools: Tool[] = [
 ];
 
 export const allTools = [...freeTools, ...premiumTools];
+
+export const securityAlerts = [
+    { id: 1, time: "3m ago", severity: "Critical", description: "Anomalous login detected from new location.", source: "IAM-01" },
+    { id: 2, time: "15m ago", severity: "High", description: "Multiple failed login attempts for user 'admin'.", source: "Auth-FW" },
+    { id: 3, time: "32m ago", severity: "Medium", description: "Outdated software version detected on server 'web-prod-03'.", source: "VULN-SCAN" },
+    { id: 4, time: "1h ago", severity: "Low", description: "Unusual port scan activity from IP 203.0.113.45.", source: "IDS-02" },
+];
+
+export const systemStatus = [
+    { name: "Global Firewall", status: "active", value: 99.9 },
+    { name: "Intrusion Detection (IDS/IPS)", status: "active", value: 98.2 },
+    { name: "SIEM Correlation Engine", status: "active", value: 99.5 },
+    { name: "Cloud Endpoint Protection", status: "warning", value: 85.7 },
+    { name: "Data Loss Prevention (DLP)", status: "active", value: 100 },
+    { name: "Threat Intelligence Feed", status: "maintenance", value: 0 },
+];
