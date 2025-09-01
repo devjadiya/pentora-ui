@@ -11,7 +11,6 @@ export default function Layout({ children }: { children: ReactNode }) {
 
   const handleSelectTool = (tool: Tool | null) => {
     if (tool === null) {
-      // This happens when the logo is clicked to go home
       setSelectedTool(null);
       setModalTool(null);
       return;
@@ -34,15 +33,14 @@ export default function Layout({ children }: { children: ReactNode }) {
     setModalTool(null);
   };
 
-
   return (
     <DashboardLayout onSelectTool={handleSelectTool} stats={headerStats}>
-        <DashboardPage 
-            selectedTool={selectedTool} 
-            modalTool={modalTool}
-            onCloseViewer={handleCloseViewer}
-            onCloseModal={handleCloseModal}
-        />
+      <DashboardPage
+        selectedTool={selectedTool}
+        modalTool={modalTool}
+        onCloseViewer={handleCloseViewer}
+        onCloseModal={handleCloseModal}
+      />
     </DashboardLayout>
   );
 }

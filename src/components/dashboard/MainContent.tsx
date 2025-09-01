@@ -2,6 +2,8 @@
 import React from 'react';
 import ThreatMap from './ThreatMap';
 import { motion } from 'framer-motion';
+import { kpiData } from '@/lib/mockData';
+import KPI_Card from './cards/KPI_Card';
 
 export default function MainContent() {
   const containerVariants = {
@@ -21,7 +23,12 @@ export default function MainContent() {
       variants={containerVariants}
       className="grid grid-cols-1 gap-6"
     >
-      <ThreatMap />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {kpiData.map((data, index) => (
+                <KPI_Card key={index} {...data} />
+            ))}
+        </div>
+        <ThreatMap />
     </motion.div>
   );
 }

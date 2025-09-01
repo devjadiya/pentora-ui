@@ -26,7 +26,7 @@ interface DashboardLayoutProps {
 
 export default function DashboardLayout({ children, onSelectTool, stats }: DashboardLayoutProps) {
   return (
-    <SidebarProvider defaultOpen={false}>
+    <SidebarProvider>
       <div className="min-h-screen w-full dashboard-background text-gray-300">
         <Sidebar>
           <SidebarHeader>

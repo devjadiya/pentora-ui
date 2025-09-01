@@ -15,12 +15,20 @@ import { allTools, Tool } from '@/lib/mockData';
 import { Input } from '../ui/input';
 import React from 'react';
 import { useSidebar } from '../ui/sidebar';
+import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip';
 
-const categoryIcons = {
-  'Red Team': <TestTube2 className="h-5 w-5 mr-3 text-red-400" />,
-  'Blue Team': <Shield className="h-5 w-5 mr-3 text-blue-400" />,
-  'Vulnerability Assessment': <ScanSearch className="h-5 w-5 mr-3 text-yellow-400" />,
+const categoryIcons: Record<Tool['category'], React.ReactElement> = {
+  'Red Team': <TestTube2 className="h-5 w-5" />,
+  'Blue Team': <Shield className="h-5 w-5" />,
+  'Vulnerability Assessment': <ScanSearch className="h-5 w-5" />,
 };
+
+const categoryColors: Record<Tool['category'], string> = {
+  'Red Team': 'text-red-400',
+  'Blue Team': 'text-blue-400',
+  'Vulnerability Assessment': 'text-yellow-400',
+}
+
 
 const categories: Tool['category'][] = [
   'Red Team',
@@ -53,20 +61,27 @@ const SidebarBody = ({ onSelectTool }: SidebarBodyProps) => {
   if (!open) {
       // Render icon-only view when sidebar is collapsed
       return (
-          <div className="flex flex-col items-center mt-4 space-y-4">
+          <div className="flex flex-col items-center mt-4 space-y-2">
               {categories.map(category => (
-                <div key={category} className="p-2 rounded-md cursor-pointer hover:bg-white/5">
-                  {React.cloneElement(categoryIcons[category], { className: 'h-6 w-6' })}
-                </div>
+                <Tooltip key={category}>
+                    <TooltipTrigger>
+                        <div className={`p-3 rounded-lg cursor-pointer hover:bg-white/5 ${categoryColors[category]}`}>
+                            {React.cloneElement(categoryIcons[category], { className: 'h-5 w-5' })}
+                        </div>
+                    </TooltipTrigger>
+                    <TooltipContent side="right">
+                        <p>{category}</p>
+                    </TooltipContent>
+                </Tooltip>
               ))}
           </div>
       )
   }
 
   return (
-    <div className="flex h-full flex-col p-4">
-        <div className="relative mb-4">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+    <div className="flex h-full flex-col p-2">
+        <div className="relative mb-4 px-2">
+            <Search className="absolute left-5 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
             <Input
                 type="search"
                 placeholder="Search tools..."
@@ -76,7 +91,7 @@ const SidebarBody = ({ onSelectTool }: SidebarBodyProps) => {
             />
         </div>
 
-      <div className="flex-1 overflow-y-auto space-y-2 -mr-4 pr-4">
+      <div className="flex-1 overflow-y-auto space-y-1 -mr-2 pr-2">
         <AnimatePresence>
           {categories.map((category) => {
             const toolsForCategory = filteredTools.filter(
@@ -92,8 +107,8 @@ const SidebarBody = ({ onSelectTool }: SidebarBodyProps) => {
                   className="flex items-center justify-between p-2 rounded-md cursor-pointer hover:bg-white/5"
                   onClick={() => toggleCategory(category)}
                 >
-                    <div className="flex items-center">
-                        {categoryIcons[category]}
+                    <div className={`flex items-center ${categoryColors[category]}`}>
+                        {React.cloneElement(categoryIcons[category], { className: 'h-5 w-5 mr-3' })}
                         <span className="font-semibold text-white">{category}</span>
                     </div>
                   <motion.div animate={{ rotate: isExpanded ? 0 : -90 }}>

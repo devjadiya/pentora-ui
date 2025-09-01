@@ -4,7 +4,7 @@ import { AnimatePresence } from 'framer-motion';
 import MainContent from '@/components/dashboard/MainContent';
 import CodeViewer from '@/components/dashboard/CodeViewer';
 import ContactModal from '@/components/dashboard/ContactModal';
-import { allTools, Tool, kpiData } from '@/lib/mockData';
+import { allTools, Tool } from '@/lib/mockData';
 
 interface DashboardPageProps {
   selectedTool: Tool | null;
@@ -22,7 +22,7 @@ export default function DashboardPage({ selectedTool, modalTool, onCloseViewer, 
         {tool ? (
           <CodeViewer key="code-viewer" tool={tool} onClose={onCloseViewer} />
         ) : (
-          <MainContent key="main-content" kpiData={kpiData} />
+          <MainContent key="main-content" />
         )}
       </AnimatePresence>
       <ContactModal
