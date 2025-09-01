@@ -8,7 +8,7 @@ import DashboardPage from './page';
 import { SidebarProvider, useSidebar } from '@/components/ui/sidebar';
 
 function LayoutController({ children }: { children: ReactNode }) {
-  const { setOpen } = useSidebar();
+  const { setOpen, isMobile } = useSidebar();
   const [selectedTool, setSelectedTool] = useState<Tool | null>(null);
   const [modalTool, setModalTool] = useState<Tool | null>(null);
 
@@ -26,7 +26,7 @@ function LayoutController({ children }: { children: ReactNode }) {
       setSelectedTool(tool);
       setModalTool(null);
       // Collapse sidebar on file selection
-      if (tool.children === undefined) {
+      if (tool.children === undefined && !isMobile) {
          setOpen(false);
       }
     }
@@ -42,11 +42,10 @@ function LayoutController({ children }: { children: ReactNode }) {
 
    // Collapse sidebar by default on load for desktop
    useEffect(() => {
-    const isMobile = window.innerWidth < 768;
     if (!isMobile) {
       setOpen(false);
     }
-  }, [setOpen]);
+  }, [isMobile, setOpen]);
 
   return (
     <DashboardLayout onSelectTool={handleSelectTool} stats={headerStats}>
