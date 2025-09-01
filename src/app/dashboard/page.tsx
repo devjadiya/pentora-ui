@@ -34,6 +34,8 @@ import {
   SidebarMenuButton,
   SidebarFooter,
   SidebarInset,
+  SidebarMenuBadge,
+  SidebarTrigger,
 } from '@/components/ui/sidebar';
 import Link from 'next/link';
 
