@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import ThreatMap from "@/components/dashboard/ThreatMap";
 import CodeViewer from '@/components/dashboard/CodeViewer';
 import ContactModal from '@/components/dashboard/ContactModal';
+import DashboardLayout from '@/components/dashboard/DashboardLayout';
 
 export default function DashboardPage() {
     const [selectedToolId, setSelectedToolId] = useState<string | null>(null);
@@ -42,50 +43,50 @@ export default function DashboardPage() {
     }
 
     return (
-        <>
-            <ContactModal 
-                isOpen={isModalOpen}
-                onClose={() => setIsModalOpen(false)}
-                tool={selectedPremiumTool}
-            />
-            <AnimatePresence mode="wait">
-                {selectedTool ? (
+      <DashboardLayout onSelectTool={handleSelectTool}>
+        <ContactModal 
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+            tool={selectedPremiumTool}
+        />
+        <AnimatePresence mode="wait">
+            {selectedTool ? (
+                <motion.div
+                    key="code-viewer"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.3 }}
+                >
+                    <CodeViewer tool={selectedTool} onClose={handleCloseViewer} />
+                </motion.div>
+            ) : (
+                <motion.div 
+                    key="main-dashboard"
+                    initial="hidden"
+                    animate="visible"
+                    exit={{ opacity: 0 }}
+                    variants={containerVariants}
+                    className="flex flex-col gap-6"
+                >
                     <motion.div
-                        key="code-viewer"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -20 }}
-                        transition={{ duration: 0.3 }}
-                    >
-                        <CodeViewer tool={selectedTool} onClose={handleCloseViewer} />
-                    </motion.div>
-                ) : (
-                    <motion.div 
-                        key="main-dashboard"
-                        initial="hidden"
-                        animate="visible"
-                        exit={{ opacity: 0 }}
+                        className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4"
                         variants={containerVariants}
-                        className="flex flex-col gap-6"
                     >
-                        <motion.div
-                            className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4"
-                            variants={containerVariants}
-                        >
-                            {kpiData.map((data, index) => (
-                                <KPI_Card 
-                                    key={index}
-                                    title={data.title}
-                                    value={data.value}
-                                    trend={data.trend}
-                                    icon={data.icon}
-                                />
-                            ))}
-                        </motion.div>
-                        <ThreatMap />
+                        {kpiData.map((data, index) => (
+                            <KPI_Card 
+                                key={index}
+                                title={data.title}
+                                value={data.value}
+                                trend={data.trend}
+                                icon={data.icon}
+                            />
+                        ))}
                     </motion.div>
-                )}
-            </AnimatePresence>
-        </>
+                    <ThreatMap />
+                </motion.div>
+            )}
+        </AnimatePresence>
+      </DashboardLayout>
     )
 }
