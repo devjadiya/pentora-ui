@@ -1,9 +1,13 @@
+
 'use client';
 import { motion } from 'framer-motion';
 import { recentPrivilegedAccessData } from '@/lib/mockData';
-import { UserCheck, Shield, GanttChartSquare } from 'lucide-react';
+import { UserCheck, Shield, GanttChartSquare, ArrowUpDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Button } from '@/components/ui/button';
 
 const roleConfig: Record<string, { icon: React.ElementType, color: string }> = {
     "Admin": { icon: Shield, color: "text-red-500" },
@@ -20,31 +24,57 @@ export default function RecentPrivilegedAccess() {
     return (
         <motion.div
             variants={cardVariants}
-            className="rounded-lg p-6 h-full flex flex-col bg-card border"
+            className="lg:col-span-2"
         >
-            <h2 className="text-lg font-bold font-headline text-foreground mb-4">Recent High-Privilege Access</h2>
-            <div className="space-y-4 overflow-y-auto pr-2 [mask-image:linear-gradient(to_bottom,white_90%,transparent_100%)]">
-                {recentPrivilegedAccessData.map((item) => {
-                    const config = roleConfig[item.role];
-                    const Icon = config.icon;
-                    return (
-                        <div key={item.id} className="flex items-start gap-4">
-                            <Icon className={cn("h-5 w-5 mt-1 flex-shrink-0", config.color)} />
-                            <div className="flex-1">
-                                <p className="text-sm text-foreground">
-                                    <span className="font-semibold text-foreground/80">{item.user}</span> {item.action}
-                                </p>
-                                <div className="flex items-center gap-2 text-xs text-muted-foreground mt-1">
-                                    <span>{item.time}</span>
-                                    <Badge variant="outline" className={cn(config.color.replace('text-', 'border-') + "/50", config.color.replace('text-', 'bg-') + "/10", config.color)}>
-                                        {item.role}
-                                    </Badge>
-                                </div>
-                            </div>
-                        </div>
-                    );
-                })}
-            </div>
+             <Card className="h-full bg-card border">
+                <CardHeader>
+                    <CardTitle>Recent High-Privilege Access</CardTitle>
+                    <CardDescription>A log of recent actions performed by high-privilege accounts.</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <Table>
+                        <TableHeader>
+                            <TableRow>
+                                <TableHead>
+                                    <Button variant="ghost" size="sm">
+                                        User <ArrowUpDown className="ml-2 h-4 w-4" />
+                                    </Button>
+                                </TableHead>
+                                <TableHead>Action</TableHead>
+                                <TableHead>
+                                     <Button variant="ghost" size="sm">
+                                        Role <ArrowUpDown className="ml-2 h-4 w-4" />
+                                    </Button>
+                                </TableHead>
+                                <TableHead className="text-right">
+                                     <Button variant="ghost" size="sm">
+                                        Timestamp <ArrowUpDown className="ml-2 h-4 w-4" />
+                                    </Button>
+                                </TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            {recentPrivilegedAccessData.map((item) => {
+                                const config = roleConfig[item.role];
+                                const Icon = config.icon;
+                                return (
+                                    <TableRow key={item.id}>
+                                        <TableCell className="font-medium">{item.user}</TableCell>
+                                        <TableCell className="text-muted-foreground">{item.action}</TableCell>
+                                        <TableCell>
+                                             <Badge variant="outline" className={cn("whitespace-nowrap", config.color.replace('text-', 'border-') + "/50", config.color.replace('text-', 'bg-') + "/10", config.color)}>
+                                                <Icon className={cn("h-3.5 w-3.5 mr-1 -ml-0.5", config.color)} />
+                                                {item.role}
+                                            </Badge>
+                                        </TableCell>
+                                        <TableCell className="text-right text-muted-foreground">{item.time}</TableCell>
+                                    </TableRow>
+                                );
+                            })}
+                        </TableBody>
+                    </Table>
+                </CardContent>
+            </Card>
         </motion.div>
     );
 }

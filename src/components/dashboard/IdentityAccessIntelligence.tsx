@@ -1,3 +1,4 @@
+
 'use client';
 import { motion } from 'framer-motion';
 import AccessByRoleChart from './cards/AccessByRoleChart';
@@ -14,8 +15,8 @@ export default function IdentityAccessIntelligence() {
       <h2 className="text-xl font-bold font-headline text-foreground mb-4 mt-2">Identity & Access Intelligence</h2>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <AccessByRoleChart />
-        <RecentPrivilegedAccess />
         <MfaAdoptionRate />
+        <RecentPrivilegedAccess />
       </div>
     </motion.div>
   );
