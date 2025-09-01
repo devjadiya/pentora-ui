@@ -74,25 +74,3 @@ export default function SystemStatus() {
         </motion.div>
     );
 }
-
-// Update Progress component to accept indicatorClassName
-const OriginalProgress = Progress;
-const CustomProgress = React.forwardRef<
-    React.ElementRef<typeof OriginalProgress>,
-    React.ComponentPropsWithoutRef<typeof OriginalProgress> & { indicatorClassName?: string }
->(({ indicatorClassName, ...props }, ref) => {
-    return (
-        <OriginalProgress
-            ref={ref}
-            {...props}
-            // This is a bit of a trick to customize the indicator color since the original doesn't expose it
-            // We pass the class name via style which the component will use
-            style={{ '--progress-indicator-color': 'var(--primary)' } as React.CSSProperties}
-            // And then override the style with a new class if provided
-            indicatorClassName={cn('bg-primary', indicatorClassName)}
-        />
-    )
-})
-CustomProgress.displayName = "CustomProgress";
-
-export { CustomProgress as Progress };
