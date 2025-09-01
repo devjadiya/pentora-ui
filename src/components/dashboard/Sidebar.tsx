@@ -5,15 +5,18 @@ import { motion } from 'framer-motion';
 import {
   ChevronRight,
   Folder,
-  File as FileIcon,
   Lock,
-  GitBranch
+  GitBranch,
+  ShieldAlert,
+  ShieldCheck,
+  FileCode,
 } from 'lucide-react';
 import { fileSystem, Tool } from '@/lib/mockData';
 import { useSidebar } from '../ui/sidebar';
 import { ScrollArea } from '../ui/scroll-area';
 import { cn } from '@/lib/utils';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ui/tooltip';
+import { Button } from '../ui/button';
 
 interface SidebarBodyProps {
   onSelectTool: (tool: Tool | null) => void;
@@ -22,7 +25,8 @@ interface SidebarBodyProps {
 const TreeView = ({ data, onSelectTool, level = 0 }: { data: Tool[], onSelectTool: (tool: Tool) => void, level?: number }) => {
     const [openFolders, setOpenFolders] = useState<Record<string, boolean>>({});
 
-    const toggleFolder = (id: string) => {
+    const toggleFolder = (e: React.MouseEvent, id: string) => {
+        e.stopPropagation();
         setOpenFolders(prev => ({...prev, [id]: !prev[id]}));
     }
     
@@ -30,7 +34,7 @@ const TreeView = ({ data, onSelectTool, level = 0 }: { data: Tool[], onSelectToo
         <div className="space-y-1">
             {data.map(item => {
                 const isFolder = !!item.children;
-                const isOpen = openFolders[item.id] ?? true;
+                const isOpen = openFolders[item.id] ?? false;
 
                 if (isFolder) {
                     return (
@@ -38,16 +42,24 @@ const TreeView = ({ data, onSelectTool, level = 0 }: { data: Tool[], onSelectToo
                             <div 
                                 className="flex items-center gap-2 p-1.5 rounded-md cursor-pointer hover:bg-secondary text-sm"
                                 style={{ paddingLeft: `${level * 16 + 6}px` }}
-                                onClick={() => toggleFolder(item.id)}
+                                onClick={(e) => toggleFolder(e, item.id)}
                             >
-                                <ChevronRight className={cn('h-4 w-4 transition-transform', isOpen && 'rotate-90')} />
+                                <ChevronRight className={cn('h-4 w-4 transition-transform flex-shrink-0', isOpen && 'rotate-90')} />
                                 <Folder className="h-4 w-4 mr-1 text-primary/70" />
-                                <span className="font-medium text-foreground/80">{item.name}</span>
+                                <span className="font-medium text-foreground/80 truncate">{item.name}</span>
                             </div>
                             {isOpen && (
-                                <div className="mt-1">
-                                    <TreeView data={item.children!} onSelectTool={onSelectTool} level={level + 1} />
-                                </div>
+                                <motion.div 
+                                    initial={{ height: 0, opacity: 0 }}
+                                    animate={{ height: 'auto', opacity: 1 }}
+                                    exit={{ height: 0, opacity: 0 }}
+                                    transition={{ duration: 0.2 }}
+                                    className="overflow-hidden"
+                                >
+                                    <div className="mt-1">
+                                        <TreeView data={item.children!} onSelectTool={onSelectTool} level={level + 1} />
+                                    </div>
+                                </motion.div>
                             )}
                         </div>
                     );
@@ -63,15 +75,14 @@ const TreeView = ({ data, onSelectTool, level = 0 }: { data: Tool[], onSelectToo
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.2 }}
                         className="flex items-center p-1.5 rounded-md cursor-pointer hover:bg-secondary text-sm"
-                        style={{ paddingLeft: `${level * 16 + 6}px` }}
+                        style={{ paddingLeft: `${level * 16 + 22}px` }}
                         onClick={() => onSelectTool(item)}
                     >
-                        <div className="w-4 h-4 mr-2" />
                         {isPremium ? 
-                            <Lock className="h-4 w-4 mr-1 text-primary flex-shrink-0" /> : 
-                            <GitBranch className="h-4 w-4 mr-1 text-green-500 flex-shrink-0" />
+                            <Lock className="h-4 w-4 mr-2 text-primary flex-shrink-0" /> : 
+                            <GitBranch className="h-4 w-4 mr-2 text-green-500 flex-shrink-0" />
                         }
-                        <span className="text-muted-foreground">{item.name}</span>
+                        <span className="text-muted-foreground truncate">{item.name}</span>
                     </motion.div>
                 )
             })}
@@ -79,40 +90,56 @@ const TreeView = ({ data, onSelectTool, level = 0 }: { data: Tool[], onSelectToo
     )
 }
 
-const CollapsedSidebar = ({ onSelectTool }: SidebarBodyProps) => (
+const CollapsedSidebar = ({ onSelectTool }: SidebarBodyProps) => {
+  const { toggleSidebar } = useSidebar();
+  const categoryIcons = {
+    'Red Team Operations': ShieldAlert,
+    'Blue Team Defense': ShieldCheck,
+    'Vulnerability Assessment': FileCode,
+  };
+
+  return (
     <div className="flex flex-col items-center mt-4 space-y-2">
-        <Tooltip>
+      {fileSystem.map((category) => {
+        const Icon = categoryIcons[category.name as keyof typeof categoryIcons] || Folder;
+        return (
+          <Tooltip key={category.id}>
             <TooltipTrigger asChild>
-                <div 
-                    className="p-3 rounded-md cursor-pointer hover:bg-secondary"
-                    onClick={() => onSelectTool(null)}
-                >
-                    <Folder className="h-6 w-6 text-primary/70" />
-                </div>
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                className="h-9 w-9"
+                onClick={toggleSidebar}
+              >
+                <Icon className="h-5 w-5 text-primary/80" />
+              </Button>
             </TooltipTrigger>
             <TooltipContent side="right">
-                <p>Browse Tools</p>
+              <p>{category.name}</p>
             </TooltipContent>
-        </Tooltip>
+          </Tooltip>
+        );
+      })}
     </div>
-);
-
+  );
+};
 
 const SidebarBody = ({ onSelectTool }: SidebarBodyProps) => {
-  const { open } = useSidebar();
+  const { state, isMobile } = useSidebar();
+  const isCollapsed = state === 'collapsed' && !isMobile;
 
-  if (!open) {
+  if (isCollapsed) {
     return <CollapsedSidebar onSelectTool={onSelectTool} />
   }
 
   return (
     <div className="flex h-full flex-col p-2">
-      <div className="mb-2 px-3">
+      <div className="mb-2 px-1">
         <p className="text-xs font-semibold text-muted-foreground tracking-wider uppercase">
           Tool Explorer
         </p>
       </div>
-      <ScrollArea className="flex-1 pr-2">
+      <ScrollArea className="flex-1 pr-1">
         <TreeView data={fileSystem} onSelectTool={onSelectTool} />
       </ScrollArea>
     </div>

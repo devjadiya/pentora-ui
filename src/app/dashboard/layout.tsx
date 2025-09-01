@@ -42,7 +42,10 @@ function LayoutController({ children }: { children: ReactNode }) {
 
    // Collapse sidebar by default on load for desktop
    useEffect(() => {
-    setOpen(false);
+    const isMobile = window.innerWidth < 768;
+    if (!isMobile) {
+      setOpen(false);
+    }
   }, [setOpen]);
 
   return (

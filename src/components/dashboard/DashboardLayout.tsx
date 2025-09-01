@@ -17,6 +17,7 @@ import { PentoraLogo } from '@/lib/icons';
 import { Button } from '@/components/ui/button';
 import { PanelLeftClose, PanelLeftOpen } from 'lucide-react';
 import Link from 'next/link';
+import { cn } from '@/lib/utils';
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
@@ -25,21 +26,31 @@ interface DashboardLayoutProps {
 }
 
 const CollapseButton = () => {
-    const { toggleSidebar, open } = useSidebar();
+    const { toggleSidebar, open, isMobile } = useSidebar();
+    if (isMobile) return null;
+
     return (
          <Button
             variant="ghost"
             className="w-full justify-start gap-2 group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:px-2"
             onClick={toggleSidebar}
         >
-            <PanelLeftClose className="group-data-[collapsible=icon]:hidden" />
-            <PanelLeftOpen className="hidden group-data-[collapsible=icon]:block" />
+            <PanelLeftClose className="h-4 w-4 group-data-[collapsible=icon]:hidden" />
+            <PanelLeftOpen className="h-4 w-4 hidden group-data-[collapsible=icon]:block" />
             <span className="group-data-[collapsible=icon]:hidden">Collapse</span>
         </Button>
     )
 }
 
 export default function DashboardLayout({ children, onSelectTool, stats }: DashboardLayoutProps) {
+  const { state, isMobile } = useSidebar();
+  
+  const sidebarWidthClass = isMobile 
+    ? '' 
+    : state === 'expanded' 
+      ? 'md:ml-[var(--sidebar-width)]' 
+      : 'md:ml-[var(--sidebar-width-icon)]';
+
   return (
       <div className="min-h-screen w-full bg-background text-foreground flex">
         <AppSidebarContainer>
@@ -69,7 +80,10 @@ export default function DashboardLayout({ children, onSelectTool, stats }: Dashb
           </SidebarFooter>
         </AppSidebarContainer>
         
-        <div className="flex-1 flex flex-col transition-all duration-300 ease-in-out md:ml-[var(--sidebar-width-icon)] group-data-[state=expanded]:md:ml-[var(--sidebar-width)]">
+        <div className={cn(
+          "flex-1 flex flex-col transition-all duration-300 ease-in-out",
+          sidebarWidthClass
+        )}>
           <Header stats={stats} />
           <main className="flex-1 p-6 overflow-y-auto">
             {children}
