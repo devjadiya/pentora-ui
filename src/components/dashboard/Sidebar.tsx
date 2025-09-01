@@ -16,6 +16,7 @@ import { Input } from '../ui/input';
 import React from 'react';
 import { useSidebar } from '../ui/sidebar';
 import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip';
+import { ScrollArea } from '../ui/scroll-area';
 
 const categoryIcons: Record<Tool['category'], React.ReactElement> = {
   'Red Team': <TestTube2 className="h-5 w-5" />,
@@ -91,68 +92,70 @@ const SidebarBody = ({ onSelectTool }: SidebarBodyProps) => {
             />
         </div>
 
-      <div className="flex-1 overflow-y-auto space-y-1 -mr-2 pr-2">
-        <AnimatePresence>
-          {categories.map((category) => {
-            const toolsForCategory = filteredTools.filter(
-              (tool) => tool.category === category
-            );
-            const isExpanded = openCategories.includes(category);
+      <ScrollArea className="flex-1">
+        <div className="space-y-1 pr-2">
+          <AnimatePresence>
+            {categories.map((category) => {
+              const toolsForCategory = filteredTools.filter(
+                (tool) => tool.category === category
+              );
+              const isExpanded = openCategories.includes(category);
 
-            if (toolsForCategory.length === 0 && searchTerm) return null;
+              if (toolsForCategory.length === 0 && searchTerm) return null;
 
-            return (
-              <motion.div key={category} layout="position">
-                <div
-                  className="flex items-center justify-between p-2 rounded-md cursor-pointer hover:bg-white/5"
-                  onClick={() => toggleCategory(category)}
-                >
-                    <div className={`flex items-center ${categoryColors[category]}`}>
-                        {React.cloneElement(categoryIcons[category], { className: 'h-5 w-5 mr-3' })}
-                        <span className="font-semibold text-white">{category}</span>
-                    </div>
-                  <motion.div animate={{ rotate: isExpanded ? 0 : -90 }}>
-                    <ChevronDown className="h-5 w-5" />
-                  </motion.div>
-                </div>
-                <AnimatePresence>
-                  {isExpanded && (
-                    <motion.div
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: 'auto' }}
-                      exit={{ opacity: 0, height: 0 }}
-                      className="pl-4 space-y-1"
-                    >
-                      {toolsForCategory.map((tool) => {
-                        const isFree = tool.type === 'Free';
-                        return (
-                          <motion.div
-                            key={tool.id}
-                            layout="position"
-                            whileHover={{ scale: 1.02, x: 2 }}
-                            className="flex items-center gap-3 p-2 rounded-md cursor-pointer"
-                            onClick={() => onSelectTool(tool)}
-                          >
-                            {isFree ? (
-                              <GitBranch className="h-4 w-4 text-green-400 flex-shrink-0" />
-                            ) : (
-                              <Lock className="h-4 w-4 text-purple-400 flex-shrink-0" />
-                            )}
-                            <div className="flex-1">
-                              <p className="text-sm font-medium text-gray-200">{tool.name}</p>
-                              <p className="text-xs text-gray-500">{tool.description}</p>
-                            </div>
-                          </motion.div>
-                        );
-                      })}
+              return (
+                <motion.div key={category} layout="position">
+                  <div
+                    className="flex items-center justify-between p-2 rounded-md cursor-pointer hover:bg-white/5"
+                    onClick={() => toggleCategory(category)}
+                  >
+                      <div className={`flex items-center ${categoryColors[category]}`}>
+                          {React.cloneElement(categoryIcons[category], { className: 'h-5 w-5 mr-3' })}
+                          <span className="font-semibold text-white">{category}</span>
+                      </div>
+                    <motion.div animate={{ rotate: isExpanded ? 0 : -90 }}>
+                      <ChevronDown className="h-5 w-5" />
                     </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.div>
-            );
-          })}
-        </AnimatePresence>
-      </div>
+                  </div>
+                  <AnimatePresence>
+                    {isExpanded && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        className="pl-4 space-y-1"
+                      >
+                        {toolsForCategory.map((tool) => {
+                          const isFree = tool.type === 'Free';
+                          return (
+                            <motion.div
+                              key={tool.id}
+                              layout="position"
+                              whileHover={{ scale: 1.02, x: 2 }}
+                              className="flex items-center gap-3 p-2 rounded-md cursor-pointer"
+                              onClick={() => onSelectTool(tool)}
+                            >
+                              {isFree ? (
+                                <GitBranch className="h-4 w-4 text-green-400 flex-shrink-0" />
+                              ) : (
+                                <Lock className="h-4 w-4 text-purple-400 flex-shrink-0" />
+                              )}
+                              <div className="flex-1">
+                                <p className="text-sm font-medium text-gray-200">{tool.name}</p>
+                                <p className="text-xs text-gray-500">{tool.description}</p>
+                              </div>
+                            </motion.div>
+                          );
+                        })}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.div>
+              );
+            })}
+          </AnimatePresence>
+        </div>
+      </ScrollArea>
     </div>
   );
 }
