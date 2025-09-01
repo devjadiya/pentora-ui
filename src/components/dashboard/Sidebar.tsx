@@ -13,7 +13,7 @@ import { fileSystem, Tool } from '@/lib/mockData';
 import { useSidebar } from '../ui/sidebar';
 import { ScrollArea } from '../ui/scroll-area';
 import { cn } from '@/lib/utils';
-import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ui/tooltip';
 
 interface SidebarBodyProps {
   onSelectTool: (tool: Tool | null) => void;
