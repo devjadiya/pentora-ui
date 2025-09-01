@@ -359,3 +359,32 @@ export const recentPrivilegedAccessData = [
 ];
 
 export const mfaAdoptionRate = 92;
+
+
+export const nistFrameworkData = [
+    { 
+        name: 'Identify', 
+        description: 'Develop an organizational understanding to manage cybersecurity risk to systems, assets, data, and capabilities.',
+        score: 95 
+    },
+    { 
+        name: 'Protect', 
+        description: 'Implement appropriate safeguards to ensure delivery of critical infrastructure services.',
+        score: 88
+    },
+    { 
+        name: 'Detect', 
+        description: 'Implement appropriate activities to identify the occurrence of a cybersecurity event.',
+        score: 92
+    },
+    { 
+        name: 'Respond', 
+        description: 'Implement appropriate activities to take action regarding a detected cybersecurity incident.',
+        score: 75
+    },
+    { 
+        name: 'Recover', 
+        description: 'Implement appropriate activities to maintain plans for resilience and to restore any capabilities or services that were impaired due to a cybersecurity incident.',
+        score: 85
+    },
+];

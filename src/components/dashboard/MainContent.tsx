@@ -7,6 +7,7 @@ import WorkforceAuthenticationEvents from './WorkforceAuthenticationEvents';
 import SecurityAlerts from './SecurityAlerts';
 import SystemStatus from './SystemStatus';
 import IdentityAccessIntelligence from './IdentityAccessIntelligence';
+import NistFrameworkCompliance from './NistFrameworkCompliance';
 
 export default function MainContent() {
   const containerVariants = {
@@ -37,6 +38,7 @@ export default function MainContent() {
         <SystemStatus />
       </div>
       <IdentityAccessIntelligence />
+      <NistFrameworkCompliance />
     </motion.div>
   );
 }
