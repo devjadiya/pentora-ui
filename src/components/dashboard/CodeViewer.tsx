@@ -25,7 +25,7 @@ export default function CodeViewer({ tool, onClose }: CodeViewerProps) {
   };
 
   return (
-    <div
+    <motion.div
       className="rounded-xl p-6 h-[80vh] flex flex-col"
       style={{
         background: 'rgba(26, 12, 46, 0.6)',
@@ -41,13 +41,13 @@ export default function CodeViewer({ tool, onClose }: CodeViewerProps) {
           <p className="text-sm text-gray-400">{tool.description}</p>
         </div>
         <div className="flex items-center gap-2">
-            <motion.div whileTap={{ scale: 0.95 }}>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Button variant="ghost" size="sm" onClick={handleCopy}>
                   {hasCopied ? <ClipboardCheck className="h-4 w-4 mr-2 text-green-400" /> : <Clipboard className="h-4 w-4 mr-2" />}
                   {hasCopied ? 'Copied!' : 'Copy Code'}
               </Button>
             </motion.div>
-            <motion.div whileTap={{ scale: 0.95 }}>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Button variant="ghost" size="icon" onClick={onClose}>
                   <X className="h-5 w-5" />
               </Button>
@@ -69,6 +69,6 @@ export default function CodeViewer({ tool, onClose }: CodeViewerProps) {
           {tool.code || '// No code available for this tool.'}
         </SyntaxHighlighter>
       </div>
-    </div>
+    </motion.div>
   );
 }
