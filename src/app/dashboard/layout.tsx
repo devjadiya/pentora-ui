@@ -5,7 +5,7 @@ import DashboardLayout from '@/components/dashboard/DashboardLayout';
 import { ReactNode, useState, useEffect } from 'react';
 import { Tool, headerStats } from '@/lib/mockData';
 import DashboardPage from './page';
-import { useSidebar } from '@/components/ui/sidebar';
+import { SidebarProvider, useSidebar } from '@/components/ui/sidebar';
 
 function LayoutController({ children }: { children: ReactNode }) {
   const { setOpen } = useSidebar();
@@ -59,5 +59,9 @@ function LayoutController({ children }: { children: ReactNode }) {
 
 
 export default function Layout({ children }: { children: ReactNode }) {
-  return <LayoutController>{children}</LayoutController>
+  return (
+    <SidebarProvider>
+      <LayoutController>{children}</LayoutController>
+    </SidebarProvider>
+  )
 }

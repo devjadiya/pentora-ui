@@ -1,10 +1,10 @@
+
 'use client';
 
 import React from 'react';
 import AppSidebar from './Sidebar';
 import Header, { type HeaderStats } from './Header';
 import {
-  SidebarProvider,
   Sidebar as AppSidebarContainer,
   SidebarHeader,
   SidebarContent,
@@ -41,7 +41,6 @@ const CollapseButton = () => {
 
 export default function DashboardLayout({ children, onSelectTool, stats }: DashboardLayoutProps) {
   return (
-    <SidebarProvider>
       <div className="min-h-screen w-full bg-background text-foreground flex">
         <AppSidebarContainer>
           <SidebarHeader>
@@ -77,6 +76,5 @@ export default function DashboardLayout({ children, onSelectTool, stats }: Dashb
           </main>
         </div>
       </div>
-    </SidebarProvider>
   );
 }
