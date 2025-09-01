@@ -27,24 +27,24 @@
   }
 
   .dark {
-    --background: 0 0% 0%; /* Pure Black */
-    --foreground: 210 40% 98%; /* Gray-50 */
-    --card: 0 0% 7%; /* Off-Black #111111 */
+    --background: 240 10% 3.9%;
+    --foreground: 210 40% 98%;
+    --card: 240 10% 3.9%;
     --card-foreground: 210 40% 98%;
-    --popover: 0 0% 3.9%;
+    --popover: 240 10% 3.9%;
     --popover-foreground: 210 40% 98%;
-    --primary: 271 76% 53%; /* PENTORA Purple #8A2BE2 */
+    --primary: 271 76% 53%;
     --primary-foreground: 210 40% 98%;
-    --secondary: 217.2 32.6% 17.5%;
+    --secondary: 240 3.7% 15.9%;
     --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 170 100% 48%; /* Electric Teal #00F5D4 */
-    --accent-foreground: 0 0% 7%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 170 100% 48%;
+    --accent-foreground: 240 5.9% 10%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
     --ring: 271 76% 53%;
   }
 }
@@ -55,16 +55,23 @@
   }
   body {
     @apply bg-background text-foreground;
-     background-image:
-      radial-gradient(
-        600px circle at var(--x) var(--y),
-        hsl(var(--primary) / 0.1),
-        transparent 80%
-      ),
-      url('/grid.svg');
   }
-  
-  html {
-    @apply scroll-smooth;
+
+  .dashboard-background {
+    background: linear-gradient(135deg, #1a0c2e, #0d0c22, #05020a);
+    background-size: 200% 200%;
+    animation: gradient-animation 20s ease infinite;
+  }
+}
+
+@keyframes gradient-animation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
   }
 }
