@@ -1,3 +1,4 @@
+
 export const headerStats = [
   { title: 'Vulnerabilities', value: '47', trend: '+5 since last scan' },
   { title: 'Secured Endpoints', value: '1,247', trend: '+12' },
@@ -19,6 +20,7 @@ export interface Tool {
   type: 'Free' | 'Premium';
   category: 'Red Team' | 'Blue Team' | 'Vulnerability Assessment';
   code?: string;
+  children?: Tool[];
 }
 
 const cyberSecFrameworkCode = `
@@ -80,8 +82,7 @@ export CYBERSEC_ENCRYPTION_KEY=your-secure-key
 \`\`\`
 `;
 
-
-export const freeTools: Tool[] = [
+const allToolsFlat: Omit<Tool, 'children'>[] = [
     {
         id: 'free-00',
         name: 'CyberSec Framework',
@@ -92,7 +93,7 @@ export const freeTools: Tool[] = [
     },
     {
         id: 'free-01',
-        name: 'ReconRaptor',
+        name: 'ReconRaptor.sh',
         description: 'Automated OSINT gathering and reconnaissance.',
         type: 'Free',
         category: 'Red Team',
@@ -100,7 +101,7 @@ export const freeTools: Tool[] = [
     },
     {
         id: 'free-02',
-        name: 'PhishGuard',
+        name: 'PhishGuard.py',
         description: 'Analyze email headers for phishing indicators.',
         type: 'Free',
         category: 'Blue Team',
@@ -108,7 +109,7 @@ export const freeTools: Tool[] = [
     },
     {
         id: 'free-03',
-        name: 'NetStalker',
+        name: 'NetStalker.go',
         description: 'Fast network discovery and port scanning tool.',
         type: 'Free',
         category: 'Vulnerability Assessment',
@@ -116,7 +117,7 @@ export const freeTools: Tool[] = [
     },
     {
         id: 'free-04',
-        name: 'CryptoCheck',
+        name: 'CryptoCheck.js',
         description: 'Check for weak TLS/SSL configurations.',
         type: 'Free',
         category: 'Vulnerability Assessment',
@@ -124,7 +125,7 @@ export const freeTools: Tool[] = [
     },
     {
         id: 'free-05',
-        name: 'PassHound',
+        name: 'PassHound.py',
         description: 'Identify weak and commonly used passwords.',
         type: 'Free',
         category: 'Red Team',
@@ -132,7 +133,7 @@ export const freeTools: Tool[] = [
     },
     {
         id: 'free-06',
-        name: 'LogLense',
+        name: 'LogLense.rs',
         description: 'A lightweight log file anomaly detector.',
         type: 'Free',
         category: 'Blue Team',
@@ -140,119 +141,12 @@ export const freeTools: Tool[] = [
     },
     {
         id: 'free-07',
-        name: 'PayloadGen',
+        name: 'PayloadGen.json',
         description: 'Generate common XSS and SQLi payloads.',
         type: 'Free',
         category: 'Red Team',
         code: `const xssPayloads = ['<script>alert(1)</script>'];`,
     },
-    {
-        id: 'free-08',
-        name: 'ConfigGaurd',
-        description: 'Audit server configuration files for security.',
-        type: 'Free',
-        category: 'Blue Team',
-        code: `cat /etc/ssh/sshd_config | grep "PermitRootLogin"`,
-    },
-    {
-        id: 'free-09',
-        name: 'DepShield',
-        description: 'Scan project dependencies for known CVEs.',
-        type: 'Free',
-        category: 'Vulnerability Assessment',
-        code: `npm audit`,
-    },
-    {
-        id: 'free-10',
-        name: 'HoneyPotter',
-        description: 'Deploy a simple honeypot to trap attackers.',
-        type: 'Free',
-        category: 'Blue Team',
-        code: `import socket\ns = socket.socket()\ns.bind(('0.0.0.0', 22))\ns.listen(5)`,
-    },
-    {
-        id: 'free-11',
-        name: 'DirBrute',
-        description: 'Brute-force web server directories and files.',
-        type: 'Free',
-        category: 'Red Team',
-        code: `import requests\nrequests.get('https://example.com/admin')`,
-    },
-    {
-        id: 'free-12',
-        name: 'HashCracker',
-        description: 'Simple hash identification and cracking utility.',
-        type: 'Free',
-        category: 'Red Team',
-        code: `import hashlib\nhashlib.md5(b'password').hexdigest()`,
-    },
-    {
-        id: 'free-13',
-        name: 'MalwareScan',
-        description: 'Basic Yara rule scanner for local files.',
-        type: 'Free',
-        category: 'Blue Team',
-        code: `import yara\nrules = yara.compile(filepath='my_rules')\nrules.match(filepath='some_file')`,
-    },
-    {
-        id: 'free-14',
-        name: 'ApiSentry',
-        description: 'Monitor API endpoints for unusual traffic patterns.',
-        type: 'Free',
-        category: 'Blue Team',
-        code: `function monitor(request) {\n  if(request.rate > 100) return 'blocked';\n}`,
-    },
-    {
-        id: 'free-15',
-        name: 'SubDomainiac',
-        description: 'Enumerate subdomains of a target domain.',
-        type: 'Free',
-        category: 'Red Team',
-        code: `import dns.resolver\ndns.resolver.resolve('google.com', 'A')`,
-    },
-    {
-        id: 'free-16',
-        name: 'JwtInspector',
-        description: 'Decode and inspect JSON Web Tokens.',
-        type: 'Free',
-        category: 'Vulnerability Assessment',
-        code: `import jwt\njwt.decode('ey...', options={"verify_signature": False})`,
-    },
-    {
-        id: 'free-17',
-        name: 'FirewallTest',
-        description: 'Test firewall rules for common misconfigurations.',
-        type: 'Free',
-        category: 'Blue Team',
-        code: `iptables -L`,
-    },
-    {
-        id: 'free-18',
-        name: 'CloudWatchr',
-        description: 'Scan S3 buckets for public accessibility.',
-        type: 'Free',
-        category: 'Vulnerability Assessment',
-        code: `import boto3\ns3 = boto3.client('s3')\nresponse = s3.list_buckets()`,
-    },
-    {
-        id: 'free-19',
-        name: 'ThreatWire',
-        description: 'A simple RSS feed aggregator for threat intel.',
-        type: 'Free',
-        category: 'Blue Team',
-        code: `import feedparser\nfeedparser.parse('https://threatpost.com/feed/')`,
-    },
-    {
-        id: 'free-20',
-        name: 'GitSleuth',
-        description: 'Scan git repositories for leaked secrets.',
-        type: 'Free',
-        category: 'Vulnerability Assessment',
-        code: `git log -p | grep "secret"`,
-    },
-];
-
-export const premiumTools: Tool[] = [
     {
         id: 'prem-01',
         name: 'Aegis Automata',
@@ -274,58 +168,51 @@ export const premiumTools: Tool[] = [
         type: 'Premium',
         category: 'Vulnerability Assessment',
     },
-    {
-        id: 'prem-04',
-        name: 'Helios IR',
-        description: 'Incident response orchestration and digital forensics platform.',
-        type: 'Premium',
-        category: 'Blue Team',
-    },
-    {
-        id: 'prem-05',
-        name: 'Sentinel CSPM',
-        description: 'Continuous cloud security posture and compliance management.',
-        type: 'Premium',
-        category: 'Blue Team',
-    },
-    {
-        id: 'prem-06',
-        name: 'RedTeamOS',
-        description: 'A complete, containerized OS for red team operations.',
-        type: 'Premium',
-        category: 'Red Team',
-    },
-    {
-        id: 'prem-07',
-        name: 'AppDefend RASP',
-        description: 'Runtime Application Self-Protection to block attacks in real-time.',
-        type: 'Premium',
-        category: 'Vulnerability Assessment',
-    },
-    {
-        id: 'prem-08',
-        name: 'Phalanx Deception',
-        description: 'Enterprise-grade deception technology and honeynet management.',
-        type: 'Premium',
-        category: 'Blue Team',
-    },
-    {
-        id: 'prem-09',
-        name: 'AdversarySim',
-        description: 'Breach and Attack Simulation (BAS) platform.',
-        type: 'Premium',
-        category: 'Red Team',
-    },
-    {
-        id: 'prem-10',
-        name: 'ComplianceFlow',
-        description: 'Automated compliance mapping and evidence gathering.',
-        type: 'Premium',
-        category: 'Vulnerability Assessment',
-    },
 ];
 
-export const allTools = [...freeTools, ...premiumTools];
+export const allTools: Tool[] = allToolsFlat;
+
+
+export const fileSystem: Tool[] = [
+    {
+        id: 'red-team-folder',
+        name: 'Red Team Operations',
+        description: '',
+        type: 'Free',
+        category: 'Red Team',
+        children: [
+            allTools.find(t => t.id === 'free-01')!,
+            allTools.find(t => t.id === 'free-05')!,
+            allTools.find(t => t.id === 'free-07')!,
+            allTools.find(t => t.id === 'prem-02')!,
+        ]
+    },
+    {
+        id: 'blue-team-folder',
+        name: 'Blue Team Defense',
+        description: '',
+        type: 'Free',
+        category: 'Blue Team',
+        children: [
+            allTools.find(t => t.id === 'free-02')!,
+            allTools.find(t => t.id === 'free-06')!,
+            allTools.find(t => t.id === 'prem-01')!,
+        ]
+    },
+    {
+        id: 'vuln-assess-folder',
+        name: 'Vulnerability Assessment',
+        description: '',
+        type: 'Free',
+        category: 'Vulnerability Assessment',
+        children: [
+            allTools.find(t => t.id === 'free-00')!,
+            allTools.find(t => t.id === 'free-03')!,
+            allTools.find(t => t.id === 'free-04')!,
+            allTools.find(t => t.id === 'prem-03')!,
+        ]
+    },
+];
 
 export const securityAlerts = [
     { id: 1, time: "3m ago", severity: "Critical", description: "Anomalous login detected from new location.", source: "IAM-01" },
@@ -344,9 +231,9 @@ export const systemStatus = [
 ];
 
 export const accessByRoleData = [
-  { name: 'User', value: 650, fill: 'hsl(var(--primary))' },
-  { name: 'Developer', value: 250, fill: 'hsl(var(--primary) / 0.7)' },
-  { name: 'Admin', value: 100, fill: 'hsl(var(--primary) / 0.4)' },
+  { name: 'User', value: 650, fill: '#8A2BE2' },
+  { name: 'Developer', value: 250, fill: '#6A23B5' },
+  { name: 'Admin', value: 100, fill: '#48197E' },
 ];
 
 export const recentPrivilegedAccessData = [

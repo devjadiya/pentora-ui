@@ -1,3 +1,4 @@
+
 "use client"
 
 import * as React from "react"
@@ -21,8 +22,8 @@ import {
 
 const SIDEBAR_COOKIE_NAME = "sidebar_state"
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7
-const SIDEBAR_WIDTH = "18rem"
-const SIDEBAR_WIDTH_MOBILE = "18rem"
+const SIDEBAR_WIDTH = "16rem" // Narrower width
+const SIDEBAR_WIDTH_MOBILE = "16rem"
 const SIDEBAR_WIDTH_ICON = "3.5rem"
 const SIDEBAR_KEYBOARD_SHORTCUT = "b"
 
@@ -217,7 +218,7 @@ const Sidebar = React.forwardRef<
         <div
           ref={ref}
           className={cn(
-            "group fixed inset-y-0 z-40 hidden h-screen md:flex flex-col border-r bg-card transition-all duration-300 ease-in-out text-card-foreground",
+            "group fixed inset-y-0 z-40 hidden md:flex flex-col border-r bg-card transition-all duration-200 ease-in-out text-card-foreground",
              "group-data-[state=expanded]:w-[var(--sidebar-width)]",
              "group-data-[state=collapsed]:w-[var(--sidebar-width-icon)]",
              className
