@@ -1,9 +1,9 @@
 'use client';
 import React from 'react';
-import ThreatMap from './ThreatMap';
 import { motion } from 'framer-motion';
 import { kpiData } from '@/lib/mockData';
 import KPI_Card from './cards/KPI_Card';
+import WorkforceAuthenticationEvents from './WorkforceAuthenticationEvents';
 
 export default function MainContent() {
   const containerVariants = {
@@ -28,7 +28,7 @@ export default function MainContent() {
                 <KPI_Card key={index} {...data} />
             ))}
         </div>
-        <ThreatMap />
+        <WorkforceAuthenticationEvents />
     </motion.div>
   );
 }
