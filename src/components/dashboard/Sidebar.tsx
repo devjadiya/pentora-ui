@@ -1,43 +1,156 @@
 'use client';
-import { X } from 'lucide-react';
+import { useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import {
+  ChevronDown,
+  GitBranch,
+  Lock,
+  Search,
+  Shield,
+  TestTube2,
+  ScanSearch,
+  X
+} from 'lucide-react';
+import { allTools, Tool } from '@/lib/mockData';
+import { Input } from '../ui/input';
 
 const PentoraLogo = () => (
-  <svg
-    width="40"
-    height="40"
-    viewBox="0 0 32 32"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path d="M16 0L32 16L16 32L0 16L16 0Z" fill="#8A2BE2" />
-    <path
-      d="M16 6L26 16L16 26L6 16L16 6Z"
-      stroke="#0D0C22"
-      strokeWidth="2"
-    />
-  </svg>
-);
+    <svg
+      width="40"
+      height="40"
+      viewBox="0 0 32 32"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path d="M16 0L32 16L16 32L0 16L16 0Z" fill="#8A2BE2" />
+      <path
+        d="M16 6L26 16L16 26L6 16L16 6Z"
+        stroke="#0D0C22"
+        strokeWidth="2"
+      />
+    </svg>
+  );
 
 interface SidebarProps {
   mobileOpen: boolean;
   setMobileOpen: (open: boolean) => void;
+  onSelectTool: (tool: Tool | null) => void;
 }
 
-export default function Sidebar({ mobileOpen, setMobileOpen }: SidebarProps) {
+const categoryIcons = {
+  'Red Team': <TestTube2 className="h-5 w-5 mr-3 text-red-400" />,
+  'Blue Team': <Shield className="h-5 w-5 mr-3 text-blue-400" />,
+  'Vulnerability Assessment': <ScanSearch className="h-5 w-5 mr-3 text-yellow-400" />,
+};
+
+const categories: Tool['category'][] = [
+  'Red Team',
+  'Blue Team',
+  'Vulnerability Assessment',
+];
+
+export default function Sidebar({ mobileOpen, setMobileOpen, onSelectTool }: SidebarProps) {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [openCategories, setOpenCategories] = useState<string[]>(categories);
+
+  const toggleCategory = (category: string) => {
+    setOpenCategories((prev) =>
+      prev.includes(category)
+        ? prev.filter((c) => c !== category)
+        : [...prev, category]
+    );
+  };
+
+  const filteredTools = allTools.filter((tool) =>
+    tool.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    tool.description.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   const sidebarContent = (
     <div className="flex h-full flex-col">
-      <div className="p-6">
-        <div className="mb-6 flex items-center gap-3">
-          <PentoraLogo />
-          <span className="text-2xl font-bold tracking-wider text-white">
-            PENTORA
-          </span>
+       <div className="p-6">
+            <div 
+                className="mb-6 flex items-center gap-3 cursor-pointer"
+                onClick={() => onSelectTool(null)}
+            >
+                <PentoraLogo />
+                <span className="text-2xl font-bold tracking-wider text-white">
+                    PENTORA
+                </span>
+            </div>
+            <div className="relative">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+                <Input
+                    type="search"
+                    placeholder="Search tools..."
+                    className="w-full h-10 pl-10 rounded-md bg-black/30 border-white/20 focus:ring-primary focus:border-primary backdrop-blur-sm"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                />
+            </div>
         </div>
-        {/* Search and tool list will go here */}
-      </div>
-      
-      <div className="flex-1 overflow-y-auto px-4 space-y-4">
-        {/* Placeholder for tool list */}
+
+      <div className="flex-1 overflow-y-auto px-4 space-y-2">
+        <AnimatePresence>
+          {categories.map((category) => {
+            const toolsForCategory = filteredTools.filter(
+              (tool) => tool.category === category
+            );
+            const isExpanded = openCategories.includes(category);
+
+            if (toolsForCategory.length === 0 && searchTerm) return null;
+
+            return (
+              <motion.div key={category} layout="position">
+                <div
+                  className="flex items-center justify-between p-2 rounded-md cursor-pointer hover:bg-white/5"
+                  onClick={() => toggleCategory(category)}
+                >
+                    <div className="flex items-center">
+                        {categoryIcons[category]}
+                        <span className="font-semibold text-white">{category}</span>
+                    </div>
+                  <motion.div animate={{ rotate: isExpanded ? 0 : -90 }}>
+                    <ChevronDown className="h-5 w-5" />
+                  </motion.div>
+                </div>
+                <AnimatePresence>
+                  {isExpanded && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: 'auto' }}
+                      exit={{ opacity: 0, height: 0 }}
+                      className="pl-4 space-y-1"
+                    >
+                      {toolsForCategory.map((tool) => {
+                        const isFree = tool.type === 'Free';
+                        return (
+                          <motion.div
+                            key={tool.id}
+                            layout="position"
+                            whileHover={{ scale: 1.02, x: 2 }}
+                            className="flex items-center gap-3 p-2 rounded-md cursor-pointer"
+                            onClick={() => onSelectTool(tool)}
+                          >
+                            {isFree ? (
+                              <GitBranch className="h-4 w-4 text-green-400 flex-shrink-0" />
+                            ) : (
+                              <Lock className="h-4 w-4 text-purple-400 flex-shrink-0" />
+                            )}
+                            <div className="flex-1">
+                              <p className="text-sm font-medium text-gray-200">{tool.name}</p>
+                              <p className="text-xs text-gray-500">{tool.description}</p>
+                            </div>
+                          </motion.div>
+                        );
+                      })}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+            );
+          })}
+        </AnimatePresence>
       </div>
 
        <div className="p-4 mt-auto border-t border-white/10">
