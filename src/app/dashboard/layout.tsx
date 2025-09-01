@@ -5,10 +5,17 @@ import React from 'react';
 import DashboardLayout from '@/components/dashboard/DashboardLayout';
 import { ReactNode, useState, useEffect } from 'react';
 import { Tool, headerStats, allTools } from '@/lib/mockData';
-import DashboardPage from './page';
+import { AnimatePresence } from 'framer-motion';
+import MainContent from '@/components/dashboard/MainContent';
+import CodeViewer from '@/components/dashboard/CodeViewer';
+import ContactModal from '@/components/dashboard/ContactModal';
 
-export default function Layout({ children }: { children: ReactNode }) {
-  const [selectedTool, setSelectedTool] = useState<Tool | null>(() => allTools.find(t => t.id === 'free-00') || null);
+export default function Layout() {
+  const [selectedTool, setSelectedTool] = useState<Tool | null>(() => {
+    // Find the 'CyberSec Framework' tool by its ID.
+    const folder = allTools.find(f => f.id === 'vuln-assess-folder');
+    return folder?.children?.find(t => t.id === 'free-00') || null;
+  });
   const [modalTool, setModalTool] = useState<Tool | null>(null);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(true);
 
@@ -54,12 +61,18 @@ export default function Layout({ children }: { children: ReactNode }) {
       isSidebarCollapsed={isSidebarCollapsed}
       onToggleSidebar={handleToggleSidebar}
     >
-      <DashboardPage
-        selectedTool={selectedTool}
-        modalTool={modalTool}
-        onCloseViewer={handleCloseViewer}
-        onCloseModal={handleCloseModal}
-      />
+        <AnimatePresence mode="wait">
+          {selectedTool ? (
+            <CodeViewer key="code-viewer" tool={selectedTool} onClose={handleCloseViewer} />
+          ) : (
+            <MainContent key="main-content" />
+          )}
+        </AnimatePresence>
+        <ContactModal
+          isOpen={!!modalTool}
+          onClose={handleCloseModal}
+          tool={modalTool}
+        />
     </DashboardLayout>
   );
 }
