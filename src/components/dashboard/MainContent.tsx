@@ -57,7 +57,7 @@ export default function MainContent() {
 
         <TabsContent value="compliance" className="mt-6">
             <NistFrameworkCompliance />
-        </TabsContent>
+        </Tabs.Content>
       </Tabs>
     </motion.div>
   );
