@@ -10,6 +10,7 @@ import DashboardPage from './page';
 export default function Layout({ children }: { children: ReactNode }) {
   const [selectedTool, setSelectedTool] = useState<Tool | null>(null);
   const [modalTool, setModalTool] = useState<Tool | null>(null);
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
 
   const handleSelectTool = (tool: Tool) => {
     if (tool?.type === 'Premium') {
@@ -30,7 +31,12 @@ export default function Layout({ children }: { children: ReactNode }) {
   };
 
   return (
-    <DashboardLayout onSelectTool={handleSelectTool} stats={headerStats}>
+    <DashboardLayout 
+      onSelectTool={handleSelectTool} 
+      stats={headerStats}
+      isSidebarCollapsed={isSidebarCollapsed}
+      onToggleSidebar={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
+    >
       <DashboardPage
         selectedTool={selectedTool}
         modalTool={modalTool}

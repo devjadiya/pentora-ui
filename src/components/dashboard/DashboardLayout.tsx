@@ -10,24 +10,31 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet';
 import { Tool } from '@/lib/mockData';
-import { PentoraLogo } from '@/lib/icons';
-import { Button } from '@/components/ui/button';
 import { Menu } from 'lucide-react';
-import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
   onSelectTool: (tool: Tool) => void;
   stats: HeaderStats;
+  isSidebarCollapsed: boolean;
+  onToggleSidebar: () => void;
 }
 
-export default function DashboardLayout({ children, onSelectTool, stats }: DashboardLayoutProps) {
+export default function DashboardLayout({ children, onSelectTool, stats, isSidebarCollapsed, onToggleSidebar }: DashboardLayoutProps) {
   return (
     <div className="min-h-screen w-full bg-background text-foreground flex">
-      <div className="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0">
-        <AppSidebar onSelectTool={onSelectTool} />
+      <div className={cn(
+        "hidden md:flex md:flex-col md:fixed md:inset-y-0 z-50 transition-all duration-300 ease-in-out",
+        isSidebarCollapsed ? "md:w-20" : "md:w-64"
+      )}>
+        <AppSidebar onSelectTool={onSelectTool} isCollapsed={isSidebarCollapsed} onToggle={onToggleSidebar} />
       </div>
-      <div className="md:pl-64 flex flex-col w-full">
+      <div className={cn(
+        "flex flex-col w-full transition-all duration-300 ease-in-out",
+        isSidebarCollapsed ? "md:pl-20" : "md:pl-64"
+      )}>
         <Header stats={stats}>
           <Sheet>
             <SheetTrigger asChild>
@@ -37,7 +44,7 @@ export default function DashboardLayout({ children, onSelectTool, stats }: Dashb
               </Button>
             </SheetTrigger>
             <SheetContent side="left" className="p-0">
-              <AppSidebar onSelectTool={onSelectTool} />
+              <AppSidebar onSelectTool={onSelectTool} isCollapsed={false} />
             </SheetContent>
           </Sheet>
         </Header>
