@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import Sidebar from './Sidebar';
+import AppSidebar from './Sidebar';
 import Header, { type HeaderStats } from './Header';
 import {
   SidebarProvider,
@@ -48,7 +48,7 @@ export default function DashboardLayout({ children, onSelectTool, stats }: Dashb
             </div>
           </SidebarHeader>
           <SidebarContent>
-            <Sidebar.Body onSelectTool={onSelectTool} />
+            <AppSidebar.Body onSelectTool={onSelectTool} />
           </SidebarContent>
           <SidebarFooter>
             <Button
