@@ -49,7 +49,7 @@ export default function Header() {
         </nav>
         <div className="flex items-center gap-4">
           <Button asChild variant="ghost" size="sm">
-             <Link href="#dashboard">View Dashboard</Link>
+             <Link href="/dashboard">View Dashboard</Link>
           </Button>
           <Button asChild size="sm" className="bg-white text-black hover:bg-gray-200 shadow-[0_0_15px_rgba(255,255,255,0.3)] hover:shadow-[0_0_25px_rgba(255,255,255,0.5)] transition-shadow">
              <Link href="#contact">Request a Consultation</Link>
