@@ -1,42 +1,74 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import Sidebar from './Sidebar';
-import Header from './Header';
-import { Menu } from 'lucide-react';
+import Header, { type HeaderStats } from './Header';
+import {
+  SidebarProvider,
+  Sidebar,
+  SidebarHeader,
+  SidebarContent,
+  SidebarFooter,
+  SidebarTrigger,
+  SidebarInset,
+} from '@/components/ui/sidebar';
 import { Tool } from '@/lib/mockData';
+import { PentoraLogo } from '@/lib/icons';
+import { Button } from '@/components/ui/button';
+import { PanelLeftClose, PanelLeftOpen } from 'lucide-react';
+import Link from 'next/link';
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
   onSelectTool: (tool: Tool | null) => void;
+  stats: HeaderStats;
 }
 
-export default function DashboardLayout({ children, onSelectTool }: DashboardLayoutProps) {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-
+export default function DashboardLayout({ children, onSelectTool, stats }: DashboardLayoutProps) {
   return (
-    <div className="min-h-screen w-full dashboard-background text-gray-300">
-      <div className="flex">
-        <div className="lg:hidden fixed top-4 left-4 z-50">
-          <button
-            onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="p-2 rounded-md text-gray-400 hover:text-white hover:bg-white/10"
-          >
-            <Menu className="h-6 w-6" />
-          </button>
-        </div>
-
-        <Sidebar 
-          mobileOpen={sidebarOpen} 
-          setMobileOpen={setSidebarOpen} 
-          onSelectTool={onSelectTool}
-        />
-
-        <div className="flex flex-col flex-1 lg:ml-[280px]">
-          <Header />
+    <SidebarProvider defaultOpen={false}>
+      <div className="min-h-screen w-full dashboard-background text-gray-300">
+        <Sidebar>
+          <SidebarHeader>
+            <div className="flex items-center gap-2">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="size-7 group-data-[collapsible=icon]:hidden"
+                asChild
+              >
+                <Link href="#" onClick={() => onSelectTool(null)}>
+                  <PentoraLogo className="size-5" />
+                </Link>
+              </Button>
+              <h1 className="font-headline text-lg font-bold group-data-[collapsible=icon]:hidden">
+                PENTORA
+              </h1>
+              <SidebarTrigger className="ml-auto group-data-[collapsible=icon]:ml-0" />
+            </div>
+          </SidebarHeader>
+          <SidebarContent>
+            <Sidebar.Body onSelectTool={onSelectTool} />
+          </SidebarContent>
+          <SidebarFooter>
+            <Button
+              variant="ghost"
+              className="w-full justify-start gap-2 group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:px-2"
+              asChild
+            >
+              <Link href="#">
+                <PanelLeftClose className="group-data-[collapsible=icon]:hidden" />
+                <PanelLeftOpen className="hidden group-data-[collapsible=icon]:block" />
+                <span className="group-data-[collapsible=icon]:hidden">Collapse</span>
+              </Link>
+            </Button>
+          </SidebarFooter>
+        </Sidebar>
+        <SidebarInset>
+          <Header stats={stats} />
           <main className="flex-1 p-6">{children}</main>
-        </div>
+        </SidebarInset>
       </div>
-    </div>
+    </SidebarProvider>
   );
 }

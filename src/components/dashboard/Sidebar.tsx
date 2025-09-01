@@ -13,29 +13,8 @@ import {
 } from 'lucide-react';
 import { allTools, Tool } from '@/lib/mockData';
 import { Input } from '../ui/input';
-
-const PentoraLogo = () => (
-    <svg
-      width="40"
-      height="40"
-      viewBox="0 0 32 32"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path d="M16 0L32 16L16 32L0 16L16 0Z" fill="#8A2BE2" />
-      <path
-        d="M16 6L26 16L16 26L6 16L16 6Z"
-        stroke="#0D0C22"
-        strokeWidth="2"
-      />
-    </svg>
-  );
-
-interface SidebarProps {
-  mobileOpen: boolean;
-  setMobileOpen: (open: boolean) => void;
-  onSelectTool: (tool: Tool | null) => void;
-}
+import React from 'react';
+import { useSidebar } from '../ui/sidebar';
 
 const categoryIcons = {
   'Red Team': <TestTube2 className="h-5 w-5 mr-3 text-red-400" />,
@@ -49,9 +28,14 @@ const categories: Tool['category'][] = [
   'Vulnerability Assessment',
 ];
 
-export default function Sidebar({ mobileOpen, setMobileOpen, onSelectTool }: SidebarProps) {
+interface SidebarBodyProps {
+    onSelectTool: (tool: Tool | null) => void;
+}
+
+const SidebarBody = ({ onSelectTool }: SidebarBodyProps) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [openCategories, setOpenCategories] = useState<string[]>(categories);
+  const { open } = useSidebar();
 
   const toggleCategory = (category: string) => {
     setOpenCategories((prev) =>
@@ -65,29 +49,34 @@ export default function Sidebar({ mobileOpen, setMobileOpen, onSelectTool }: Sid
     tool.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     tool.description.toLowerCase().includes(searchTerm.toLowerCase())
   );
+  
+  if (!open) {
+      // Render icon-only view when sidebar is collapsed
+      return (
+          <div className="flex flex-col items-center mt-4 space-y-4">
+              {categories.map(category => (
+                <div key={category} className="p-2 rounded-md cursor-pointer hover:bg-white/5">
+                  {React.cloneElement(categoryIcons[category], { className: 'h-6 w-6' })}
+                </div>
+              ))}
+          </div>
+      )
+  }
 
-  const sidebarContent = (
-    <div className="flex h-full flex-col">
-       <div className="p-6">
-            <button onClick={() => onSelectTool(null)} className="mb-6 flex items-center gap-3">
-                <PentoraLogo />
-                <span className="text-2xl font-bold tracking-wider text-white">
-                    PENTORA
-                </span>
-            </button>
-            <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
-                <Input
-                    type="search"
-                    placeholder="Search tools..."
-                    className="w-full h-10 pl-10 rounded-md bg-black/30 border-white/20 focus:ring-primary focus:border-primary backdrop-blur-sm"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                />
-            </div>
+  return (
+    <div className="flex h-full flex-col p-4">
+        <div className="relative mb-4">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+            <Input
+                type="search"
+                placeholder="Search tools..."
+                className="w-full h-10 pl-10 rounded-md bg-black/30 border-white/20 focus:ring-primary focus:border-primary backdrop-blur-sm"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+            />
         </div>
 
-      <div className="flex-1 overflow-y-auto px-4 space-y-2">
+      <div className="flex-1 overflow-y-auto space-y-2 -mr-4 pr-4">
         <AnimatePresence>
           {categories.map((category) => {
             const toolsForCategory = filteredTools.filter(
@@ -127,10 +116,7 @@ export default function Sidebar({ mobileOpen, setMobileOpen, onSelectTool }: Sid
                             layout="position"
                             whileHover={{ scale: 1.02, x: 2 }}
                             className="flex items-center gap-3 p-2 rounded-md cursor-pointer"
-                            onClick={() => {
-                                onSelectTool(tool);
-                                setMobileOpen(false);
-                            }}
+                            onClick={() => onSelectTool(tool)}
                           >
                             {isFree ? (
                               <GitBranch className="h-4 w-4 text-green-400 flex-shrink-0" />
@@ -152,56 +138,12 @@ export default function Sidebar({ mobileOpen, setMobileOpen, onSelectTool }: Sid
           })}
         </AnimatePresence>
       </div>
-
-       <div className="p-4 mt-auto border-t border-white/10">
-          <p className="text-xs text-purple-300/70">
-            Cybersecurity Tools & Solutions
-          </p>
-      </div>
     </div>
   );
-
-  return (
-    <>
-      {/* Mobile Sidebar */}
-      <div
-        className={`fixed inset-0 z-40 transform bg-black/50 transition-transform duration-300 ease-in-out lg:hidden ${
-          mobileOpen ? 'translate-x-0' : '-translate-x-full'
-        }`}
-        onClick={() => setMobileOpen(false)}
-      >
-        <div
-          className="relative h-full w-[280px] bg-[rgba(26,12,46,0.9)] backdrop-blur-xl border-r border-white/10"
-          style={{
-            backgroundImage:
-              'linear-gradient(to bottom, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.01))',
-          }}
-          onClick={e => e.stopPropagation()}
-        >
-          <button
-            onClick={() => setMobileOpen(false)}
-            className="absolute top-4 right-4 text-gray-400 hover:text-white"
-          >
-            <X className="h-6 w-6" />
-          </button>
-          {sidebarContent}
-        </div>
-      </div>
-
-      {/* Desktop Sidebar */}
-      <div
-        className="hidden lg:fixed lg:inset-y-0 lg:flex lg:w-[280px] lg:flex-col z-30"
-        style={{
-          background: 'rgba(26, 12, 46, 0.4)',
-          backdropFilter: 'blur(12px)',
-          borderRight: '1px solid',
-          borderImageSource:
-            'linear-gradient(to bottom, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05))',
-          borderImageSlice: 1,
-        }}
-      >
-        {sidebarContent}
-      </div>
-    </>
-  );
 }
+
+const Sidebar = {
+    Body: SidebarBody
+}
+
+export default Sidebar;

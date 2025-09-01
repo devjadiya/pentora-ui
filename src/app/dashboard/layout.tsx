@@ -2,7 +2,7 @@
 
 import DashboardLayout from '@/components/dashboard/DashboardLayout';
 import { ReactNode, useState } from 'react';
-import { Tool } from '@/lib/mockData';
+import { Tool, headerStats } from '@/lib/mockData';
 import DashboardPage from './page';
 
 export default function Layout({ children }: { children: ReactNode }) {
@@ -36,7 +36,7 @@ export default function Layout({ children }: { children: ReactNode }) {
 
 
   return (
-    <DashboardLayout onSelectTool={handleSelectTool}>
+    <DashboardLayout onSelectTool={handleSelectTool} stats={headerStats}>
         <DashboardPage 
             selectedTool={selectedTool} 
             modalTool={modalTool}

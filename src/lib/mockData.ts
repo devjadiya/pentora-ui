@@ -1,3 +1,11 @@
+
+export const headerStats = [
+  { title: 'Vulnerabilities', value: '47', trend: '+5 since last scan' },
+  { title: 'Secured Endpoints', value: '1,247', trend: '+12' },
+  { title: 'Uptime', value: '99.9%', trend: '' },
+];
+
+
 export const kpiData = [
   { title: 'Global Threats Neutralized (24h)', value: '1.2M', trend: '+7%', icon: 'ShieldCheck' },
   { title: 'Corporate Assets Protected', value: '4.7M', trend: '+15%', icon: 'Server' },
