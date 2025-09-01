@@ -21,7 +21,7 @@ export default function AccessByRoleChart() {
                 borderImageSlice: 1
             }}
         >
-            <h2 className="text-lg font-bold text-white mb-4">Access by Role (RBAC)</h2>
+            <h2 className="text-lg font-bold font-headline text-white mb-4">Access by Role (RBAC)</h2>
             <div className="flex-1 w-full">
                 <ResponsiveContainer width="100%" height="100%">
                     <PieChart>

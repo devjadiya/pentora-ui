@@ -14,7 +14,7 @@ export default function MainContent() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1,
+        staggerChildren: 0.05,
       },
     },
   };
@@ -24,7 +24,7 @@ export default function MainContent() {
       initial="hidden"
       animate="visible"
       variants={containerVariants}
-      className="grid grid-cols-1 gap-6"
+      className="flex flex-col gap-6"
     >
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {kpiData.map((data, index) => (

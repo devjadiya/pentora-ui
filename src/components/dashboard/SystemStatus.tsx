@@ -16,14 +16,12 @@ const statusConfig: Record<Status, { color: string, indicator: string }> = {
 
 
 export default function SystemStatus() {
-    // This state is just to trigger re-renders for animations
     const [statuses, setStatuses] = useState(systemStatus);
 
     useEffect(() => {
         const interval = setInterval(() => {
             setStatuses(prevStatuses => prevStatuses.map(s => {
                 if (s.status === 'maintenance') return s;
-                // Add slight random fluctuations to make it feel live
                 const newValue = Math.min(100, Math.max(80, s.value + (Math.random() - 0.5) * 2));
                 return { ...s, value: newValue };
             }));
@@ -49,16 +47,16 @@ export default function SystemStatus() {
                 borderImageSlice: 1
             }}
         >
-            <h2 className="text-xl font-bold text-white mb-4">System Status</h2>
+            <h2 className="text-xl font-bold font-headline text-white mb-4">System Status</h2>
             <div className="space-y-5">
                 {statuses.map((system) => {
                     const config = statusConfig[system.status as Status];
                     return (
                         <div key={system.name}>
                             <div className="flex justify-between items-center mb-1">
-                                <span className="text-sm text-gray-300">{system.name}</span>
+                                <span className="text-sm text-gray-300 font-medium">{system.name}</span>
                                 <div className="flex items-center gap-2">
-                                     <span className={cn("text-sm font-semibold", config.color.replace('bg-', 'text-'))}>
+                                     <span className={cn("text-sm font-semibold font-headline", config.color.replace('bg-', 'text-'))}>
                                         {system.status === 'maintenance' ? 'Maintenance' : `${system.value.toFixed(1)}%`}
                                      </span>
                                      <div className={cn("h-2.5 w-2.5 rounded-full", config.indicator)}></div>

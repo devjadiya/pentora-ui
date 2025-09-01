@@ -22,7 +22,6 @@ function AnimatedValue({ value: finalValue }: { value: string }) {
     const ref = useRef<HTMLSpanElement>(null);
     const inView = useInView(ref, { once: true });
     
-    // Extracts the number and the suffix (e.g., 'M', 'K')
     const numericValue = parseFloat(finalValue);
     const suffix = finalValue.replace(String(numericValue), '');
 
@@ -42,7 +41,6 @@ function AnimatedValue({ value: finalValue }: { value: string }) {
       const unsubscribe = spring.on("change", (latest) => {
         if (ref.current) {
             let displayValue: string;
-            // Use fixed notation based on whether the original number was an integer
             if (Number.isInteger(numericValue)) {
                 displayValue = Math.round(latest).toLocaleString();
             } else {
@@ -57,7 +55,7 @@ function AnimatedValue({ value: finalValue }: { value: string }) {
       return unsubscribe;
     }, [spring, suffix, numericValue]);
   
-    return <span ref={ref} />;
+    return <span ref={ref}>0</span>;
 }
 
 export default function KPI_Card({ title, value, trend, icon }: KPICardProps) {
@@ -70,7 +68,7 @@ export default function KPI_Card({ title, value, trend, icon }: KPICardProps) {
 
   const trendColor = useMemo(() => {
     if (trend.startsWith('+')) return 'text-green-400';
-    if (trend.startsWith('-')) return 'text-orange-400';
+    if (trend.startsWith('-')) return 'text-red-400';
     return 'text-gray-400';
   }, [trend]);
 
@@ -92,11 +90,11 @@ export default function KPI_Card({ title, value, trend, icon }: KPICardProps) {
       }}
     >
       <div className="flex items-center justify-between">
-        <p className="text-sm text-gray-400">{title}</p>
-        {IconComponent && <IconComponent className="h-6 w-6 text-purple-400" />}
+        <p className="text-sm text-gray-400 font-medium">{title}</p>
+        {IconComponent && <IconComponent className="h-5 w-5 text-purple-400" />}
       </div>
       <div className="mt-4">
-        <h3 className="text-4xl font-bold text-white"><AnimatedValue value={value} /></h3>
+        <h3 className="text-4xl font-bold text-white font-headline"><AnimatedValue value={value} /></h3>
         <p className={`text-sm font-semibold ${trendColor}`}>{trend}</p>
       </div>
     </motion.div>

@@ -29,7 +29,7 @@ export default function RecentPrivilegedAccess() {
                 borderImageSlice: 1
             }}
         >
-            <h2 className="text-lg font-bold text-white mb-4">Recent High-Privilege Access</h2>
+            <h2 className="text-lg font-bold font-headline text-white mb-4">Recent High-Privilege Access</h2>
             <div className="space-y-4 overflow-y-auto pr-2 [mask-image:linear-gradient(to_bottom,white_90%,transparent_100%)]">
                 {recentPrivilegedAccessData.map((item) => {
                     const config = roleConfig[item.role];
@@ -39,11 +39,11 @@ export default function RecentPrivilegedAccess() {
                             <Icon className={cn("h-5 w-5 mt-1 flex-shrink-0", config.color)} />
                             <div className="flex-1">
                                 <p className="text-sm text-gray-200">
-                                    <span className="font-semibold">{item.user}</span> {item.action}
+                                    <span className="font-semibold text-white">{item.user}</span> {item.action}
                                 </p>
                                 <div className="flex items-center gap-2 text-xs text-gray-500 mt-1">
                                     <span>{item.time}</span>
-                                    <Badge variant="outline" className={cn("border-opacity-30", config.color.replace('text-', 'border-'), config.color.replace('text-','bg-') + "/10")}>
+                                    <Badge variant="outline" className={cn("border-opacity-30", config.color.replace('text-', 'border-'), config.color.replace('text-','bg-') + "/10", config.color.replace('text-', 'text-'))}>
                                         {item.role}
                                     </Badge>
                                 </div>

@@ -23,7 +23,7 @@ export default function MfaAdoptionRate() {
                 borderImageSlice: 1
             }}
         >
-            <h2 className="text-lg font-bold text-white mb-2 text-center">MFA Adoption Rate</h2>
+            <h2 className="text-lg font-bold font-headline text-white mb-2 text-center">MFA Adoption Rate</h2>
             <div className="w-full h-48 relative">
                 <ResponsiveContainer width="100%" height="100%">
                     <RadialBarChart
@@ -51,7 +51,7 @@ export default function MfaAdoptionRate() {
                     </RadialBarChart>
                 </ResponsiveContainer>
                  <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="text-4xl font-bold text-white" style={{textShadow: '0 0 10px hsl(var(--accent))'}}>{mfaAdoptionRate}%</span>
+                    <span className="text-4xl font-bold font-headline text-white" style={{textShadow: '0 0 10px hsl(var(--accent))'}}>{mfaAdoptionRate}%</span>
                 </div>
             </div>
              <p className="text-sm text-muted-foreground mt-2 text-center">of active users have MFA enabled.</p>

@@ -52,7 +52,6 @@ export default function WorkforceAuthenticationEvents() {
                 const newData = [...prevData];
                 const lastDataPoint = newData[newData.length - 1];
                 
-                // Add some randomness with occasional spikes
                 const success = Math.max(0, lastDataPoint.success + (Math.random() - 0.45) * 5 + (Math.random() > 0.95 ? 20 : 0));
                 const mfa = Math.max(0, lastDataPoint.mfa + (Math.random() - 0.5) * 2 + (Math.random() > 0.98 ? 10 : 0));
                 const blocked = Math.max(0, lastDataPoint.blocked + (Math.random() - 0.6) * 1 + (Math.random() > 0.97 ? 15 : 0));
@@ -96,7 +95,7 @@ export default function WorkforceAuthenticationEvents() {
                 borderImageSlice: 1
             }}
         >
-            <h2 className="text-xl font-bold text-white mb-4">Workforce Authentication Events</h2>
+            <h2 className="text-xl font-bold font-headline text-white mb-4">Workforce Authentication Events</h2>
             <ResponsiveContainer width="100%" height="100%">
                 <LineChart
                     data={data}
@@ -105,7 +104,7 @@ export default function WorkforceAuthenticationEvents() {
                     <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.1)" />
                     <XAxis 
                         dataKey="time" 
-                        tickFormatter={(unixTime) => new Date(unixTime).toLocaleTimeString()}
+                        tickFormatter={(unixTime) => new Date(unixTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
                         stroke="rgba(255, 255, 255, 0.5)"
                         dy={10}
                     />
