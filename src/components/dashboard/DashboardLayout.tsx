@@ -5,12 +5,11 @@ import AppSidebar from './Sidebar';
 import Header, { type HeaderStats } from './Header';
 import {
   SidebarProvider,
-  Sidebar,
+  Sidebar as AppSidebarContainer,
   SidebarHeader,
   SidebarContent,
   SidebarFooter,
   SidebarTrigger,
-  SidebarInset,
 } from '@/components/ui/sidebar';
 import { Tool } from '@/lib/mockData';
 import { PentoraLogo } from '@/lib/icons';
@@ -27,8 +26,8 @@ interface DashboardLayoutProps {
 export default function DashboardLayout({ children, onSelectTool, stats }: DashboardLayoutProps) {
   return (
     <SidebarProvider>
-      <div className="min-h-screen w-full dashboard-background text-gray-300">
-        <Sidebar>
+      <div className="min-h-screen w-full dashboard-background text-gray-300 flex">
+        <AppSidebarContainer>
           <SidebarHeader>
             <div className="flex items-center gap-2">
               <Button
@@ -63,11 +62,14 @@ export default function DashboardLayout({ children, onSelectTool, stats }: Dashb
               </Link>
             </Button>
           </SidebarFooter>
-        </Sidebar>
-        <SidebarInset>
+        </AppSidebarContainer>
+        
+        <div className="flex-1 flex flex-col transition-all duration-300 ease-in-out md:ml-[var(--sidebar-width-icon)] group-data-[state=expanded]:md:ml-[var(--sidebar-width)]">
           <Header stats={stats} />
-          <main className="flex-1 p-6">{children}</main>
-        </SidebarInset>
+          <main className="flex-1 p-6 overflow-y-auto">
+            {children}
+          </main>
+        </div>
       </div>
     </SidebarProvider>
   );
