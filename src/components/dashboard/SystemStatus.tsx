@@ -4,6 +4,7 @@ import { systemStatus } from '@/lib/mockData';
 import { Progress } from '../ui/progress';
 import { cn } from '@/lib/utils';
 import { useEffect, useState } from 'react';
+import React from 'react';
 
 type Status = "active" | "warning" | "maintenance";
 
