@@ -17,7 +17,6 @@ export default function DashboardLayout({ children, onSelectTool }: DashboardLay
   return (
     <div className="min-h-screen w-full dashboard-background text-gray-300">
       <div className="flex">
-        {/* Mobile Sidebar Toggle */}
         <div className="lg:hidden fixed top-4 left-4 z-50">
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
@@ -27,14 +26,12 @@ export default function DashboardLayout({ children, onSelectTool }: DashboardLay
           </button>
         </div>
 
-        {/* Sidebar */}
         <Sidebar 
           mobileOpen={sidebarOpen} 
           setMobileOpen={setSidebarOpen} 
           onSelectTool={onSelectTool}
         />
 
-        {/* Main content */}
         <div className="flex flex-col flex-1 lg:ml-[280px]">
           <Header />
           <main className="flex-1 p-6">{children}</main>
