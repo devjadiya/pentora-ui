@@ -45,7 +45,7 @@ const features = [
 
 export default function AdvisoryServices() {
     return (
-        <section id="advisory" className="py-24 bg-card/20">
+        <section id="advisory" className="py-24 bg-secondary/20">
             <div className="container mx-auto px-4">
                 <ScrollFadeIn>
                     <div className="text-center">
@@ -58,9 +58,9 @@ export default function AdvisoryServices() {
                 <div className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
                     {features.map((feature, i) => (
                         <ScrollFadeIn key={feature.name} delay={`${i * 100}ms`}>
-                            <Card className="h-full bg-card/50 backdrop-blur-sm border-white/10 shadow-lg hover:border-primary/50 transition-colors hover:-translate-y-1">
+                            <Card className="h-full bg-card border hover:border-primary transition-colors hover:-translate-y-1">
                                 <CardHeader>
-                                    <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                                    <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-secondary text-primary">
                                         <feature.icon className="h-6 w-6" />
                                     </div>
                                     <CardTitle>{feature.name}</CardTitle>

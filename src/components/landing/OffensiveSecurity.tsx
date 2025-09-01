@@ -1,6 +1,5 @@
 'use client';
 import { ScrollFadeIn } from './ScrollFadeIn';
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '../ui/card';
 import { Badge } from '../ui/badge';
 import { Code, Network, ScanEye, KeyRound, Bot, TestTube2 } from 'lucide-react';
 
@@ -40,11 +39,10 @@ const services = [
 const ServiceCard = ({ service, delay }: { service: typeof services[0], delay: string }) => (
     <ScrollFadeIn delay={delay} className="h-full">
         <div 
-          className="group relative flex flex-col h-full rounded-xl p-6 transition-all duration-300 hover:-translate-y-1 border border-white/10 bg-card/50 backdrop-blur-md hover:border-primary/50"
+          className="group relative flex flex-col h-full rounded-lg p-6 transition-all duration-300 hover:-translate-y-1 border bg-card hover:border-primary"
         >
-          <div className="absolute inset-0 transition-all duration-300 rounded-xl group-hover:bg-primary/5"></div>
           <div className="relative">
-            <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-white/10 text-primary">
+            <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-secondary text-primary">
               <service.icon className="h-6 w-6" />
             </div>
             <h3 className="font-headline text-xl font-semibold">{service.title}</h3>
@@ -56,11 +54,11 @@ const ServiceCard = ({ service, delay }: { service: typeof services[0], delay: s
 
 export default function OffensiveSecurity() {
   return (
-    <section id="services" className="py-24">
+    <section id="services" className="py-24 bg-background">
       <div className="container mx-auto px-4">
         <ScrollFadeIn>
             <div className="text-center">
-                <Badge variant="secondary" className="mb-4 text-sm bg-red-500/10 text-red-300 border-red-500/20">Offensive Mindset</Badge>
+                <Badge variant="destructive" className="mb-4 text-sm">Offensive Mindset</Badge>
                 <h2 className="text-center font-headline text-4xl font-bold">Offensive Security Services</h2>
                 <p className="mx-auto mt-4 max-w-3xl text-center text-muted-foreground">
                     We think like attackers to find and fix vulnerabilities before they do. Our offensive services simulate real-world threats to test your defenses.

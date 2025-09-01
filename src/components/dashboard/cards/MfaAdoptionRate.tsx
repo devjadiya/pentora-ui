@@ -14,16 +14,9 @@ export default function MfaAdoptionRate() {
     return (
         <motion.div
             variants={cardVariants}
-            className="rounded-xl p-6 h-full flex flex-col items-center justify-center"
-            style={{
-                background: 'rgba(26, 12, 46, 0.4)',
-                backdropFilter: 'blur(12px)',
-                border: '1px solid',
-                borderImageSource: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05))',
-                borderImageSlice: 1
-            }}
+            className="rounded-lg p-6 h-full flex flex-col items-center justify-center bg-card border"
         >
-            <h2 className="text-lg font-bold font-headline text-white mb-2 text-center">MFA Adoption Rate</h2>
+            <h2 className="text-lg font-bold font-headline text-foreground mb-2 text-center">MFA Adoption Rate</h2>
             <div className="w-full h-48 relative">
                 <ResponsiveContainer width="100%" height="100%">
                     <RadialBarChart
@@ -40,18 +33,18 @@ export default function MfaAdoptionRate() {
                             cornerRadius={10}
                             angleAxisId={0}
                             data={[{ value: 100 }]}
-                            fill="rgba(255,255,255,0.1)"
+                            fill="hsl(var(--secondary))"
                         />
                          <RadialBar
                             background
                             dataKey="value"
                             cornerRadius={10}
-                            fill="hsl(var(--accent))"
+                            fill="hsl(var(--primary))"
                         />
                     </RadialBarChart>
                 </ResponsiveContainer>
                  <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="text-4xl font-bold font-headline text-white" style={{textShadow: '0 0 10px hsl(var(--accent))'}}>{mfaAdoptionRate}%</span>
+                    <span className="text-4xl font-bold font-headline text-foreground">{mfaAdoptionRate}%</span>
                 </div>
             </div>
              <p className="text-sm text-muted-foreground mt-2 text-center">of active users have MFA enabled.</p>

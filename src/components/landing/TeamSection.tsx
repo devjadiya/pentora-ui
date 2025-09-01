@@ -36,7 +36,7 @@ const teamMembers = [
 
 export default function TeamSection() {
   return (
-    <section id="team" className="py-24">
+    <section id="team" className="py-24 bg-background">
       <div className="container mx-auto px-4 text-center">
         <ScrollFadeIn>
           <h2 className="font-headline text-4xl font-bold">Meet Our Elite Cybersecurity Experts</h2>
@@ -48,7 +48,7 @@ export default function TeamSection() {
         <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {teamMembers.map((member, index) => (
                 <ScrollFadeIn key={member.name} delay={`${index * 100}ms`}>
-                    <Card className="h-full bg-card/50 backdrop-blur-sm border-white/10 shadow-lg text-left hover:border-accent/50 transition-colors">
+                    <Card className="h-full bg-card border text-left hover:border-primary transition-colors">
                         <CardHeader className="flex flex-row items-center gap-4">
                             <Avatar className="h-16 w-16">
                                 <AvatarImage src={member.avatar} alt={member.name} />
@@ -56,12 +56,12 @@ export default function TeamSection() {
                             </Avatar>
                              <div>
                                 <CardTitle className="text-xl">{member.name}</CardTitle>
-                                <CardDescription className="text-accent">{member.title}</CardDescription>
+                                <CardDescription className="text-primary">{member.title}</CardDescription>
                             </div>
                         </CardHeader>
                         <CardContent>
                             <p className="text-sm text-muted-foreground italic">"{member.bio}"</p>
-                             <p className="text-xs font-semibold uppercase text-primary mt-4">Specialty: {member.specialty}</p>
+                             <p className="text-xs font-semibold uppercase text-primary/70 mt-4">Specialty: {member.specialty}</p>
                         </CardContent>
                     </Card>
                 </ScrollFadeIn>

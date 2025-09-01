@@ -18,12 +18,12 @@ const footerLinks = [
 
 export default function Footer() {
     return (
-        <footer className="bg-card/30 border-t border-white/10">
+        <footer className="bg-card border-t">
             <div className="container mx-auto px-4 py-12">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                     <div className="flex flex-col gap-4 items-start lg:col-span-1">
                         <Link href="/" className="flex items-center gap-2" aria-label="Pentora Home">
-                            <PentoraLogo className="h-8 w-8" />
+                            <PentoraLogo className="h-8 w-8 text-primary" />
                             <span className="font-headline text-xl font-bold text-foreground">
                                 Pentora
                             </span>
@@ -65,7 +65,7 @@ export default function Footer() {
                         </div>
                     </div>
                 </div>
-                <div className="mt-12 border-t border-white/10 pt-8 text-center text-sm text-muted-foreground">
+                <div className="mt-12 border-t pt-8 text-center text-sm text-muted-foreground">
                     &copy; {new Date().getFullYear()} Pentora, Inc. All rights reserved.
                 </div>
             </div>

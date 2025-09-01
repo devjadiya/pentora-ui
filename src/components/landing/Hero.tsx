@@ -8,14 +8,14 @@ export default function Hero() {
   const filterTags = ['Penetration Testing', 'Threat Intelligence', 'Compliance', 'Cloud Security'];
 
   return (
-    <section className="relative min-h-[90vh] w-full overflow-hidden flex items-center justify-center pt-20 pb-10">
+    <section className="relative min-h-[90vh] w-full overflow-hidden flex items-center justify-center pt-20 pb-10 bg-background">
       <div className="absolute inset-0 z-0 opacity-50">
         {/* Particle effects can be added here later */}
       </div>
       
       <div className="container relative z-10 mx-auto px-4 text-center">
         <ScrollFadeIn>
-          <h1 className="font-headline text-5xl md:text-7xl font-bold tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-400">
+          <h1 className="font-headline text-5xl md:text-7xl font-bold tracking-tighter text-foreground">
             Defending the Digital <br /> on the Dot.
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground">
@@ -29,7 +29,7 @@ export default function Hero() {
             <Input
               type="search"
               placeholder="Search services, threats, or solutions..."
-              className="w-full h-12 pl-12 pr-4 text-base rounded-full bg-black/30 border-white/20 focus:ring-primary focus:border-primary backdrop-blur-sm"
+              className="w-full h-12 pl-12 pr-4 text-base rounded-full bg-card border"
             />
           </div>
           <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
@@ -37,7 +37,7 @@ export default function Hero() {
               <Badge
                 key={tag}
                 variant="secondary"
-                className="cursor-pointer border-transparent bg-white/10 hover:bg-white/20 text-foreground"
+                className="cursor-pointer"
               >
                 {tag}
               </Badge>
@@ -46,7 +46,7 @@ export default function Hero() {
         </ScrollFadeIn>
 
         <ScrollFadeIn delay="200ms" className="mt-10 flex justify-center">
-            <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 shadow-[0_0_20px_hsl(var(--accent)/0.5)] transition-shadow hover:shadow-[0_0_30px_hsl(var(--accent)/0.7)] group">
+            <Button size="lg" className="group">
               Explore Services
               <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
             </Button>

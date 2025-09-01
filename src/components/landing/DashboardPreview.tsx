@@ -4,9 +4,9 @@ import { ScrollFadeIn } from "./ScrollFadeIn";
 import { AlertCircle, CheckCircle, Folder, File, Target } from "lucide-react";
 
 const metrics = [
-  { title: "Vulnerabilities Found", value: "1,204", icon: AlertCircle, color: "text-red-400" },
-  { title: "Threats Neutralized", value: "891", icon: CheckCircle, color: "text-green-400" },
-  { title: "Assets Monitored", value: "34,567", icon: Target, color: "text-blue-400" },
+  { title: "Vulnerabilities Found", value: "1,204", icon: AlertCircle, color: "text-destructive" },
+  { title: "Threats Neutralized", value: "891", icon: CheckCircle, color: "text-green-500" },
+  { title: "Assets Monitored", value: "34,567", icon: Target, color: "text-primary" },
 ];
 
 const fileStructure = [
@@ -28,7 +28,7 @@ const renderFiles = (files: any[], level = 0) => (
         {files.map(file => (
             <li key={file.name} style={{paddingLeft: `${level * 16}px`}}>
                 <div className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground cursor-pointer">
-                    {file.type === 'folder' ? <Folder className="h-4 w-4 text-primary/70" /> : <File className="h-4 w-4" />}
+                    {file.type === 'folder' ? <Folder className="h-4 w-4 text-primary" /> : <File className="h-4 w-4" />}
                     <span>{file.name}</span>
                 </div>
                 {file.children && renderFiles(file.children, level + 1)}
@@ -39,7 +39,7 @@ const renderFiles = (files: any[], level = 0) => (
 
 export default function DashboardPreview() {
   return (
-    <section id="dashboard" className="py-24">
+    <section id="dashboard" className="py-24 bg-secondary/20">
       <div className="container mx-auto px-4">
         <ScrollFadeIn>
           <h2 className="text-center font-headline text-4xl font-bold">Live Threat Dashboard</h2>
@@ -49,9 +49,9 @@ export default function DashboardPreview() {
         </ScrollFadeIn>
         
         <ScrollFadeIn delay="200ms" className="mt-12">
-            <Card className="w-full max-w-5xl mx-auto bg-card/50 backdrop-blur-sm border-white/10 shadow-2xl shadow-primary/10">
+            <Card className="w-full max-w-5xl mx-auto bg-card border">
                 <div className="flex flex-col h-[600px]">
-                    <div className="flex items-center justify-between p-3 border-b border-white/10">
+                    <div className="flex items-center justify-between p-3 border-b">
                         <div className="flex items-center gap-2">
                             <div className="h-3 w-3 rounded-full bg-red-500"></div>
                             <div className="h-3 w-3 rounded-full bg-yellow-500"></div>
@@ -61,20 +61,20 @@ export default function DashboardPreview() {
                         <div></div>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-4 flex-1">
-                        <div className="hidden md:block col-span-1 p-4 border-r border-white/10 overflow-y-auto">
+                        <div className="hidden md:block col-span-1 p-4 border-r overflow-y-auto">
                            <h4 className="text-xs font-semibold uppercase text-muted-foreground mb-4">Repository Explorer</h4>
                            {renderFiles(fileStructure)}
                         </div>
                         <div className="col-span-1 md:col-span-3 flex flex-col">
                             <Tabs defaultValue="overview" className="flex-1 flex flex-col">
-                                <TabsList className="m-2 bg-transparent border-b border-white/10 rounded-none justify-start">
-                                    <TabsTrigger value="overview" className="data-[state=active]:bg-white/10 data-[state=active]:shadow-none">Overview.js</TabsTrigger>
-                                    <TabsTrigger value="vulnerabilities" className="data-[state=active]:bg-white/10 data-[state=active]:shadow-none">Vulnerabilities.json</TabsTrigger>
+                                <TabsList className="m-2 bg-transparent border-b rounded-none justify-start">
+                                    <TabsTrigger value="overview">Overview.js</TabsTrigger>
+                                    <TabsTrigger value="vulnerabilities">Vulnerabilities.json</TabsTrigger>
                                 </TabsList>
                                 <TabsContent value="overview" className="flex-1 p-4 overflow-y-auto">
                                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
                                        {metrics.map(metric => (
-                                            <Card key={metric.title} className="bg-white/5 border-white/10">
+                                            <Card key={metric.title} className="bg-secondary border">
                                                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                                                     <CardTitle className="text-sm font-medium text-muted-foreground">{metric.title}</CardTitle>
                                                     <metric.icon className={`h-4 w-4 ${metric.color}`} />
@@ -85,10 +85,10 @@ export default function DashboardPreview() {
                                             </Card>
                                        ))}
                                    </div>
-                                   <img src="https://picsum.photos/800/400" data-ai-hint="graph chart" alt="Dashboard Chart" className="w-full h-auto rounded-lg opacity-75" />
+                                   <img src="https://picsum.photos/800/400" data-ai-hint="graph chart" alt="Dashboard Chart" className="w-full h-auto rounded-md opacity-75" />
                                 </TabsContent>
                                 <TabsContent value="vulnerabilities" className="flex-1 p-4 overflow-y-auto">
-                                    <pre className="text-xs text-muted-foreground bg-black/30 p-4 rounded-lg"><code>{`
+                                    <pre className="text-xs text-muted-foreground bg-secondary p-4 rounded-md"><code>{`
 [
   {
     "id": "CVE-2024-XXXX",

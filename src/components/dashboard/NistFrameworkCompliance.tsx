@@ -21,19 +21,11 @@ export default function NistFrameworkCompliance() {
   return (
     <motion.div
       variants={containerVariants}
-      className="rounded-xl p-6"
-      style={{
-        background: 'rgba(26, 12, 46, 0.4)',
-        backdropFilter: 'blur(12px)',
-        border: '1px solid',
-        borderImageSource:
-          'linear-gradient(to bottom, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05))',
-        borderImageSlice: 1,
-      }}
+      className="rounded-lg p-6 bg-card border"
     >
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
         <div>
-          <h2 className="text-xl font-bold font-headline text-white">NIST Framework Compliance</h2>
+          <h2 className="text-xl font-bold font-headline text-foreground">NIST Framework Compliance</h2>
           <p className="text-muted-foreground text-sm">
             Our platform aligns with the five core functions of the NIST Cybersecurity Framework.
           </p>
@@ -50,7 +42,7 @@ export default function NistFrameworkCompliance() {
         {nistFrameworkData.map((item) => (
           <div key={item.name} className="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
             <div className="md:col-span-2">
-              <h3 className="font-semibold text-white">{item.name}</h3>
+              <h3 className="font-semibold text-foreground">{item.name}</h3>
             </div>
             <div className="md:col-span-6">
               <p className="text-xs text-muted-foreground">{item.description}</p>
@@ -58,10 +50,10 @@ export default function NistFrameworkCompliance() {
             <div className="md:col-span-4 flex items-center gap-4">
               <Progress
                 value={item.score}
-                className="h-2 bg-black/30 flex-1"
+                className="h-2 bg-secondary"
                 indicatorClassName={getProgressColor(item.score)}
               />
-              <span className="font-bold font-headline text-lg text-white w-12 text-right">
+              <span className="font-bold font-headline text-lg text-foreground w-12 text-right">
                 {item.score}%
               </span>
             </div>

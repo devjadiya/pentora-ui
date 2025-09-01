@@ -42,7 +42,7 @@ const CollapseButton = () => {
 export default function DashboardLayout({ children, onSelectTool, stats }: DashboardLayoutProps) {
   return (
     <SidebarProvider>
-      <div className="min-h-screen w-full dashboard-background text-gray-300 flex">
+      <div className="min-h-screen w-full bg-background text-foreground flex">
         <AppSidebarContainer>
           <SidebarHeader>
             <div className="flex items-center gap-2">
@@ -53,7 +53,7 @@ export default function DashboardLayout({ children, onSelectTool, stats }: Dashb
                 asChild
               >
                 <Link href="#" onClick={() => onSelectTool(null)}>
-                  <PentoraLogo className="size-5" />
+                  <PentoraLogo className="size-5 text-primary" />
                 </Link>
               </Button>
               <h1 className="font-headline text-lg font-bold group-data-[collapsible=icon]:hidden">

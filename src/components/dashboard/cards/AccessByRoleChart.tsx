@@ -12,16 +12,9 @@ export default function AccessByRoleChart() {
     return (
         <motion.div
             variants={cardVariants}
-            className="rounded-xl p-6 h-full flex flex-col"
-            style={{
-                background: 'rgba(26, 12, 46, 0.4)',
-                backdropFilter: 'blur(12px)',
-                border: '1px solid',
-                borderImageSource: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05))',
-                borderImageSlice: 1
-            }}
+            className="rounded-lg p-6 h-full flex flex-col bg-card border"
         >
-            <h2 className="text-lg font-bold font-headline text-white mb-4">Access by Role (RBAC)</h2>
+            <h2 className="text-lg font-bold font-headline text-foreground mb-4">Access by Role (RBAC)</h2>
             <div className="flex-1 w-full">
                 <ResponsiveContainer width="100%" height="100%">
                     <PieChart>
@@ -31,7 +24,7 @@ export default function AccessByRoleChart() {
                             cy="50%"
                             innerRadius={60}
                             outerRadius={80}
-                            fill="#8884d8"
+                            fill="#3B82F6"
                             paddingAngle={5}
                             dataKey="value"
                             nameKey="name"
@@ -42,7 +35,7 @@ export default function AccessByRoleChart() {
                         </Pie>
                         <Legend 
                             iconType="circle"
-                            formatter={(value) => <span className="text-gray-300">{value}</span>}
+                            formatter={(value) => <span className="text-muted-foreground">{value}</span>}
                         />
                     </PieChart>
                 </ResponsiveContainer>

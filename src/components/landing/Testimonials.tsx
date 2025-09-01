@@ -30,7 +30,7 @@ const testimonials = [
 ];
 
 const TestimonialCard = ({ testimonial }: { testimonial: typeof testimonials[0] }) => (
-    <Card className="w-[350px] flex-shrink-0 mx-4 bg-card/50 backdrop-blur-sm border border-white/10">
+    <Card className="w-[350px] flex-shrink-0 mx-4 bg-card border">
         <CardContent className="p-6">
             <p className="text-muted-foreground italic">"{testimonial.text}"</p>
             <div className="flex items-center gap-4 mt-6">
@@ -49,7 +49,7 @@ const TestimonialCard = ({ testimonial }: { testimonial: typeof testimonials[0] 
 
 export default function Testimonials() {
   return (
-    <section id="testimonials" className="py-24">
+    <section id="testimonials" className="py-24 bg-secondary/20">
       <div className="container mx-auto px-4 text-center">
         <ScrollFadeIn>
           <h2 className="font-headline text-4xl font-bold">What Our Clients Say</h2>

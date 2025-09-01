@@ -1,18 +1,18 @@
-import { ClientLogo1, ClientLogo2, ClientLogo3, ClientLogo4, ClientLogo5 } from '@/lib/icons';
+import { Aperture, Code, GitBranch, Server, Wind } from 'lucide-react';
 
 const logos = [
-  { component: ClientLogo1, name: "TechCorp" },
-  { component: ClientLogo2, name: "Innovate Inc" },
-  { component: ClientLogo3, name: "Quantum Solutions" },
-  { component: ClientLogo4, name: "DataSecure" },
-  { component: ClientLogo5, name: "CloudPioneer" },
-  { component: ClientLogo1, name: "Nexus Systems" },
-  { component: ClientLogo2, name: "Apex Industries" },
+  { component: Aperture, name: "TechCorp" },
+  { component: Code, name: "Innovate Inc" },
+  { component: GitBranch, name: "Quantum Solutions" },
+  { component: Server, name: "DataSecure" },
+  { component: Wind, name: "CloudPioneer" },
+  { component: Aperture, name: "Nexus Systems" },
+  { component: Code, name: "Apex Industries" },
 ];
 
 export default function ClientsMarquee() {
   return (
-    <section className="py-12">
+    <section className="py-12 bg-background">
       <div className="container mx-auto text-center">
         <h3 className="mb-8 text-sm font-bold uppercase tracking-widest text-muted-foreground">
           Trusted by Industry Leaders

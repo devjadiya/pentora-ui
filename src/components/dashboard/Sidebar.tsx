@@ -9,10 +9,9 @@ import {
   Shield,
   TestTube2,
   ScanSearch,
-  X,
-  ShieldOff,
   UserCheck,
   ServerCog,
+  ShieldOff,
 } from 'lucide-react';
 import { allTools, Tool } from '@/lib/mockData';
 import { Input } from '../ui/input';
@@ -30,9 +29,9 @@ const categoryIcons: Record<Tool['category'], React.ReactElement> = {
 };
 
 const categoryColors: Record<Tool['category'], string> = {
-  'Red Team': 'text-red-400',
-  'Blue Team': 'text-blue-400',
-  'Vulnerability Assessment': 'text-yellow-400',
+  'Red Team': 'text-red-500',
+  'Blue Team': 'text-blue-500',
+  'Vulnerability Assessment': 'text-yellow-500',
 };
 
 const categories: Tool['category'][] = [
@@ -87,12 +86,12 @@ const SidebarBody = ({ onSelectTool }: SidebarBodyProps) => {
             </TooltipContent>
           </Tooltip>
         ))}
-        <Separator className="my-2 bg-white/10" />
+        <Separator className="my-2 bg-border" />
         {categories.map((category) => (
           <Tooltip key={category}>
             <TooltipTrigger>
               <div
-                className={`p-3 rounded-lg cursor-pointer hover:bg-white/5 ${categoryColors[category]}`}
+                className={`p-3 rounded-md cursor-pointer hover:bg-secondary ${categoryColors[category]}`}
               >
                 {React.cloneElement(categoryIcons[category], {
                   className: 'h-5 w-5',
@@ -111,11 +110,11 @@ const SidebarBody = ({ onSelectTool }: SidebarBodyProps) => {
   return (
     <div className="flex h-full flex-col p-2">
       <div className="relative mb-2 px-2">
-        <Search className="absolute left-5 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+        <Search className="absolute left-5 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
         <Input
           type="search"
           placeholder="Search tools..."
-          className="w-full h-10 pl-10 rounded-md bg-black/30 border-white/20 focus:ring-primary focus:border-primary backdrop-blur-sm"
+          className="w-full h-10 pl-10 rounded-md bg-background border-border focus:ring-primary"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
@@ -130,7 +129,7 @@ const SidebarBody = ({ onSelectTool }: SidebarBodyProps) => {
             <Button
               key={action.name}
               variant="ghost"
-              className="flex-col h-16 bg-black/20 hover:bg-white/5"
+              className="flex-col h-16 bg-secondary hover:bg-secondary/80"
             >
               <action.icon className="h-5 w-5 mb-1" />
               <span className="text-xs">{action.name}</span>
@@ -139,7 +138,7 @@ const SidebarBody = ({ onSelectTool }: SidebarBodyProps) => {
         </div>
       </div>
 
-      <Separator className="my-2 bg-white/10" />
+      <Separator className="my-2 bg-border" />
 
       <ScrollArea className="flex-1">
         <div className="space-y-1 pr-2">
@@ -155,7 +154,7 @@ const SidebarBody = ({ onSelectTool }: SidebarBodyProps) => {
               return (
                 <motion.div key={category} layout="position">
                   <div
-                    className="flex items-center justify-between p-2 rounded-md cursor-pointer hover:bg-white/5"
+                    className="flex items-center justify-between p-2 rounded-md cursor-pointer hover:bg-secondary"
                     onClick={() => toggleCategory(category)}
                   >
                     <div
@@ -164,7 +163,7 @@ const SidebarBody = ({ onSelectTool }: SidebarBodyProps) => {
                       {React.cloneElement(categoryIcons[category], {
                         className: 'h-5 w-5 mr-3',
                       })}
-                      <span className="font-semibold text-white">
+                      <span className="font-semibold text-foreground">
                         {category}
                       </span>
                     </div>
@@ -191,15 +190,15 @@ const SidebarBody = ({ onSelectTool }: SidebarBodyProps) => {
                               onClick={() => onSelectTool(tool)}
                             >
                               {isFree ? (
-                                <GitBranch className="h-4 w-4 text-green-400 flex-shrink-0" />
+                                <GitBranch className="h-4 w-4 text-green-500 flex-shrink-0" />
                               ) : (
-                                <Lock className="h-4 w-4 text-purple-400 flex-shrink-0" />
+                                <Lock className="h-4 w-4 text-primary flex-shrink-0" />
                               )}
                               <div className="flex-1">
-                                <p className="text-sm font-medium text-gray-200">
+                                <p className="text-sm font-medium text-foreground">
                                   {tool.name}
                                 </p>
-                                <p className="text-xs text-gray-500">
+                                <p className="text-xs text-muted-foreground">
                                   {tool.description}
                                 </p>
                               </div>

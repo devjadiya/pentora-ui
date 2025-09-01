@@ -10,10 +10,10 @@ import { cn } from '@/lib/utils';
 type Severity = "Critical" | "High" | "Medium" | "Low";
 
 const severityConfig: Record<Severity, { icon: React.ElementType, color: string, badge: string }> = {
-    "Critical": { icon: ShieldAlert, color: "text-red-400", badge: "bg-red-500/20 border-red-500/30 text-red-300" },
-    "High": { icon: AlertTriangle, color: "text-orange-400", badge: "bg-orange-500/20 border-orange-500/30 text-orange-300" },
-    "Medium": { icon: Info, color: "text-yellow-400", badge: "bg-yellow-500/20 border-yellow-500/30 text-yellow-300" },
-    "Low": { icon: ShieldCheck, color: "text-blue-400", badge: "bg-blue-500/20 border-blue-500/30 text-blue-300" },
+    "Critical": { icon: ShieldAlert, color: "text-red-500", badge: "border-red-500/50 bg-red-500/10 text-red-400" },
+    "High": { icon: AlertTriangle, color: "text-orange-400", badge: "border-orange-500/50 bg-orange-500/10 text-orange-300" },
+    "Medium": { icon: Info, color: "text-yellow-400", badge: "border-yellow-500/50 bg-yellow-500/10 text-yellow-300" },
+    "Low": { icon: ShieldCheck, color: "text-blue-400", badge: "border-blue-500/50 bg-blue-500/10 text-blue-300" },
 };
 
 const possibleNewAlerts = [
@@ -49,16 +49,9 @@ export default function SecurityAlerts() {
     return (
         <motion.div
             variants={containerVariants}
-            className="rounded-xl p-6 h-full flex flex-col"
-            style={{
-                background: 'rgba(26, 12, 46, 0.4)',
-                backdropFilter: 'blur(12px)',
-                border: '1px solid',
-                borderImageSource: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05))',
-                borderImageSlice: 1
-            }}
+            className="rounded-lg p-6 h-full flex flex-col bg-card border"
         >
-            <h2 className="text-xl font-bold font-headline text-white mb-4">Security Alerts</h2>
+            <h2 className="text-xl font-bold font-headline text-foreground mb-4">Security Alerts</h2>
             <div className="relative flex-1 overflow-hidden">
                 <div className="absolute top-0 left-0 right-0 h-full overflow-y-auto pr-4 space-y-3 [mask-image:linear-gradient(to_bottom,white_85%,transparent_100%)]">
                     <AnimatePresence initial={false}>
@@ -72,15 +65,15 @@ export default function SecurityAlerts() {
                                     animate={{ opacity: 1, y: 0, scale: 1 }}
                                     exit={{ opacity: 0, x: -50, transition: { duration: 0.3 } }}
                                     layout
-                                    className="flex items-start gap-4 p-3 rounded-lg bg-black/20"
+                                    className="flex items-start gap-4 p-3 rounded-md bg-secondary"
                                 >
                                     <Icon className={cn("h-5 w-5 mt-1 flex-shrink-0", config.color)} />
                                     <div className="flex-1">
-                                        <p className="text-sm text-gray-200">{alert.description}</p>
-                                        <div className="flex items-center gap-2 text-xs text-gray-500 mt-1">
+                                        <p className="text-sm text-foreground">{alert.description}</p>
+                                        <div className="flex items-center gap-2 text-xs text-muted-foreground mt-1">
                                             <span>{alert.time}</span>
-                                            <Badge variant="outline" className={cn("text-xs border-opacity-30", config.badge)}>{alert.severity}</Badge>
-                                            <Badge variant="outline" className="border-gray-700">{alert.source}</Badge>
+                                            <Badge variant="outline" className={cn("text-xs", config.badge)}>{alert.severity}</Badge>
+                                            <Badge variant="outline">{alert.source}</Badge>
                                         </div>
                                     </div>
                                 </motion.div>

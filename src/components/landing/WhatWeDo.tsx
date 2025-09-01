@@ -40,7 +40,7 @@ const BentoGridItem = ({
   return (
     <div
       className={cn(
-        'row-span-1 rounded-xl group/bento hover:shadow-xl transition duration-200 shadow-input dark:shadow-none p-4 bg-card/50 border justify-between flex flex-col space-y-4 border-white/10 backdrop-blur-sm',
+        'row-span-1 rounded-lg group/bento hover:shadow-xl transition duration-200 p-4 bg-card border justify-between flex flex-col space-y-4',
         className
       )}
     >
@@ -59,7 +59,7 @@ const BentoGridItem = ({
 };
 
 const Skeleton = ({className}: {className?: string}) => (
-    <div className={cn("flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-gradient-to-br from-primary/10 to-background", className)}></div>
+    <div className={cn("flex flex-1 w-full h-full min-h-[6rem] rounded-lg bg-secondary", className)}></div>
 );
 
 const items = [
@@ -95,7 +95,7 @@ const items = [
 
 export default function WhatWeDo() {
   return (
-    <section id="what-we-do" className="py-24 bg-card/20">
+    <section id="what-we-do" className="py-24 bg-secondary/20">
       <div className="container mx-auto px-4">
         <ScrollFadeIn>
           <h2 className="text-center font-headline text-4xl font-bold">

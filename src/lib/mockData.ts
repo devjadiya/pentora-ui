@@ -1,4 +1,3 @@
-
 export const headerStats = [
   { title: 'Vulnerabilities', value: '47', trend: '+5 since last scan' },
   { title: 'Secured Endpoints', value: '1,247', trend: '+12' },
@@ -345,8 +344,8 @@ export const systemStatus = [
 ];
 
 export const accessByRoleData = [
-  { name: 'User', value: 650, fill: 'hsl(var(--primary) / 0.8)' },
-  { name: 'Developer', value: 250, fill: 'hsl(var(--primary) / 0.6)' },
+  { name: 'User', value: 650, fill: 'hsl(var(--primary))' },
+  { name: 'Developer', value: 250, fill: 'hsl(var(--primary) / 0.7)' },
   { name: 'Admin', value: 100, fill: 'hsl(var(--primary) / 0.4)' },
 ];
 

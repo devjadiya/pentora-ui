@@ -1,6 +1,5 @@
 'use client';
 import { ScrollFadeIn } from './ScrollFadeIn';
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '../ui/card';
 import { Badge } from '../ui/badge';
 import { ShieldCheck, Server, CloudCog, Siren, Workflow, Users } from 'lucide-react';
 
@@ -40,11 +39,10 @@ const services = [
 const ServiceCard = ({ service, delay }: { service: typeof services[0], delay: string }) => (
     <ScrollFadeIn delay={delay} className="h-full">
         <div 
-          className="group relative flex flex-col h-full rounded-xl p-6 transition-all duration-300 hover:-translate-y-1 border border-white/10 bg-card/50 backdrop-blur-md hover:border-accent/50"
+          className="group relative flex flex-col h-full rounded-lg p-6 transition-all duration-300 hover:-translate-y-1 border bg-card hover:border-primary"
         >
-          <div className="absolute inset-0 transition-all duration-300 rounded-xl group-hover:bg-accent/5"></div>
           <div className="relative">
-            <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-white/10 text-accent">
+            <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-secondary text-primary">
               <service.icon className="h-6 w-6" />
             </div>
             <h3 className="font-headline text-xl font-semibold">{service.title}</h3>
@@ -56,11 +54,11 @@ const ServiceCard = ({ service, delay }: { service: typeof services[0], delay: s
 
 export default function DefensiveSecurity() {
   return (
-    <section className="py-24">
+    <section className="py-24 bg-background">
       <div className="container mx-auto px-4">
         <ScrollFadeIn>
             <div className="text-center">
-                <Badge variant="secondary" className="mb-4 text-sm bg-teal-500/10 text-teal-300 border-teal-500/20">Defensive Shield</Badge>
+                <Badge variant="secondary" className="mb-4 text-sm bg-blue-500/10 text-blue-300 border-blue-500/20">Defensive Shield</Badge>
                 <h2 className="text-center font-headline text-4xl font-bold">Defensive Security & Operations</h2>
                 <p className="mx-auto mt-4 max-w-3xl text-center text-muted-foreground">
                     A strong defense is built on vigilance and resilience. We reinforce your security posture and build robust operational capabilities to protect your assets.

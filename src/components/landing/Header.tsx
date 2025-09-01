@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
+import { PentoraLogo } from '@/lib/icons';
 
 const navLinks = [
   { name: 'What We Do', href: '#what-we-do' },
@@ -29,12 +30,12 @@ export default function Header() {
     <header
       className={cn(
         'sticky top-0 z-50 w-full transition-all duration-300',
-        hasScrolled ? 'bg-background/80 backdrop-blur-md border-b border-white/10' : 'bg-transparent'
+        hasScrolled ? 'bg-background/80 backdrop-blur-md border-b' : 'bg-transparent'
       )}
     >
       <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
         <Link href="/" className="flex items-center gap-2" aria-label="Pentora Home">
-          <Image src="/logo.png" alt="Pentora Logo" width={32} height={32} />
+          <PentoraLogo className="h-6 w-6 text-primary" />
         </Link>
         <nav className="hidden items-center gap-6 md:flex">
           {navLinks.map((link) => (
@@ -51,7 +52,7 @@ export default function Header() {
           <Button asChild variant="ghost" size="sm">
              <Link href="/dashboard">View Dashboard</Link>
           </Button>
-          <Button asChild size="sm" className="bg-white text-black hover:bg-gray-200 shadow-[0_0_15px_rgba(255,255,255,0.3)] hover:shadow-[0_0_25px_rgba(255,255,255,0.5)] transition-shadow">
+          <Button asChild size="sm">
              <Link href="#contact">Request a Consultation</Link>
           </Button>
         </div>

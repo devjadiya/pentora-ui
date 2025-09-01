@@ -9,9 +9,9 @@ import React from 'react';
 type Status = "active" | "warning" | "maintenance";
 
 const statusConfig: Record<Status, { color: string, indicator: string }> = {
-    "active": { color: "bg-green-500", indicator: "bg-green-400" },
-    "warning": { color: "bg-yellow-500", indicator: "bg-yellow-400" },
-    "maintenance": { color: "bg-red-500", indicator: "bg-red-400" },
+    "active": { color: "bg-green-500", indicator: "bg-green-500" },
+    "warning": { color: "bg-yellow-500", indicator: "bg-yellow-500" },
+    "maintenance": { color: "bg-red-500", indicator: "bg-red-500" },
 };
 
 
@@ -38,23 +38,16 @@ export default function SystemStatus() {
     return (
         <motion.div
             variants={containerVariants}
-            className="rounded-xl p-6 h-full"
-            style={{
-                background: 'rgba(26, 12, 46, 0.4)',
-                backdropFilter: 'blur(12px)',
-                border: '1px solid',
-                borderImageSource: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05))',
-                borderImageSlice: 1
-            }}
+            className="rounded-lg p-6 h-full bg-card border"
         >
-            <h2 className="text-xl font-bold font-headline text-white mb-4">System Status</h2>
+            <h2 className="text-xl font-bold font-headline text-foreground mb-4">System Status</h2>
             <div className="space-y-5">
                 {statuses.map((system) => {
                     const config = statusConfig[system.status as Status];
                     return (
                         <div key={system.name}>
                             <div className="flex justify-between items-center mb-1">
-                                <span className="text-sm text-gray-300 font-medium">{system.name}</span>
+                                <span className="text-sm text-foreground font-medium">{system.name}</span>
                                 <div className="flex items-center gap-2">
                                      <span className={cn("text-sm font-semibold font-headline", config.color.replace('bg-', 'text-'))}>
                                         {system.status === 'maintenance' ? 'Maintenance' : `${system.value.toFixed(1)}%`}
@@ -64,7 +57,7 @@ export default function SystemStatus() {
                             </div>
                             <Progress 
                                 value={system.value} 
-                                className="h-2 bg-black/30"
+                                className="h-2 bg-secondary"
                                 indicatorClassName={config.color} 
                             />
                         </div>

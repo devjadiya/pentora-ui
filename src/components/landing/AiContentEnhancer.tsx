@@ -56,7 +56,7 @@ export default function AiContentEnhancer() {
 
 
     return (
-        <section id="ai-tool" className="py-24 bg-card/50">
+        <section id="ai-tool" className="py-24 bg-secondary/20">
             <div className="container mx-auto px-4">
                 <ScrollFadeIn>
                     <h2 className="text-center font-headline text-4xl font-bold">AI-Powered Security Copywriter</h2>
@@ -65,7 +65,7 @@ export default function AiContentEnhancer() {
                     </p>
                 </ScrollFadeIn>
                 <ScrollFadeIn delay="200ms">
-                    <Card className="mt-12 max-w-4xl mx-auto bg-card/50 backdrop-blur-sm border-white/10 shadow-2xl shadow-primary/10">
+                    <Card className="mt-12 max-w-4xl mx-auto bg-card border">
                         <CardHeader>
                             <CardTitle>Content Enhancement Tool</CardTitle>
                             <CardDescription>Enter your text below and let our AI suggest improvements.</CardDescription>
@@ -76,7 +76,7 @@ export default function AiContentEnhancer() {
                                 onChange={(e) => setOriginalText(e.target.value)}
                                 placeholder="Enter your website copy here..."
                                 rows={4}
-                                className="bg-background/50"
+                                className="bg-background"
                             />
                             <div className="flex justify-center">
                                 <Button onClick={handleEnhance} disabled={isLoading} size="lg" className="group">
@@ -86,7 +86,7 @@ export default function AiContentEnhancer() {
                             </div>
                             
                             {enhancedText && (
-                                <Card className="bg-background/50 border-primary/30">
+                                <Card className="bg-background border-primary">
                                     <CardHeader>
                                         <div className="flex justify-between items-center">
                                             <div>

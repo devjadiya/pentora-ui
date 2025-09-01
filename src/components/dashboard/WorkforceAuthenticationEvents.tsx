@@ -24,12 +24,8 @@ const CustomTooltip = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {
       const time = new Date(label).toLocaleTimeString();
       return (
-        <div className="p-4 rounded-lg shadow-lg" style={{
-            background: 'rgba(26, 12, 46, 0.9)',
-            backdropFilter: 'blur(10px)',
-            border: '1px solid rgba(255, 255, 255, 0.1)',
-        }}>
-          <p className="label text-sm text-gray-400">{`${time}`}</p>
+        <div className="p-4 rounded-lg border bg-card">
+          <p className="label text-sm text-muted-foreground">{`${time}`}</p>
           {payload.map((pld: any) => (
             <p key={pld.dataKey} style={{ color: pld.color }} className="text-sm font-semibold">
               {`${pld.name}: ${pld.value.toFixed(0)}`}
@@ -86,33 +82,26 @@ export default function WorkforceAuthenticationEvents() {
     return (
         <motion.div
             variants={containerVariants}
-            className="lg:col-span-4 rounded-xl p-6 h-[50vh]"
-            style={{
-                background: 'rgba(26, 12, 46, 0.4)',
-                backdropFilter: 'blur(12px)',
-                border: '1px solid',
-                borderImageSource: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05))',
-                borderImageSlice: 1
-            }}
+            className="lg:col-span-4 rounded-lg p-6 h-[50vh] bg-card border"
         >
-            <h2 className="text-xl font-bold font-headline text-white mb-4">Workforce Authentication Events</h2>
+            <h2 className="text-xl font-bold font-headline text-foreground mb-4">Workforce Authentication Events</h2>
             <ResponsiveContainer width="100%" height="100%">
                 <LineChart
                     data={data}
                     margin={{ top: 5, right: 20, left: -10, bottom: 20 }}
                 >
-                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.1)" />
+                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
                     <XAxis 
                         dataKey="time" 
                         tickFormatter={(unixTime) => new Date(unixTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
-                        stroke="rgba(255, 255, 255, 0.5)"
+                        stroke="hsl(var(--muted-foreground))"
                         dy={10}
                     />
-                    <YAxis stroke="rgba(255, 255, 255, 0.5)" />
+                    <YAxis stroke="hsl(var(--muted-foreground))" />
                     <Tooltip content={<CustomTooltip />} />
                     <Legend 
                         wrapperStyle={{ bottom: 0 }}
-                        formatter={(value) => <span className="text-white">{value}</span>}
+                        formatter={(value) => <span className="text-foreground">{value}</span>}
                     />
                     <Line 
                         type="monotone" 

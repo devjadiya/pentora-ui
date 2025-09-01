@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
-import CursorSpotlight from '@/components/landing/CursorSpotlight';
 import { Inter, Sora } from 'next/font/google';
 
 export const metadata: Metadata = {
@@ -20,8 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body className={`${inter.variable} ${sora.variable} font-body antialiased`}>
-        <CursorSpotlight />
+      <body className={`${inter.variable} ${sora.variable} font-body antialiased bg-background`}>
         {children}
         <Toaster />
       </body>

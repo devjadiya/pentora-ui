@@ -27,7 +27,7 @@ const faqs = [
 
 export default function Faq() {
   return (
-    <section id="faq" className="py-24">
+    <section id="faq" className="py-24 bg-background">
         <div className="container mx-auto px-4 max-w-3xl">
             <ScrollFadeIn>
                 <h2 className="text-center font-headline text-4xl font-bold">Frequently Asked Questions</h2>
@@ -38,7 +38,7 @@ export default function Faq() {
             <ScrollFadeIn delay="200ms" className="mt-12">
                 <Accordion type="single" collapsible className="w-full">
                     {faqs.map((faq, index) => (
-                        <AccordionItem key={index} value={`item-${index}`} className="border-white/10">
+                        <AccordionItem key={index} value={`item-${index}`} className="border-border">
                             <AccordionTrigger className="text-left font-semibold hover:no-underline">
                                 {faq.question}
                             </AccordionTrigger>

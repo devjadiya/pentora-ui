@@ -67,9 +67,9 @@ export default function KPI_Card({ title, value, trend, icon }: KPICardProps) {
   };
 
   const trendColor = useMemo(() => {
-    if (trend.startsWith('+')) return 'text-green-400';
-    if (trend.startsWith('-')) return 'text-red-400';
-    return 'text-gray-400';
+    if (trend.startsWith('+')) return 'text-green-500';
+    if (trend.startsWith('-')) return 'text-red-500';
+    return 'text-muted-foreground';
   }, [trend]);
 
   return (
@@ -77,24 +77,17 @@ export default function KPI_Card({ title, value, trend, icon }: KPICardProps) {
       variants={cardVariants}
       whileHover={{ 
         scale: 1.03,
-        boxShadow: "0px 0px 20px rgba(138, 43, 226, 0.4)",
+        borderColor: "hsl(var(--primary))"
       }}
       transition={{ type: "spring", stiffness: 300, damping: 15 }}
-      className="rounded-xl p-6"
-      style={{
-        background: 'rgba(26, 12, 46, 0.4)',
-        backdropFilter: 'blur(12px)',
-        border: '1px solid',
-        borderImageSource: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05))',
-        borderImageSlice: 1
-      }}
+      className="rounded-lg p-6 bg-card border"
     >
       <div className="flex items-center justify-between">
-        <p className="text-sm text-gray-400 font-medium">{title}</p>
-        {IconComponent && <IconComponent className="h-5 w-5 text-purple-400" />}
+        <p className="text-sm text-muted-foreground font-medium">{title}</p>
+        {IconComponent && <IconComponent className="h-5 w-5 text-muted-foreground" />}
       </div>
       <div className="mt-4">
-        <h3 className="text-4xl font-bold text-white font-headline"><AnimatedValue value={value} /></h3>
+        <h3 className="text-4xl font-bold text-foreground font-headline"><AnimatedValue value={value} /></h3>
         <p className={`text-sm font-semibold ${trendColor}`}>{trend}</p>
       </div>
     </motion.div>
